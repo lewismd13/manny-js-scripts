@@ -1,4 +1,4 @@
-import { $effect, $familiar, $item, $location, $skill, Clan, get, Macro } from "libram";
+import { $effect, $familiar, $item, $location, $skill, Clan, get, have, Macro } from "libram";
 
 import {
   adv1,
@@ -168,8 +168,8 @@ use(1, $item`packet of tall grass seeds`);
 if (getWorkshed() !== $item`Asdon Martin keyfob`) {
   use(1, $item`Asdon Martin keyfob`);
 }
-
-putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
+if (have($item`Little Geneticist DNA-Splicing Lab`))
+  putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
 putDisplay(1, $item`Thwaitgold termite statuette`);
 
 if (haveEffect($effect`Feeling Lost`) !== 0) {
