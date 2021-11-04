@@ -1,6 +1,10 @@
 import { mallPrice, print, visitUrl } from "kolmafia";
 import { getPlayerFromIdOrName } from "libram";
 
+function formatNumber(num: number) {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
 export function main(arg: string): void {
   const player = getPlayerFromIdOrName(arg).id;
   const page = visitUrl(`displaycollection.php?who=${player}`);
@@ -14,7 +18,7 @@ export function main(arg: string): void {
         print(`${cleanItem} is untradeable`);
       } else {
         // print(`${cleanItem}`);
-        const value = mallPrice(Item.get(Item.get(cleanItem)));
+        const value = mallPrice(Item.get(cleanItem));
         flattDatabase.set(cleanItem, [1, value]);
       }
     } else {
@@ -30,7 +34,7 @@ export function main(arg: string): void {
         if (parseInt(quantity)) {
           const value = mallPrice(Item.get(name));
           //  print(`${parseInt(quantity.replace(/,/g, ""))}`);
-          // print(`${value}`);
+          // print(`${name} is worth ${value}`);
           flattDatabase.set(Item.get(name), [parseInt(quantity), value]);
         } else {
           // figure out how to deal with names with parentheses
@@ -46,10 +50,10 @@ export function main(arg: string): void {
     const v = parseInt(flattDatabase.get(shiny)[1]);
     const q = parseInt(flattDatabase.get(shiny)[0]);
     const value = v * q;
-    print(`Total Value: ${value}`);
+    print(`Total Value: ${formatNumber(value)}`);
     totalValue += value;
   }
-  print(`That is a total of ${totalValue}`);
+  print(`That is a total of ${formatNumber(totalValue)}`);
   // const saved = JSON.stringify(flattDatabase);
   // bufferToFile(saved, "dbvalue.txt");
 }
