@@ -30,7 +30,7 @@ import {
   visitUrl,
 } from "kolmafia";
 
-import { mannyQuestVolcoino, setChoice } from "./lib";
+import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
 // TODO: pull the shit I assume is already pulled from CS. ie a bunch of unrestricted iotms
@@ -64,9 +64,9 @@ function getFunFunds() {
 print("I really hope this works!", "blue");
 
 cliExecute("pull * cold hi mein");
-// cliExecute("pull * karma shawarma");
+cliExecute("pull * karma shawarma");
 // cliExecute("pull * warbear gyro");
-cliExecute("pull 1 bottle of greedy dog");
+// cliExecute("pull 1 bottle of greedy dog");
 cliExecute("pull * magical sausage");
 cliExecute("pull * bottle of gin");
 cliExecute("pull * perfect ice cube");
@@ -135,6 +135,15 @@ cliExecute("pull 1 tiny black hole");
 cliExecute("pull 1 wormwood wedding ring");
 cliExecute("pull 1000000 meat");
 
+cliExecute("pull * sugar chapeau");
+cliExecute("pull * sugar shank");
+cliExecute("pull * sugar shotgun");
+cliExecute("pull * fudgie roll");
+cliExecute("pull * sugar shillelagh");
+cliExecute("pull * sugar shield");
+cliExecute("pull * sugar shorts");
+cliExecute("pull * sugar shirt");
+
 cliExecute("refresh all");
 
 setProperty("autoSatisfyWithNPCs", "true");
@@ -183,7 +192,7 @@ if (availableAmount($item`blood-drive sticker`) > 10) {
   putShop(0, 0, 1, $item`blood-drive sticker`);
 }
 putShop(0, 0, 1, $item`vintage smart drink`);
-// putShop(0, 0, 1, $item`emergency margarita`);
+putShop(0, 0, 1, $item`emergency margarita`);
 // putShop(0, 0, 1, $item`bag of grain`);
 // put_shop(0, 0, 1, $item[squeaky toy rose]);
 putShop(49995, 0, 3, $item`pocket wish`);
@@ -216,8 +225,6 @@ if (get("_deckCardsDrawn") < 11) {
 cliExecute("briefcase collect");
 
 cliExecute("farfuture gin");
-// cli_execute('timespinner prank reverkiller');
-// chat_private('reverkiller', 'you done just got PRANKED!');
 
 while (toInt(getProperty("_sourceTerminalExtrudes")) < 3) {
   cliExecute("terminal extrude booze");
@@ -228,7 +235,7 @@ while (get("_clipartSummons") < 3) {
 }
 
 // dupe a greedy dog
-const dupeTarget = $item`bottle of Greedy Dog`;
+const dupeTarget = $item`karma shawarma`;
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
   setChoice(1119, 4);
@@ -258,9 +265,8 @@ cliExecute("soak");
 
 getVolcoino();
 getFunFunds();
-// inboxCleanup();
+inboxCleanup();
 
-cliExecute("breakfast");
 putShop(0, 0, availableAmount($item`battery (AAA)`), $item`battery (AAA)`);
 mannyQuestVolcoino();
 
@@ -273,3 +279,4 @@ if (get("csServicesPerformed") !== "" && get("questL13Final") === "finished") {
 }
 */
 cliExecute("ccs default");
+cliExecute("breakfast");

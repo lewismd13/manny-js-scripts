@@ -14,6 +14,7 @@ import {
   getClanName,
   getFuel,
   getProperty,
+  handlingChoice,
   haveEffect,
   haveSkill,
   inMultiFight,
@@ -422,8 +423,8 @@ function getRandomInt(min: number, max: number): number {
 export function randomPrank(): void {
   const playerIDs: number[] = [
     1515124, 2548033, 2393910, 2705901, 892618, 1046951, 887028, 786069, 1197090, 437479, 2156370,
-    1901297, 644996, 1956005, 2264486, 1937905, 2766368, 2203016, 1972588, 3403404, 1729599,
-    2533291, 1741165, 1993636, 2339258,
+    1901297, 644996, 1956005, 1937905, 2766368, 2203016, 1972588, 3403404, 1729599, 2533291,
+    1741165, 1993636, 2339258,
   ];
 
   for (let i = 0; i < 15; i++) {
@@ -695,8 +696,8 @@ export function inboxCleanup() {
     }
   });
 }
-/*
-export function useFreeCrafts() {
-  const crafts =
+export function escapeChoice() {
+  if (handlingChoice()) {
+    runChoice(-1);
+  }
 }
-*/

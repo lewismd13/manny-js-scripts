@@ -26,3 +26,4 @@ if (have($item`clockwork maid`)) {
 
 useFamiliar($familiar`Trick-or-Treating Tot`);
 maximize("adv", false);
+Clan.join("Alliance From Hobopolis");
