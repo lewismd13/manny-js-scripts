@@ -701,3 +701,8 @@ export function escapeChoice() {
     runChoice(-1);
   }
 }
+
+export function abort(message: string) {
+  print(message);
+  throw `${message}`;
+}

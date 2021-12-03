@@ -134,7 +134,8 @@ cliExecute("pull 1 etched hourglass");
 cliExecute("pull 1 tiny black hole");
 cliExecute("pull 1 wormwood wedding ring");
 cliExecute("pull 1000000 meat");
-
+cliExecute("pull * lov enamorang");
+cliExecute("pull * lov extraterrestrial chocolate");
 cliExecute("pull * sugar chapeau");
 cliExecute("pull * sugar shank");
 cliExecute("pull * sugar shotgun");
@@ -173,12 +174,12 @@ if (get("_etchedHourglassUsed") === false) {
 }
 
 use(1, $item`packet of tall grass seeds`);
-
+/*
 if (getWorkshed() !== $item`Asdon Martin keyfob`) {
   use(1, $item`Asdon Martin keyfob`);
 }
 if (have($item`Little Geneticist DNA-Splicing Lab`))
-  putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
+  putStash(1, $item`Little Geneticist DNA-Splicing Lab`); */
 putDisplay(1, $item`Thwaitgold termite statuette`);
 
 if (haveEffect($effect`Feeling Lost`) !== 0) {
@@ -198,9 +199,9 @@ putShop(0, 0, 1, $item`emergency margarita`);
 putShop(49995, 0, 3, $item`pocket wish`);
 cliExecute("terminal enquiry familiar.enq");
 
-setChoice(1414, 1);
+setChoice(1414, 2);
 useSkill(1, $skill`Lock Picking`);
-cliExecute("create 1 boris's key lime");
+// cliExecute("create 1 boris's key lime");
 // putShop(0, 0, $item`Jarlsberg's key lime`);
 /*
 if (get("_deckCardsDrawn") < 11) {

@@ -1,11 +1,28 @@
-import { buy, maximize, myGardenType, use, useFamiliar } from "kolmafia";
+import {
+  buy,
+  cliExecute,
+  inebrietyLimit,
+  maximize,
+  myGardenType,
+  myInebriety,
+  pvpAttacksLeft,
+  use,
+  useFamiliar,
+} from "kolmafia";
 import { $familiar, $item, Clan, have } from "libram";
 import { mannyCleanup, nightcap, randomPrank, randomSafari } from "./lib";
 
 Clan.join("Alliance from Hell");
 
 mannyCleanup();
-nightcap();
+
+if (pvpAttacksLeft() > 0) {
+  cliExecute("UberPvPOptimizer");
+  cliExecute("swagger");
+}
+
+if (myInebriety() <= inebrietyLimit()) nightcap();
+
 randomSafari();
 randomPrank();
 

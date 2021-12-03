@@ -8,6 +8,7 @@ import {
   equip,
   getProperty,
   itemAmount,
+  mallPrice,
   myGardenType,
   myName,
   myPath,
@@ -27,7 +28,7 @@ import {
   useSkill,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $location, $skill, $slot, Clan, get } from "libram";
+import { $familiar, $item, $location, $skill, $slot, Clan, get, SourceTerminal } from "libram";
 import { mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
@@ -115,7 +116,11 @@ while (
 // TODO: Use robort and fight an elf instead of the mickey card
 if (get("_deckCardsDrawn") === 0) {
   cliExecute("cheat ancestral recall");
-  cliExecute("cheat gift card");
+  if (mallPrice($item`gift card`) > 10000) {
+    cliExecute("cheat gift card");
+  } else {
+    cliExecute("cheat 1952 mickey mantle card");
+  }
   cliExecute("cheat island");
 }
 
@@ -130,8 +135,8 @@ if (!get("_timeSpinnerReplicatorUsed")) {
 cliExecute("detective solver");
 
 while (toInt(getProperty("_sourceTerminalExtrudes")) < 3) {
-  cliExecute("terminal extrude booze");
-  // SourceTerminal.extrude($item`hacked gibson`);
+  // cliExecute("terminal extrude booze");
+  SourceTerminal.extrude($item`hacked gibson`);
 }
 
 // Chateau desk, assuming meat
@@ -183,7 +188,7 @@ if (!get("_loveTunnelUsed")) {
   setChoice(1225, 1); // Fight LOV Engineer
   setChoice(1226, 2); // Open Heart Surgery
   setChoice(1227, 1); // Fight LOV Equivocator
-  setChoice(1228, 3); // Take emotionalizer
+  setChoice(1228, 1); // Take enamorang
   setAutoAttack("HCCS_LOV_tunnel");
   adv1($location`The Tunnel of L.O.V.E.`, -1, "");
   setAutoAttack(0);
