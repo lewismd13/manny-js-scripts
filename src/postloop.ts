@@ -8,7 +8,6 @@ import {
   cliExecute,
   containsText,
   equip,
-  getProperty,
   getWorkshed,
   haveEffect,
   itemAmount,
@@ -34,6 +33,8 @@ import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
 // TODO: pull the shit I assume is already pulled from CS. ie a bunch of unrestricted iotms
+
+const workshed = $item`Asdon Martin keyfob`;
 
 //Get Free Volcoino
 function getVolcoino() {
@@ -64,7 +65,7 @@ function getFunFunds() {
 print("I really hope this works!", "blue");
 
 cliExecute("pull * cold hi mein");
-cliExecute("pull * karma shawarma");
+cliExecute("pull 1 karma shawarma");
 // cliExecute("pull * warbear gyro");
 // cliExecute("pull 1 bottle of greedy dog");
 cliExecute("pull * magical sausage");
@@ -174,13 +175,14 @@ if (get("_etchedHourglassUsed") === false) {
 }
 
 use(1, $item`packet of tall grass seeds`);
-/*
-if (getWorkshed() !== $item`Asdon Martin keyfob`) {
-  use(1, $item`Asdon Martin keyfob`);
+
+if (getWorkshed() !== workshed) {
+  use(1, workshed);
 }
 if (have($item`Little Geneticist DNA-Splicing Lab`))
-  putStash(1, $item`Little Geneticist DNA-Splicing Lab`); */
-putDisplay(1, $item`Thwaitgold termite statuette`);
+  putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
+
+if (have($item`Thwaitgold termite statuette`)) putDisplay(1, $item`Thwaitgold termite statuette`);
 
 if (haveEffect($effect`Feeling Lost`) !== 0) {
   cliExecute("uneffect feeling lost");
@@ -197,9 +199,9 @@ putShop(0, 0, 1, $item`emergency margarita`);
 // putShop(0, 0, 1, $item`bag of grain`);
 // put_shop(0, 0, 1, $item[squeaky toy rose]);
 putShop(49995, 0, 3, $item`pocket wish`);
-cliExecute("terminal enquiry familiar.enq");
+if (get("sourceTerminalEnquiryKnown") === "") cliExecute("terminal enquiry familiar.enq");
 
-setChoice(1414, 2);
+setChoice(1414, 3);
 useSkill(1, $skill`Lock Picking`);
 // cliExecute("create 1 boris's key lime");
 // putShop(0, 0, $item`Jarlsberg's key lime`);
@@ -225,9 +227,9 @@ if (get("_deckCardsDrawn") < 11) {
 
 cliExecute("briefcase collect");
 
-cliExecute("farfuture gin");
+if (get("_timeSpinnerFoodAvailable")) cliExecute("farfuture gin");
 
-while (toInt(getProperty("_sourceTerminalExtrudes")) < 3) {
+while (get("_sourceTerminalExtrudes") < 3) {
   cliExecute("terminal extrude booze");
   // SourceTerminal.extrude($item`hacked gibson`);
 }
@@ -249,7 +251,6 @@ if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   print(`Something went wrong duping a ${dupeTarget.name}`, "red");
 }
 
-// TODO: get doggie volcoino and superduper
 retrieveItem(20, $item`heat-resistant sheet metal`);
 // setAutoAttack("gnat extract mortar weak");
 Macro.trySkill($skill`Curse of Weaksauce`)
@@ -262,13 +263,14 @@ while (!containsText($location`The Bubblin' Caldera`.noncombatQueue, "Lava Dogs"
   adv1($location`The Bubblin' Caldera`);
 }
 setAutoAttack(0);
-cliExecute("soak");
+if (have($effect`Drenched in Lava`)) cliExecute("soak");
 
 getVolcoino();
 getFunFunds();
 inboxCleanup();
 
-putShop(0, 0, availableAmount($item`battery (AAA)`), $item`battery (AAA)`);
+putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
+
 mannyQuestVolcoino();
 
 if (get("_unaccompaniedMinerUsed") === 0) {

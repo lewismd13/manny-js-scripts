@@ -119,7 +119,7 @@ if (get("_deckCardsDrawn") === 0) {
   if (mallPrice($item`gift card`) > 10000) {
     cliExecute("cheat gift card");
   } else {
-    cliExecute("cheat 1952 mickey mantle card");
+    cliExecute("cheat 1952 mickey mantle");
   }
   cliExecute("cheat island");
 }

@@ -83,11 +83,13 @@ if (myDaycount() > 1 && myInebriety() < 1) {
   if (get("breakfastCompleted") === false) {
     cliExecute("breakfast");
   }
-  cliExecute("mannyBreakfast");
-  escapeChoice();
+  if (get("_cargoPocketEmptied") === false && get("_dinseyGarbageDisposed") === false) {
+    cliExecute("mannyBreakfast");
+    escapeChoice();
+  }
 }
 
-if (get("_volcanoItemRedeemed") === false && get("_volcanoItem1") !== 0) {
+if (get("_volcanoItemRedeemed") === false && get("_volcanoItem1") === 0) {
   abort(`Something went wrong in the breakfast script`);
 }
 

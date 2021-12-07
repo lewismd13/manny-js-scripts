@@ -3,6 +3,7 @@ import {
   adv1,
   autosell,
   availableAmount,
+  bufferToFile,
   buy,
   buyUsingStorage,
   chatPrivate,
@@ -704,5 +705,6 @@ export function escapeChoice() {
 
 export function abort(message: string) {
   print(message);
+  bufferToFile(message, "wrapperresult.txt");
   throw `${message}`;
 }
