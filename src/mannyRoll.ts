@@ -14,14 +14,14 @@ import { mannyCleanup, nightcap, randomPrank, randomSafari } from "./lib";
 
 Clan.join("Alliance from Hell");
 
-mannyCleanup();
-
 if (pvpAttacksLeft() > 0) {
   cliExecute("UberPvPOptimizer");
   cliExecute("swagger");
 }
 
 if (myInebriety() <= inebrietyLimit()) nightcap();
+
+mannyCleanup();
 
 randomSafari();
 randomPrank();

@@ -1,4 +1,15 @@
-import { $effect, $familiar, $item, $location, $skill, Clan, get, have, Macro } from "libram";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $location,
+  $skill,
+  Clan,
+  get,
+  have,
+  Macro,
+  SourceTerminal,
+} from "libram";
 
 import {
   adv1,
@@ -199,12 +210,15 @@ putShop(0, 0, 1, $item`emergency margarita`);
 // putShop(0, 0, 1, $item`bag of grain`);
 // put_shop(0, 0, 1, $item[squeaky toy rose]);
 putShop(49995, 0, 3, $item`pocket wish`);
-if (get("sourceTerminalEnquiryKnown") === "") cliExecute("terminal enquiry familiar.enq");
 
-setChoice(1414, 3);
+SourceTerminal.enquiry($effect`familiar.enq`);
+
+// cliExecute("terminal enquiry familiar.enq");
+
+setChoice(1414, 1);
 useSkill(1, $skill`Lock Picking`);
-// cliExecute("create 1 boris's key lime");
-// putShop(0, 0, $item`Jarlsberg's key lime`);
+cliExecute("create 1 boris's key lime pie");
+putShop(0, 0, $item`Boris's key lime pie`);
 /*
 if (get("_deckCardsDrawn") < 11) {
   useFamiliar($familiar`Robortender`);
@@ -267,7 +281,6 @@ if (have($effect`Drenched in Lava`)) cliExecute("soak");
 
 getVolcoino();
 getFunFunds();
-inboxCleanup();
 
 putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
 
@@ -283,3 +296,5 @@ if (get("csServicesPerformed") !== "" && get("questL13Final") === "finished") {
 */
 cliExecute("ccs default");
 cliExecute("breakfast");
+
+inboxCleanup();

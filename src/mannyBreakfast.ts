@@ -1,11 +1,9 @@
 import {
-  adv1,
   availableAmount,
   buy,
   canInteract,
   cliExecute,
   containsText,
-  equip,
   getProperty,
   itemAmount,
   mallPrice,
@@ -15,21 +13,16 @@ import {
   outfit,
   print,
   putShop,
-  putStash,
   random,
   reverseNumberology,
   runChoice,
-  setAutoAttack,
-  takeStash,
   takeStorage,
   toInt,
   use,
-  useFamiliar,
-  useSkill,
   visitUrl,
 } from "kolmafia";
-import { $familiar, $item, $location, $skill, $slot, Clan, get, SourceTerminal } from "libram";
-import { mannyQuestVolcoino, setChoice } from "./lib";
+import { $item, Clan, get, SourceTerminal } from "libram";
+import { mannyQuestVolcoino } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -148,8 +141,7 @@ if (get("_saberMod") === 0) {
   runChoice(4);
 }
 
-useFamiliar($familiar`Rogue Program`);
-
+/*
 if (availableAmount($item`Pantsgiving`) === 0) {
   takeStash(1, $item`Pantsgiving`);
 }
@@ -165,7 +157,7 @@ equip($slot`pants`, $item`none`);
 if (availableAmount($item`Pantsgiving`) > 0) {
   putStash(1, $item`Pantsgiving`);
 }
-
+*/
 use(1, $item`Bird-a-Day calendar`);
 
 // cheesefax fortune
@@ -176,7 +168,7 @@ use(1, $item`Bird-a-Day calendar`);
 
 getVolcoino();
 getFunFunds();
-
+/*
 if (!get("_loveTunnelUsed")) {
   useFamiliar($familiar`Golden Monkey`);
   equip($item`Fourth of May Cosplay Saber`);
@@ -193,7 +185,7 @@ if (!get("_loveTunnelUsed")) {
   adv1($location`The Tunnel of L.O.V.E.`, -1, "");
   setAutoAttack(0);
 }
-
+*/
 if (myGardenType() === "thanksgarden" && !get("_mushroomGardenVisited")) {
   cliExecute("garden pick");
   use(1, $item`packet of tall grass seeds`);
@@ -213,7 +205,7 @@ if (get("_unaccompaniedMinerUsed") === 0) {
 }
 
 cliExecute("ccs default");
-
+/*
 if (get("_questPartyFairQuest") === "") {
   setChoice(1322, 6); // Leave
   adv1($location`The Neverending Party`, -1, "");
@@ -224,5 +216,5 @@ if (get("_questPartyFairQuest") === "food") {
 } else if (get("_questPartyFairQuest") === "booze") {
   print("Hey, go talk to Gerald, get that jarmageddon!", "yellow");
 }
-
+*/
 mannyQuestVolcoino();
