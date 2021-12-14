@@ -13,6 +13,7 @@ module.exports = {
     // You need an emitted file for each entrypoint into your code, e.g. the main script and the ccs or ccs consult script it calls
     barfday: "./src/barfday.ts",
     dailyWrapper: "./src/dailyWrapper.ts",
+    komday: "./src/KoMDay.ts",
     // dcval: "./src/dcVal.ts",
     postloop: "./src/postloop.ts",
     macroConsult: "./src/macroConsult.ts",
