@@ -1,4 +1,5 @@
 import {
+  abort,
   adv1,
   autosell,
   chew,
@@ -95,6 +96,8 @@ while (myAdventures() > 60 && get("_coldMedicineConsults") < 5) {
 if (myAdventures() > 50) cliExecute("adventure -50 barf mountain");
 
 setAutoAttack(0);
+
+if (myAdventures() > 60) abort("You have too many adventures left");
 
 // nightcap
 if (myInebriety() === inebrietyLimit()) {
