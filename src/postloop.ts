@@ -145,6 +145,7 @@ cliExecute("pull * toggle switch (bounce)");
 cliExecute("pull 1 etched hourglass");
 cliExecute("pull 1 tiny black hole");
 cliExecute("pull 1 wormwood wedding ring");
+cliExecute("pull 1 potato alarm clock");
 cliExecute("pull 1000000 meat");
 cliExecute("pull * lov enamorang");
 cliExecute("pull * lov extraterrestrial chocolate");
