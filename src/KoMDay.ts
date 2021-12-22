@@ -1,5 +1,4 @@
 import {
-  abort,
   adv1,
   autosell,
   chew,
@@ -69,7 +68,7 @@ if (!have($item`amulet coin`)) {
 useFamiliar($familiar`Hobo Monkey`);
 equip($item`amulet coin`);
 
-outfit("DinseyFarming");
+outfit("farming");
 
 if (!have($effect`Meet the Meat`) && !get("_clanFortuneBuffUsed")) cliExecute("fortune buff meat");
 
@@ -97,7 +96,7 @@ if (myAdventures() > 50) cliExecute("adventure -50 barf mountain");
 
 setAutoAttack(0);
 
-if (myAdventures() > 60) abort("You have too many adventures left");
+if (myAdventures() > 60) cliExecute("adventure -50 barf mountain");
 
 // nightcap
 if (myInebriety() === inebrietyLimit()) {
