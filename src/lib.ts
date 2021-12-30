@@ -60,6 +60,7 @@ import {
   $effects,
   $familiar,
   $item,
+  $items,
   $location,
   $monster,
   $skill,
@@ -517,6 +518,17 @@ export function mannyCleanup(): void {
     retrieveItem($item`Game Grid token`);
     visitUrl("place.php?whichplace=arcade&action=arcade_plumber");
   }
+
+  const barrels = $items`little firkin, normal barrel, big tun, weathered barrel, dusty barrel, disintegrating barrel, moist barrel, rotting barrel, mouldering barrel, barnacled barrel`;
+
+  barrels.forEach((barrel) => {
+    if (itemAmount(barrel) > 0) {
+      let page = visitUrl(`inv_use.php?pwd&whichitem=${toInt(barrel).toString()}&choice=1`);
+      while (page.includes("Click a barrel to smash it!")) {
+        page = visitUrl("choice.php?pwd&whichchoice=1101&option=2");
+      }
+    }
+  });
 }
 
 export function nightcap() {
