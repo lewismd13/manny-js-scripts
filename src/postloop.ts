@@ -157,6 +157,7 @@ cliExecute("pull * sugar shillelagh");
 cliExecute("pull * sugar shield");
 cliExecute("pull * sugar shorts");
 cliExecute("pull * sugar shirt");
+cliExecute("pull 1 very fancy whiskey");
 
 cliExecute("refresh all");
 
@@ -207,7 +208,7 @@ if (availableAmount($item`blood-drive sticker`) > 10) {
   putShop(0, 0, 1, $item`blood-drive sticker`);
 }
 putShop(0, 0, 1, $item`vintage smart drink`);
-putShop(0, 0, 1, $item`emergency margarita`);
+// putShop(0, 0, 1, $item`emergency margarita`);
 // putShop(0, 0, 1, $item`bag of grain`);
 // put_shop(0, 0, 1, $item[squeaky toy rose]);
 putShop(49995, 0, 3, $item`pocket wish`);
@@ -216,10 +217,12 @@ SourceTerminal.enquiry($effect`familiar.enq`);
 
 // cliExecute("terminal enquiry familiar.enq");
 
-setChoice(1414, 1);
-useSkill(1, $skill`Lock Picking`);
-cliExecute("create 1 boris's key lime pie");
-putShop(0, 0, $item`Boris's key lime pie`);
+if (!get("lockPicked")) {
+  setChoice(1414, 1);
+  useSkill(1, $skill`Lock Picking`);
+  cliExecute("create 1 boris's key lime pie");
+  putShop(0, 0, $item`Boris's key lime pie`);
+}
 /*
 if (get("_deckCardsDrawn") < 11) {
   useFamiliar($familiar`Robortender`);
@@ -253,7 +256,7 @@ while (get("_clipartSummons") < 3) {
 }
 
 // dupe a greedy dog
-const dupeTarget = $item`karma shawarma`;
+const dupeTarget = $item`very fancy whiskey`;
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
   setChoice(1119, 4);
