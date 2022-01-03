@@ -74,17 +74,10 @@ function getFunFunds() {
 }
 
 print("I really hope this works!", "blue");
-
-cliExecute("pull * cold hi mein");
-cliExecute("pull 1 karma shawarma");
-// cliExecute("pull * warbear gyro");
-// cliExecute("pull 1 bottle of greedy dog");
+/*
 cliExecute("pull * magical sausage");
 cliExecute("pull * bottle of gin");
 cliExecute("pull * perfect ice cube");
-cliExecute("pull * abstraction: thought");
-cliExecute("pull * fish sauce");
-cliExecute("pull * stench jelly");
 cliExecute("pull * Asdon Martin keyfob");
 cliExecute("pull * bag of park garbage");
 cliExecute("pull * borrowed time");
@@ -100,7 +93,6 @@ cliExecute("pull * packet of thanksgarden seeds");
 cliExecute("pull * packet of winter seeds");
 cliExecute("pull * Poke gro fertilizer");
 cliExecute("pull * School of Hard Knocks Diploma");
-cliExecute("pull * plexiglass pith helmet");
 cliExecute("pull * Source essence");
 cliExecute("pull * Special Seasoning");
 cliExecute("pull * sprinkles");
@@ -112,7 +104,6 @@ cliExecute("pull * hemlock helm");
 cliExecute("pull * papier-mitre");
 cliExecute("pull * smooth velvet hat");
 cliExecute("pull * The Crown of Ed the Undying");
-cliExecute("pull * dreadful glove");
 cliExecute("pull * high-temperature mining drill");
 cliExecute("pull * plexiglass pikestaff");
 cliExecute("pull * Staff of Simmering Hatred");
@@ -123,7 +114,6 @@ cliExecute("pull * psychic's pslacks");
 cliExecute("pull * smooth velvet pants");
 cliExecute("pull * bauxite bow-tie");
 cliExecute("pull * Crimbolex watch");
-cliExecute("pull * Dreadsylvania Auditor's badge");
 cliExecute("pull * gold skull ring");
 cliExecute("pull * lucky gold ring");
 cliExecute("pull * mafia pinky ring");
@@ -158,6 +148,9 @@ cliExecute("pull * sugar shield");
 cliExecute("pull * sugar shorts");
 cliExecute("pull * sugar shirt");
 cliExecute("pull 1 very fancy whiskey");
+*/
+
+cliExecute("pull all");
 
 cliExecute("refresh all");
 
@@ -263,8 +256,8 @@ if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   // setProperty("choiceAdventure1119", "4");
   setProperty("choiceAdventure1125", `1&iid=${toInt(dupeTarget)}`);
   adv1($location`The Deep Machine Tunnels`, -1, "");
-  // putShop(0, 0, 1, $item`Karma shawarma`);
-  putCloset(2, dupeTarget);
+  putShop(0, 0, 1, dupeTarget);
+  putCloset(1, dupeTarget);
 } else {
   print(`Something went wrong duping a ${dupeTarget.name}`, "red");
 }
