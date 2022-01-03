@@ -182,7 +182,7 @@ if (myInebriety() !== inebrietyLimit() || myFullness() !== fullnessLimit()) {
 if (myAdventures() !== 0) {
   abort(`garbo doesn't seem to have finished properly`);
 } else {
-  cliExecute("UberPVPOptimizer; pvp loot freshest");
+  cliExecute("UberPVPOptimizer; swagger");
   cliExecute("mannyRoll");
 }
 
