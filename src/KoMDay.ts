@@ -17,6 +17,7 @@ import {
   mySpleenUse,
   outfit,
   print,
+  putShop,
   runChoice,
   setAutoAttack,
   totalTurnsPlayed,
@@ -117,6 +118,9 @@ autosell(itemAmount($item`cheap sunglasses`) - 2, $item`cheap sunglasses`); // a
 autosell(itemAmount($item`expensive camera`), $item`expensive camera`); // autosells all expensive cameras
 autosell(itemAmount($item`filthy child leash`), $item`filthy child leash`); // autosells all filthy child leashes
 autosell(itemAmount($item`bag of gross foreign snacks`), $item`bag of gross foreign snacks`); // autosells all bags of gross foreign snacks
+
+const extroPrice = Math.round(Math.random() * 2000);
+putShop(extroPrice, 2, itemAmount($item`Extrovermectin™`), $item`Extrovermectin™`);
 
 print(
   `Today's lazy farming session took ${(gametimeToInt() - starttime) / 60000} minutes to run.`,
