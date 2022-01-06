@@ -17,6 +17,7 @@ import {
   buy,
   canInteract,
   cliExecute,
+  closetAmount,
   containsText,
   equip,
   getWorkshed,
@@ -32,6 +33,7 @@ import {
   runChoice,
   setAutoAttack,
   setProperty,
+  takeCloset,
   takeStorage,
   toInt,
   use,
@@ -74,7 +76,7 @@ function getFunFunds() {
 }
 
 print("I really hope this works!", "blue");
-/*
+
 cliExecute("pull * magical sausage");
 cliExecute("pull * bottle of gin");
 cliExecute("pull * perfect ice cube");
@@ -148,9 +150,9 @@ cliExecute("pull * sugar shield");
 cliExecute("pull * sugar shorts");
 cliExecute("pull * sugar shirt");
 cliExecute("pull 1 very fancy whiskey");
-*/
+cliExecute("pull * louder than bomb");
 
-cliExecute("pull all");
+// cliExecute("pull all");
 
 cliExecute("refresh all");
 
@@ -240,16 +242,20 @@ cliExecute("briefcase collect");
 
 if (get("_timeSpinnerFoodAvailable")) cliExecute("farfuture gin");
 
-while (get("_sourceTerminalExtrudes") < 3) {
-  cliExecute("terminal extrude booze");
-  // SourceTerminal.extrude($item`hacked gibson`);
+while (get("_sourceTerminalExtrudes") < 3 && itemAmount($item`Source essence`) > 10) {
+  // cliExecute("terminal extrude booze");
+  SourceTerminal.extrude($item`hacked gibson`);
 }
+
+SourceTerminal.educate($skill`Extract`);
+
 while (get("_clipartSummons") < 3) {
   cliExecute("create 1 box of familiar jacks");
 }
 
 // dupe a greedy dog
 const dupeTarget = $item`very fancy whiskey`;
+if (itemAmount(dupeTarget) === 0 && closetAmount(dupeTarget) > 0) takeCloset(1, dupeTarget);
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
   setChoice(1119, 4);
@@ -279,8 +285,6 @@ if (have($effect`Drenched in Lava`)) cliExecute("soak");
 getVolcoino();
 getFunFunds();
 
-putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
-
 mannyQuestVolcoino();
 
 if (get("_unaccompaniedMinerUsed") === 0) {
@@ -293,5 +297,11 @@ if (get("csServicesPerformed") !== "" && get("questL13Final") === "finished") {
 */
 cliExecute("ccs default");
 cliExecute("breakfast");
+
+putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
+
+if (get("_questPartyFairQuest") === "booze") {
+  print("hey try that vanduffel cheese", "green");
+}
 
 inboxCleanup();
