@@ -119,7 +119,7 @@ autosell(itemAmount($item`expensive camera`), $item`expensive camera`); // autos
 autosell(itemAmount($item`filthy child leash`), $item`filthy child leash`); // autosells all filthy child leashes
 autosell(itemAmount($item`bag of gross foreign snacks`), $item`bag of gross foreign snacks`); // autosells all bags of gross foreign snacks
 
-const extroPrice = Math.round(Math.random() * 2000);
+const extroPrice = 50000 + Math.round(Math.random() * 2000);
 putShop(extroPrice, 2, itemAmount($item`Extrovermectin™`), $item`Extrovermectin™`);
 
 print(
