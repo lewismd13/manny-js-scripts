@@ -1,4 +1,5 @@
 import {
+  adv1,
   availableAmount,
   buy,
   canInteract,
@@ -21,8 +22,8 @@ import {
   use,
   visitUrl,
 } from "kolmafia";
-import { $item, Clan, get, SourceTerminal } from "libram";
-import { mannyQuestVolcoino } from "./lib";
+import { $item, $location, Clan, get, SourceTerminal } from "libram";
+import { mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -205,7 +206,7 @@ if (get("_unaccompaniedMinerUsed") === 0) {
 }
 
 cliExecute("ccs default");
-/*
+
 if (get("_questPartyFairQuest") === "") {
   setChoice(1322, 6); // Leave
   adv1($location`The Neverending Party`, -1, "");
@@ -216,5 +217,5 @@ if (get("_questPartyFairQuest") === "food") {
 } else if (get("_questPartyFairQuest") === "booze") {
   print("Hey, go talk to Gerald, get that jarmageddon!", "yellow");
 }
-*/
+
 mannyQuestVolcoino();

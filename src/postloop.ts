@@ -4,6 +4,7 @@ import {
   $item,
   $location,
   $skill,
+  AsdonMartin,
   Clan,
   get,
   have,
@@ -135,7 +136,6 @@ cliExecute("pull * magical mystery juice");
 cliExecute("pull * toggle switch (bartend)");
 cliExecute("pull * toggle switch (bounce)");
 cliExecute("pull 1 etched hourglass");
-cliExecute("pull 1 tiny black hole");
 cliExecute("pull 1 wormwood wedding ring");
 cliExecute("pull 1 potato alarm clock");
 cliExecute("pull 1000000 meat");
@@ -150,6 +150,7 @@ cliExecute("pull * sugar shield");
 cliExecute("pull * sugar shorts");
 cliExecute("pull * sugar shirt");
 cliExecute("pull 1 very fancy whiskey");
+cliExecute("pull 1 cold medicine cabinet");
 cliExecute("pull * louder than bomb");
 
 // cliExecute("pull all");
@@ -161,6 +162,9 @@ buy(1, $item`Queue Du Coq cocktailcrafting kit`);
 use(1, $item`Queue Du Coq cocktailcrafting kit`);
 
 cliExecute("ccs libramMacro");
+
+if (!have($item`Desert Bus pass`) || !have($item`bitchin' meatcar`))
+  retrieveItem($item`Desert Bus pass`);
 
 // cheesefax fortune, no longer doing this in loop
 if (get("_clanFortuneConsultUses") < 3) {
@@ -190,6 +194,11 @@ if (getWorkshed() !== workshed) {
 if (have($item`Little Geneticist DNA-Splicing Lab`))
   putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
 
+if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
+  AsdonMartin.drive($effect`Driving Observantly`, 1100);
+  use($item`cold medicine cabinet`);
+}
+
 if (have($item`Thwaitgold termite statuette`)) putDisplay(1, $item`Thwaitgold termite statuette`);
 
 if (haveEffect($effect`Feeling Lost`) !== 0) {
@@ -218,22 +227,7 @@ if (!get("lockPicked")) {
   cliExecute("create 1 boris's key lime pie");
   putShop(0, 0, $item`Boris's key lime pie`);
 }
-/*
-if (get("_deckCardsDrawn") < 11) {
-  useFamiliar($familiar`Robortender`);
-  retrieveItem($item`toggle switch (Bartend)`);
-  equip($item`toggle switch (Bartend)`);
-  restoreMp(150);
-  Macro.skill($skill`Curse of Weaksauce`)
-    .trySkillRepeat($skill`Saucegeyser`)
-    .setAutoAttack();
-  cliExecute("cheat phylum elf");
-  runCombat();
-  setAutoAttack(0);
-  putShop(0, 0, $item`peppermint sprig`);
-}
 
-*/
 // cliExecute("cheat ancestral recall");
 // cli_execute("cheat island");
 // cli_execute("cheat gift card");
@@ -268,11 +262,15 @@ if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   print(`Something went wrong duping a ${dupeTarget.name}`, "red");
 }
 
+if (have($effect`Spirit of Cayenne`)) useSkill($skill`Spirit of Nothing`);
+
 retrieveItem(20, $item`heat-resistant sheet metal`);
 // setAutoAttack("gnat extract mortar weak");
 Macro.trySkill($skill`Curse of Weaksauce`)
   .trySkill($skill`Stuffed Mortar Shell`)
   .trySkill($skill`Extract`)
+  .skill($skill`Saucestorm`)
+  .repeat()
   .setAutoAttack();
 while (!containsText($location`The Bubblin' Caldera`.noncombatQueue, "Lava Dogs")) {
   useFamiliar($familiar`Mini-Hipster`);
