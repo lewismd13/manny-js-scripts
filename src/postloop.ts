@@ -22,8 +22,10 @@ import {
   containsText,
   equip,
   getWorkshed,
+  gnomadsAvailable,
   haveEffect,
   itemAmount,
+  knollAvailable,
   outfit,
   print,
   putCloset,
@@ -163,8 +165,11 @@ use(1, $item`Queue Du Coq cocktailcrafting kit`);
 
 cliExecute("ccs libramMacro");
 
-if (!have($item`Desert Bus pass`) || !have($item`bitchin' meatcar`))
+if (knollAvailable()) {
+  retrieveItem($item`bitchin' meatcar`);
+} else if (!gnomadsAvailable()) {
   retrieveItem($item`Desert Bus pass`);
+}
 
 // cheesefax fortune, no longer doing this in loop
 if (get("_clanFortuneConsultUses") < 3) {
@@ -215,7 +220,6 @@ putShop(0, 0, 1, $item`vintage smart drink`);
 // putShop(0, 0, 1, $item`emergency margarita`);
 // putShop(0, 0, 1, $item`bag of grain`);
 // put_shop(0, 0, 1, $item[squeaky toy rose]);
-putShop(49995, 0, 3, $item`pocket wish`);
 
 SourceTerminal.enquiry($effect`familiar.enq`);
 
@@ -228,9 +232,15 @@ if (!get("lockPicked")) {
   putShop(0, 0, $item`Boris's key lime pie`);
 }
 
-// cliExecute("cheat ancestral recall");
-// cli_execute("cheat island");
-// cli_execute("cheat gift card");
+while (get("_deckCardsDrawn") < 11) {
+  if (!get("_deckCardsSeen").includes("Island")) {
+    cliExecute("cheat island");
+  } else if (!get("_deckCardsSeen").includes("Ancestral Recall")) {
+    cliExecute("cheat ancestral recall");
+  } else if (!get("_deckCardsSeen").includes("1952 Mickey Mantle")) {
+    cliExecute("cheat 1952");
+  }
+}
 
 cliExecute("briefcase collect");
 
@@ -285,21 +295,17 @@ getFunFunds();
 
 mannyQuestVolcoino();
 
-if (get("_unaccompaniedMinerUsed") === 0) {
-  cliExecute("minevolcano 5");
-}
-/*
-if (get("csServicesPerformed") !== "" && get("questL13Final") === "finished") {
-  setProperty("questL13Final", "unstarted");
-}
-*/
 cliExecute("ccs default");
 cliExecute("breakfast");
 
 putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
+putShop(49995, 0, 3, $item`pocket wish`);
+if (have($item`superduperheated metal`)) putShop(0, 0, $item`superduperheated metal`);
 
 if (get("_questPartyFairQuest") === "booze") {
   print("hey try that vanduffel cheese", "green");
 }
 
 inboxCleanup();
+
+// TODO: Tune moon to blender?

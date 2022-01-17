@@ -72,7 +72,7 @@ if (get("_clipartSummons") === 0) {
   cliExecute("create 2 box of familiar jacks");
 }
 
-if (toInt(getProperty("_daycareGymScavenges")) === 0) {
+if (get("_daycareGymScavenges") === 0) {
   visitUrl("place.php?whichplace=town_wrong&action=townwrong_boxingdaycare");
   runChoice(3);
   runChoice(2);

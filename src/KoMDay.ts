@@ -14,6 +14,8 @@ import {
   myAdventures,
   myFullness,
   myInebriety,
+  myMeat,
+  myMp,
   mySpleenUse,
   outfit,
   print,
@@ -23,6 +25,7 @@ import {
   totalTurnsPlayed,
   use,
   useFamiliar,
+  userConfirm,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -34,6 +37,7 @@ if (myInebriety() > inebrietyLimit()) {
 }
 
 const starttime = gametimeToInt();
+const startmeat = myMeat();
 
 if (!get("breakfastCompleted")) cliExecute("breakfast");
 
@@ -79,7 +83,8 @@ if (get("_poolGames") === 0) cliExecute("pool aggressive, aggressive, aggressive
 
 while (haveEffect($effect`How to Scam Tourists`) < 1000) use(5, $item`How to Avoid Scams`);
 
-Macro.trySkill($skill`Furious Wallop`)
+Macro.trySkill($skill`Bowl Straight Up`)
+  .trySkill($skill`Furious Wallop`)
   .attack()
   .setAutoAttack();
 
@@ -114,15 +119,28 @@ maximize("adv", false);
 
 // cleanup time
 use($item`bag of park garbage`, itemAmount($item`bag of park garbage`) - 10);
-autosell(itemAmount($item`cheap sunglasses`) - 2, $item`cheap sunglasses`); // autosells all but 2 cheap sunglasses
+autosell(itemAmount($item`cheap sunglasses`), $item`cheap sunglasses`); // autosells all cheap sunglasses
 autosell(itemAmount($item`expensive camera`), $item`expensive camera`); // autosells all expensive cameras
 autosell(itemAmount($item`filthy child leash`), $item`filthy child leash`); // autosells all filthy child leashes
 autosell(itemAmount($item`bag of gross foreign snacks`), $item`bag of gross foreign snacks`); // autosells all bags of gross foreign snacks
 
-const extroPrice = 50000 + Math.round(Math.random() * 2000);
+while (myMp() > 1100) {
+  if (haveEffect($effect`Leash of Linguini`) < 20000) useSkill($skill`Leash of Linguini`, 10);
+  if (haveEffect($effect`Disco Leer`) < 20000) useSkill($skill`Disco Leer`, 10);
+}
+
+const extroPrice = 58000 + Math.round(Math.random() * 2000);
 putShop(extroPrice, 2, itemAmount($item`Extrovermectin™`), $item`Extrovermectin™`);
 
 print(
-  `Today's lazy farming session took ${(gametimeToInt() - starttime) / 60000} minutes to run.`,
+  `Today's lazy farming session took ${
+    (gametimeToInt() - starttime) / 60000
+  } minutes to run and earned ${myMeat() - startmeat} meat.`,
   "green"
 );
+
+if (haveEffect($effect`Empathy`) < 300) userConfirm("You're almost out of empathy", 600000, true);
+if (haveEffect($effect`Polka of Plenty`) < 300)
+  userConfirm("You're almost out of polka", 600000, true);
+if (haveEffect($effect`Fat Leon's Phat Loot Lyric`) < 300)
+  userConfirm("You're almost out of phat loot", 600000, true);

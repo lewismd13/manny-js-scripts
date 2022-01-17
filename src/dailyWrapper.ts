@@ -25,8 +25,6 @@ import {
   bufferToFile,
   buy,
   cliExecute,
-  drinksilent,
-  fullnessLimit,
   inebrietyLimit,
   myAdventures,
   myDaycount,
@@ -35,9 +33,8 @@ import {
   myPath,
   stashAmount,
   takeStash,
-  useSkill,
 } from "kolmafia";
-import { $item, $skill, Clan, get } from "libram";
+import { $item, Clan, get } from "libram";
 import { abort, escapeChoice } from "./lib";
 
 /*
@@ -89,26 +86,12 @@ if (myDaycount() > 1 && myInebriety() < 1) {
   }
 }
 
-if (get("_volcanoItemRedeemed") === false && get("_volcanoItem1") === 0) {
+if (!get("_volcanoItemRedeemed") && get("_volcanoItem1") === 0) {
   abort(`Something went wrong in the breakfast script`);
 }
 
-// diet time - this is likely to change as knapsack becomes a thing
-
-if (myInebriety() === 0 && myFullness() === 0) {
-  // buy a melange because of mafia price limit
-  if (availableAmount($item`spice melange`) < 1) {
-    buy($item`spice melange`, 1, 300000);
-  }
-  if (availableAmount($item`astral pilsner`) > 0 && get("_mimeArmyShotglassUsed") === false) {
-    useSkill($skill`The Ode to Booze`);
-    drinksilent($item`astral pilsner`);
-  }
-  cliExecute("CONSUME ALL");
-}
-
 // check if we successfully ate/drank and then run garbo, making sure we have access to a pantsgiving and katana
-if (myInebriety() !== inebrietyLimit() || myFullness() !== fullnessLimit()) {
+if (myInebriety() !== 0 || myFullness() !== 0) {
   abort(`Something went wrong with diet`);
 } else if (myAdventures() > 0) {
   Clan.join("Alliance From Heck");
@@ -116,6 +99,7 @@ if (myInebriety() !== inebrietyLimit() || myFullness() !== fullnessLimit()) {
     cliExecute("garbo ascend");
     escapeChoice();
   } else {
+    // TODO: make this make sense
     Clan.join("Alliance From Hell");
     if (!takeStash($item`Pantsgiving`, 1)) abort("Failed to get pantsgiving.");
     if (!takeStash($item`haiku katana`, 1)) abort("Failed to get haiku katana.");
@@ -127,9 +111,8 @@ if (myInebriety() !== inebrietyLimit() || myFullness() !== fullnessLimit()) {
 if (myAdventures() > 0) {
   abort(`Looks like garbo broke, you still have turns.`);
 } else {
-  cliExecute("CONSUME NIGHTCAP");
+  cliExecute("nightcap");
   if (myInebriety() > inebrietyLimit()) {
-    cliExecute("combbeach free");
     cliExecute("garbo ascend");
     escapeChoice();
   } else {
@@ -139,13 +122,13 @@ if (myAdventures() > 0) {
 
 // now we get ready to loop
 if (myInebriety() > inebrietyLimit() && myAdventures() === 0) {
-  cliExecute("hccsPre");
+  cliExecute("hccsPre"); // TODO: make these bean's things
   cliExecute("hccsAscend");
 } else abort(`You either failed to nightcap or still have turns left`);
 
 // Check that we made it into CS and then run the loop script
 if (myPath() === "Community Service") {
-  cliExecute("mannyLoop");
+  cliExecute("mannyLoop"); // TODO: switch to bean-hccs
   escapeChoice();
 } else abort(`You should be in CS and you're not`);
 
@@ -161,17 +144,10 @@ if (myPath() === "None" && get("breakfastCompleted")) {
   if (availableAmount($item`spice melange`) < 1) {
     buy($item`spice melange`, 1, 300000);
   }
-  if (availableAmount($item`astral pilsner`) > 0 && get("_mimeArmyShotglassUsed") === false) {
-    useSkill($skill`The Ode to Booze`);
-    drinksilent($item`astral pilsner`);
-  }
-  cliExecute("CONSUME ALL");
 } else abort(`Something went wrong with postloop`);
 
 // check if we successfully ate/drank and then run garbo
-if (myInebriety() !== inebrietyLimit() || myFullness() !== fullnessLimit()) {
-  abort(`Something went wrong with postloop diet.`);
-} else if (myAdventures() > 0) {
+if (myAdventures() > 0 && myInebriety() < inebrietyLimit()) {
   cliExecute("garbo ascend");
   escapeChoice();
 }
