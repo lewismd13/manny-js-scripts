@@ -272,16 +272,16 @@ export function sewerPrep(): void {
   while (haveEffect($effect`The Sonata of Sneakiness`) < 30) {
     useSkill($skill`The Sonata of Sneakiness`, 3);
   }
-
+  /*
   equip($item`Powerful Glove`, $slot`acc1`);
   while (haveEffect($effect`Invisible Avatar`) < 30 && get("_powerfulGloveBatteryPowerUsed") < 95) {
     useSkill($skill`CHEAT CODE: Invisible Avatar`, 3);
   }
-
+*/
   while (get("_poolGames") < 3) {
     cliExecute("pool aggressive");
   }
-
+  /*
   if (!haveEffect($effect`A Girl Named Sue`) && !get("_clanFortuneBuffUsed")) {
     cliExecute("fortune buff familiar");
   }
@@ -289,7 +289,7 @@ export function sewerPrep(): void {
   if (!get("_witchessBuff")) {
     cliExecute("witchess");
   }
-
+*/
   if (!containsText(get("_beachHeadsUsed"), "10")) {
     cliExecute("beach head 10");
   }

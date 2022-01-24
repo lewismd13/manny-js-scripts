@@ -27,7 +27,7 @@ import {
   useFamiliar,
   userConfirm,
   useSkill,
-  visitUrl,
+  visitUrl
 } from "kolmafia";
 import { $effect, $familiar, $item, $location, $skill, get, have, Macro } from "libram";
 
@@ -129,7 +129,7 @@ while (myMp() > 1100) {
   if (haveEffect($effect`Disco Leer`) < 20000) useSkill($skill`Disco Leer`, 10);
 }
 
-const extroPrice = 58000 + Math.round(Math.random() * 2000);
+const extroPrice = 43000 + Math.round(Math.random() * 2000);
 putShop(extroPrice, 2, itemAmount($item`Extrovermectin™`), $item`Extrovermectin™`);
 
 print(

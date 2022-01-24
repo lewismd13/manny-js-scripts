@@ -1,18 +1,4 @@
 import {
-  $effect,
-  $familiar,
-  $item,
-  $location,
-  $skill,
-  AsdonMartin,
-  Clan,
-  get,
-  have,
-  Macro,
-  SourceTerminal,
-} from "libram";
-
-import {
   adv1,
   availableAmount,
   buy,
@@ -44,7 +30,19 @@ import {
   useSkill,
   visitUrl,
 } from "kolmafia";
-
+import {
+  $effect,
+  $familiar,
+  $item,
+  $location,
+  $skill,
+  AsdonMartin,
+  Clan,
+  get,
+  have,
+  Macro,
+  SourceTerminal,
+} from "libram";
 import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
@@ -160,6 +158,10 @@ cliExecute("pull * louder than bomb");
 cliExecute("refresh all");
 
 setProperty("autoSatisfyWithNPCs", "true");
+setProperty("hpAutoRecovery", "0.7");
+setProperty("hpAutoRecoveryTarget", "0.95");
+setProperty("mpAutoRecovery", "0.1");
+setProperty("mpAutoRecoveryTarget", "0.3");
 buy(1, $item`Queue Du Coq cocktailcrafting kit`);
 use(1, $item`Queue Du Coq cocktailcrafting kit`);
 
@@ -297,6 +299,8 @@ mannyQuestVolcoino();
 
 cliExecute("ccs default");
 cliExecute("breakfast");
+
+if (!get("moonTuned")) cliExecute("spoon blender");
 
 putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(49995, 0, 3, $item`pocket wish`);

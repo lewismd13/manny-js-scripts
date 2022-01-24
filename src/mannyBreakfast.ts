@@ -5,6 +5,7 @@ import {
   canInteract,
   cliExecute,
   containsText,
+  equip,
   getProperty,
   itemAmount,
   mallPrice,
@@ -15,14 +16,27 @@ import {
   print,
   putShop,
   random,
+  retrieveItem,
   reverseNumberology,
   runChoice,
+  setAutoAttack,
   takeStorage,
   toInt,
   use,
+  useFamiliar,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, Clan, get, SourceTerminal } from "libram";
+import {
+  $familiar,
+  $item,
+  $location,
+  $skill,
+  $slot,
+  Clan,
+  get,
+  Macro,
+  SourceTerminal,
+} from "libram";
 import { mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
@@ -108,24 +122,43 @@ while (
 }
 
 // TODO: Use robort and fight an elf instead of the mickey card
-if (get("_deckCardsDrawn") === 0) {
-  cliExecute("cheat ancestral recall");
-  if (mallPrice($item`gift card`) > 10000) {
+while (get("_deckCardsDrawn") < 11) {
+  if (
+    mallPrice($item`peppermint sprig`) > 10000 &&
+    mallPrice($item`Feliz Navidad`) > 10000 &&
+    !get("_deckCardsSeen").includes("Christmas")
+  ) {
+    useFamiliar($familiar`Robortender`);
+    retrieveItem($item`toggle switch (Bartend)`);
+    equip($item`toggle switch (Bartend)`);
+    equip($slot`acc1`, $item`Mr. Cheeng's spectacles`);
+    equip($slot`acc2`, $item`Mr. Screege's spectacles`);
+    equip($slot`acc3`, $item`lucky gold ring`);
+    equip($slot`weapon`, $item`garbage sticker`);
+    retrieveItem($item`can of mixed everything`);
+    equip($item`can of mixed everything`);
+    Macro.skill($skill`Curse of Weaksauce`)
+      .skill($skill`Saucegeyser`)
+      .setAutoAttack();
+    cliExecute("cheat phylum elf");
+    setAutoAttack(0);
+  } else if (!get("_deckCardsSeen").includes("Ancestral")) cliExecute("cheat ancestral recall");
+  else if (!get("_deckCardsSeen").includes("Island")) cliExecute("cheat island");
+  else if (mallPrice($item`gift card`) > 10000 && !get("_deckCardsSeen").includes("gift")) {
     cliExecute("cheat gift card");
-  } else {
+  } else if (!get("_deckCardsSeen").includes("1952")) {
     cliExecute("cheat 1952 mickey mantle");
   }
-  cliExecute("cheat island");
 }
 
 cliExecute("shower cold");
 cliExecute("bastille mainstat brutalist gesture");
 cliExecute("briefcase collect");
-
+/*
 if (!get("_timeSpinnerReplicatorUsed")) {
   cliExecute("farfuture gin");
 }
-
+*/
 cliExecute("detective solver");
 
 while (toInt(getProperty("_sourceTerminalExtrudes")) < 3) {
@@ -199,10 +232,6 @@ putShop(49995, 0, 3, $item`pocket wish`);
 if (get("_cargoPocketEmptied") === false && !containsText(get("cargoPocketsEmptied"), "533")) {
   cliExecute("cargo 533");
   putShop(50000, 0, availableAmount($item`greasy desk bell`), $item`greasy desk bell`);
-}
-
-if (get("_unaccompaniedMinerUsed") === 0) {
-  cliExecute("minevolcano 5");
 }
 
 cliExecute("ccs default");

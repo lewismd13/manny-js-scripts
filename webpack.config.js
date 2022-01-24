@@ -19,6 +19,7 @@ module.exports = {
     mannyRoll: "./src/mannyRoll.ts",
     mannyBreakfast: "./src/mannyBreakfast.ts",
     testFile: "./src/testFile.ts",
+    duffo: "./src/duffoislit.ts",
   },
   // Turns on tree-shaking and minification in the default Terser minifier
   // https://webpack.js.org/plugins/terser-webpack-plugin/
