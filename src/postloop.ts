@@ -152,6 +152,7 @@ cliExecute("pull * sugar shirt");
 cliExecute("pull 1 very fancy whiskey");
 cliExecute("pull 1 cold medicine cabinet");
 cliExecute("pull * louder than bomb");
+cliExecute("pull 1 earthenware muffin tin");
 
 // cliExecute("pull all");
 
