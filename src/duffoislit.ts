@@ -4,7 +4,9 @@ import {
   cliExecute,
   equip,
   handlingChoice,
+  inebrietyLimit,
   mallPrice,
+  myInebriety,
   print,
   putShop,
   repriceShop,
@@ -34,11 +36,15 @@ if (
     if (shopAmount(booze) > 0) throw `You already have ${booze} in your shop. take it out first.`;
   }
   try {
-    retrieveItem($item`Louder Than Bomb`);
-    Macro.tryItem($item`Louder Than Bomb`).setAutoAttack();
     if (!get("_claraBellUsed")) use($item`Clara's bell`);
     else cliExecute("pillkeeper free noncombat");
-    equip($item`Drunkula's wineglass`);
+    if (myInebriety() > inebrietyLimit()) {
+      equip($item`Drunkula's wineglass`);
+      Macro.runaway().setAutoAttack();
+    } else {
+      retrieveItem($item`Louder Than Bomb`);
+      Macro.tryItem($item`Louder Than Bomb`).setAutoAttack();
+    }
     for (const booze of duffoBooze) {
       retrieveItem(booze, 550);
       putShop(0, 0, 550, booze);
@@ -85,11 +91,15 @@ if (
     if (shopAmount(food) > 0) throw `You already have ${food} in your shop. take it out first.`;
   }
   try {
-    retrieveItem($item`Louder Than Bomb`);
-    Macro.tryItem($item`Louder Than Bomb`).setAutoAttack();
     if (!get("_claraBellUsed")) use($item`Clara's bell`);
     else cliExecute("pillkeeper free noncombat");
-    equip($item`Drunkula's wineglass`);
+    if (myInebriety() > inebrietyLimit()) {
+      equip($item`Drunkula's wineglass`);
+      Macro.runaway().setAutoAttack();
+    } else {
+      retrieveItem($item`Louder Than Bomb`);
+      Macro.tryItem($item`Louder Than Bomb`).setAutoAttack();
+    }
     for (const food of duffoFood) {
       retrieveItem(food, 550);
       putShop(0, 0, 550, food);
