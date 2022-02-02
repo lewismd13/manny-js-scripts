@@ -77,7 +77,7 @@ function getFunFunds() {
 }
 
 print("I really hope this works!", "blue");
-
+/*
 cliExecute("pull * magical sausage");
 cliExecute("pull * bottle of gin");
 cliExecute("pull * perfect ice cube");
@@ -153,8 +153,8 @@ cliExecute("pull 1 very fancy whiskey");
 cliExecute("pull 1 cold medicine cabinet");
 cliExecute("pull * louder than bomb");
 cliExecute("pull 1 earthenware muffin tin");
-
-// cliExecute("pull all");
+*/
+cliExecute("pull all");
 
 cliExecute("refresh all");
 
@@ -312,5 +312,3 @@ if (get("_questPartyFairQuest") === "booze") {
 }
 
 inboxCleanup();
-
-// TODO: Tune moon to blender?

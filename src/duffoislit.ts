@@ -24,8 +24,12 @@ import { setChoice } from "./lib";
 
 if (get("_questPartyFair") === "unstarted") throw "you actually need to accept the quest first";
 
-// ideas: jars (duh), thermoses
-const duffoBooze = [$item`Boulevardier cocktail`, $item`Dreadsylvanian grimlet`];
+// ideas: jars (duh), thermoses, kardashian gin, CS drinks, robort drinks, longterm greedy dogs or very fancy whiskey
+export const duffoBooze = [
+  $item`Boulevardier cocktail`,
+  $item`Dreadsylvanian grimlet`,
+  $item`Shot of Kardashian Gin`,
+];
 
 if (
   get("_questPartyFairQuest") === "booze" &&
@@ -53,8 +57,8 @@ if (
       mallPrice(booze);
     }
     setChoice(1322, 1);
-    setChoice(1326, 3);
-    setChoice(1324, 2);
+    setChoice(1327, 3);
+    setChoice(1324, 3);
     adv1($location`The Neverending Party`);
     if (handlingChoice()) runChoice(0);
   } finally {
@@ -75,7 +79,7 @@ if (
   }
 }
 
-// ideas: horseradishes, spectral pickles, spooky pockets
+// ideas: horseradishes, spectral pickles, spooky pockets, shawarma
 const duffoFood = [
   $item`extra-greasy slider`,
   $item`Dreadsylvanian spooky pocket`,
