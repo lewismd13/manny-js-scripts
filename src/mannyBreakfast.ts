@@ -228,6 +228,7 @@ if (myGardenType() === "thanksgarden" && !get("_mushroomGardenVisited")) {
 putShop(0, 0, availableAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(0, 0, availableAmount($item`cornucopia`), $item`cornucopia`);
 putShop(49995, 0, 3, $item`pocket wish`);
+putShop(0, 0, availableAmount($item`11-leaf clover`), $item`11-leaf clover`);
 
 if (get("_cargoPocketEmptied") === false && !containsText(get("cargoPocketsEmptied"), "533")) {
   cliExecute("cargo 533");
@@ -241,10 +242,10 @@ if (get("_questPartyFairQuest") === "") {
   adv1($location`The Neverending Party`, -1, "");
 }
 
+mannyQuestVolcoino();
+
 if (get("_questPartyFairQuest") === "food") {
   print("Hey, go talk to Geraldine, time for another sliderpocalypse!", "yellow");
 } else if (get("_questPartyFairQuest") === "booze") {
   print("Hey, go talk to Gerald, get that jarmageddon!", "yellow");
-}
-
-mannyQuestVolcoino();
+} else print(`Sorry, your NEP quest is ${get("_questPartyFairQuest")}.`);

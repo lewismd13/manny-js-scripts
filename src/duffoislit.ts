@@ -1,5 +1,6 @@
 import {
   adv1,
+  availableAmount,
   buy,
   cliExecute,
   equip,
@@ -30,6 +31,10 @@ export const duffoBooze = [
   $item`Dreadsylvanian grimlet`,
   $item`Shot of Kardashian Gin`,
 ];
+
+for (const booze of duffoBooze) {
+  if (availableAmount(booze) < 550) throw `You don't have 550 ${booze}`;
+}
 
 if (
   get("_questPartyFairQuest") === "booze" &&
@@ -85,6 +90,10 @@ const duffoFood = [
   $item`Dreadsylvanian spooky pocket`,
   $item`jumping horseradish`,
 ];
+
+for (const food of duffoFood) {
+  if (availableAmount(food) < 550) throw `You don't have 550 ${food}`;
+}
 
 if (
   get("_questPartyFairQuest") === "food" &&
