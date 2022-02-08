@@ -1,6 +1,7 @@
 import {
   adv1,
   autosell,
+  availableAmount,
   chew,
   cliExecute,
   drinksilent,
@@ -13,6 +14,7 @@ import {
   mallPrice,
   maximize,
   myAdventures,
+  myDaycount,
   myFullness,
   myInebriety,
   myMeat,
@@ -21,6 +23,7 @@ import {
   outfit,
   print,
   putShop,
+  retrieveItem,
   runChoice,
   setAutoAttack,
   totalTurnsPlayed,
@@ -99,11 +102,16 @@ while (myAdventures() > 60 && get("_coldMedicineConsults") < 5) {
 }
 
 // we've got them all now so just blast through the rest
-if (myAdventures() > 50) cliExecute("adventure -50 barf mountain");
+// on odd numbered days we comb the beach
+const turnsToBurn = myAdventures() - 50;
+if (myAdventures() > 50 && myDaycount() % 2 === 0) {
+  cliExecute(`adventure ${Math.floor(turnsToBurn / 0.96)} barf mountain`);
+} else if (myAdventures() > 50) {
+  retrieveItem($item`piece of driftwood`);
+  cliExecute(`combo ${turnsToBurn}`);
+}
 
 setAutoAttack(0);
-
-if (myAdventures() > 60) cliExecute("adventure -50 barf mountain");
 
 // nightcap
 if (myInebriety() === inebrietyLimit()) {
@@ -125,9 +133,12 @@ autosell(itemAmount($item`expensive camera`), $item`expensive camera`); // autos
 autosell(itemAmount($item`filthy child leash`), $item`filthy child leash`); // autosells all filthy child leashes
 autosell(itemAmount($item`bag of gross foreign snacks`), $item`bag of gross foreign snacks`); // autosells all bags of gross foreign snacks
 
-while (myMp() > 1100) {
-  if (haveEffect($effect`Leash of Linguini`) < 20000) useSkill($skill`Leash of Linguini`, 10);
-  if (haveEffect($effect`Disco Leer`) < 20000) useSkill($skill`Disco Leer`, 10);
+while (myMp() > 1100 && haveEffect($effect`Leash of Linguini`) < 20000) {
+  useSkill($skill`Leash of Linguini`, 10);
+}
+
+while (myMp() > 1100 && haveEffect($effect`Disco Leer`) < 20000) {
+  useSkill($skill`Disco Leer`, 10);
 }
 
 const extroPrice = mallPrice($item`Extrovermectin™`) - Math.round(Math.random() * 500);
@@ -145,3 +156,17 @@ if (haveEffect($effect`Polka of Plenty`) < 300)
   userConfirm("You're almost out of polka", 600000, true);
 if (haveEffect($effect`Fat Leon's Phat Loot Lyric`) < 300)
   userConfirm("You're almost out of phat loot", 600000, true);
+
+if (have($item`meteorite fragment`)) {
+  userConfirm("Holy shit a fragment!", 600000, true);
+}
+
+if (
+  have($item`cursed tricorn hat`) ||
+  have($item`cursed swash buckle`) ||
+  availableAmount($item`cursed pirate cutlass`) > 1
+)
+  userConfirm("Holy shit a cursed pirate item!", 600000, true);
+
+if (myMeat() - startmeat > 10000000 && have($item`driftwood beach comb`))
+  userConfirm("I uh, think you found a whale", 600000, true);

@@ -509,7 +509,6 @@ export function mannyCleanup(): void {
   putShop(200, 0, itemAmount($item`gold nuggets`), $item`gold nuggets`);
   putShop(0, 0, itemAmount($item`cornucopia`), $item`cornucopia`);
   putShop(0, 0, itemAmount($item`elemental sugarcube`), $item`elemental sugarcube`);
-  putShop(0, 0, itemAmount($item`gingerbread cigarette`), $item`gingerbread cigarette`);
   putShop(8900, 0, itemAmount($item`abandoned candy`), $item`abandoned candy`);
   autosell($item`meat stack`, itemAmount($item`meat stack`));
   putShop(0, 0, itemAmount($item`11-leaf clover`), $item`11-leaf clover`);

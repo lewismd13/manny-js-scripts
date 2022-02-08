@@ -27,7 +27,7 @@ if (get("_questPartyFair") === "unstarted") throw "you actually need to accept t
 
 // ideas: jars (duh), thermoses, kardashian gin, CS drinks, robort drinks, longterm greedy dogs or very fancy whiskey
 export const duffoBooze = [
-  $item`Boulevardier cocktail`,
+  $item`jar of fermented pickle juice`,
   $item`Dreadsylvanian grimlet`,
   $item`Shot of Kardashian Gin`,
 ];

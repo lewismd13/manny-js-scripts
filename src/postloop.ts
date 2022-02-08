@@ -219,7 +219,6 @@ print("Stone smashed. Get your PVP on!", "green");
 if (availableAmount($item`blood-drive sticker`) > 10) {
   putShop(0, 0, 1, $item`blood-drive sticker`);
 }
-putShop(0, 0, 1, $item`vintage smart drink`);
 // putShop(0, 0, 1, $item`emergency margarita`);
 // putShop(0, 0, 1, $item`bag of grain`);
 // put_shop(0, 0, 1, $item[squeaky toy rose]);
@@ -269,7 +268,7 @@ if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   // setProperty("choiceAdventure1119", "4");
   setProperty("choiceAdventure1125", `1&iid=${toInt(dupeTarget)}`);
   adv1($location`The Deep Machine Tunnels`, -1, "");
-  putShop(0, 0, 1, dupeTarget);
+  // putShop(0, 0, 1, dupeTarget);
   putCloset(1, dupeTarget);
 } else {
   print(`Something went wrong duping a ${dupeTarget.name}`, "red");

@@ -73,59 +73,59 @@ new dailyStep(
 );
 */
 // breakfast
-if (myDaycount() > 1 && myInebriety() < 1) {
-  Clan.join("Alliance From Hell");
-
-  // theoretically we do this on login, but just in case
-  if (get("breakfastCompleted") === false) {
-    cliExecute("breakfast");
-  }
-  if (get("_cargoPocketEmptied") === false && get("_dinseyGarbageDisposed") === false) {
-    cliExecute("mannyBreakfast");
-    escapeChoice();
-  }
-}
-
-if (!get("_volcanoItemRedeemed") && get("_volcanoItem1") === 0) {
-  abort(`Something went wrong in the breakfast script`);
-}
-
-// check if we successfully ate/drank and then run garbo, making sure we have access to a pantsgiving and katana
-if (myInebriety() !== 0 || myFullness() !== 0) {
-  abort(`Something went wrong with diet`);
-} else if (myAdventures() > 0) {
-  Clan.join("Alliance From Heck");
-  if (stashAmount($item`Pantsgiving`) > 0 && stashAmount($item`haiku katana`) > 0) {
-    cliExecute("garbo ascend");
-    escapeChoice();
-  } else {
-    // TODO: make this make sense
+if (myDaycount() > 1) {
+  if (myInebriety() < 1) {
     Clan.join("Alliance From Hell");
-    if (!takeStash($item`Pantsgiving`, 1)) abort("Failed to get pantsgiving.");
-    if (!takeStash($item`haiku katana`, 1)) abort("Failed to get haiku katana.");
-  }
-}
 
-// if garbo is done running, time to nightcap and run it again
-// TODO: When switching to garbo diet, this should be CONSUME NIGHTCAP NOMEAT
-if (myAdventures() > 0) {
-  abort(`Looks like garbo broke, you still have turns.`);
-} else {
-  cliExecute("nightcap");
-  if (myInebriety() > inebrietyLimit()) {
-    cliExecute("garbo ascend");
-    escapeChoice();
+    // theoretically we do this on login, but just in case
+    if (get("breakfastCompleted") === false) {
+      cliExecute("breakfast");
+    }
+    if (get("_cargoPocketEmptied") === false && get("_dinseyGarbageDisposed") === false) {
+      cliExecute("mannyBreakfast");
+    }
+  }
+
+  if (!get("_volcanoItemRedeemed") && get("_volcanoItem1") === 0) {
+    abort(`Something went wrong in the breakfast script`);
+  }
+
+  // check if we successfully ate/drank and then run garbo, making sure we have access to a pantsgiving and katana
+  if (myInebriety() !== 0 || myFullness() !== 0) {
+    abort(`Something went wrong with diet`);
+  } else if (myAdventures() > 0) {
+    Clan.join("Alliance From Heck");
+    if (stashAmount($item`Pantsgiving`) > 0 && stashAmount($item`haiku katana`) > 0) {
+      cliExecute("garbo ascend");
+      escapeChoice();
+    } else {
+      // TODO: make this make sense
+      Clan.join("Alliance From Hell");
+      if (!takeStash($item`Pantsgiving`, 1)) abort("Failed to get pantsgiving.");
+      if (!takeStash($item`haiku katana`, 1)) abort("Failed to get haiku katana.");
+    }
+  }
+
+  // if garbo is done running, time to nightcap and run it again
+  // TODO: When switching to garbo diet, this should be CONSUME NIGHTCAP NOMEAT
+  if (myAdventures() > 0) {
+    abort(`Looks like garbo broke, you still have turns.`);
   } else {
-    abort(`Something went wrong nightcapping`);
+    cliExecute("nightcap");
+    if (myInebriety() > inebrietyLimit()) {
+      cliExecute("garbo ascend");
+      escapeChoice();
+    } else {
+      abort(`Something went wrong nightcapping`);
+    }
   }
+
+  // now we get ready to loop
+  if (myInebriety() > inebrietyLimit() && myAdventures() === 0) {
+    cliExecute("hccsPre"); // TODO: make these bean's things
+    cliExecute("hccsAscend");
+  } else abort(`You either failed to nightcap or still have turns left`);
 }
-
-// now we get ready to loop
-if (myInebriety() > inebrietyLimit() && myAdventures() === 0) {
-  cliExecute("hccsPre"); // TODO: make these bean's things
-  cliExecute("hccsAscend");
-} else abort(`You either failed to nightcap or still have turns left`);
-
 // Check that we made it into CS and then run the loop script
 if (myPath() === "Community Service") {
   cliExecute("mannyLoop"); // TODO: switch to bean-hccs
