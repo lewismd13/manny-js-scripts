@@ -33,7 +33,7 @@ import {
   useSkill,
   visitUrl,
 } from "kolmafia";
-import { $effect, $familiar, $item, $location, $skill, get, have, Macro } from "libram";
+import { $effect, $familiar, $item, $items, $location, $skill, get, have, Macro } from "libram";
 
 if (myInebriety() > inebrietyLimit()) {
   print("You're drunk, I think you ran this already.");
@@ -54,8 +54,8 @@ if (!get("_dinseyGarbageDisposed")) {
 
 if (myFullness() === 0) {
   if (!get("_milkOfMagnesiumUsed")) use($item`milk of magnesium`);
-  eatsilent(2, $item`fleetwood mac 'n' cheese`);
-  eatsilent(8, $item`jumping horseradish`);
+  eatsilent(3, $item`fleetwood mac 'n' cheese`);
+  eatsilent(2, $item`jumping horseradish`);
 }
 
 if (myInebriety() === 0) {
@@ -66,6 +66,8 @@ if (myInebriety() === 0) {
   if (!get("_mimeArmyShotglassUsed")) drinksilent($item`elemental caipiroska`);
   drinksilent($item`elemental caipiroska`);
 }
+
+// TODO: Maybe drink a lindy and fight a KGE for shotglass
 
 if (mySpleenUse() < 4 && have($item`coffee pixie stick`, 3)) chew(3, $item`coffee pixie stick`);
 
@@ -108,7 +110,8 @@ if (myAdventures() > 50 && myDaycount() % 2 === 0) {
   cliExecute(`adventure ${Math.floor(turnsToBurn / 0.96)} barf mountain`);
 } else if (myAdventures() > 50) {
   retrieveItem($item`piece of driftwood`);
-  cliExecute(`combo ${turnsToBurn}`);
+  if (!have($item`driftwood beach comb`)) use($item`piece of driftwood`);
+  cliExecute(`combo ${turnsToBurn + 11}`);
 }
 
 setAutoAttack(0);
@@ -128,10 +131,18 @@ maximize("adv", false);
 
 // cleanup time
 use($item`bag of park garbage`, itemAmount($item`bag of park garbage`) - 10);
-autosell(itemAmount($item`cheap sunglasses`), $item`cheap sunglasses`); // autosells all cheap sunglasses
-autosell(itemAmount($item`expensive camera`), $item`expensive camera`); // autosells all expensive cameras
-autosell(itemAmount($item`filthy child leash`), $item`filthy child leash`); // autosells all filthy child leashes
-autosell(itemAmount($item`bag of gross foreign snacks`), $item`bag of gross foreign snacks`); // autosells all bags of gross foreign snacks
+
+const mallables = $items`sea lace, grain of sand, 11-leaf clover, bunch of sea grapes`;
+
+for (const item of mallables) {
+  putShop(mallPrice(item) - 10, 0, itemAmount(item), item);
+}
+
+const autosellables = $items`cheap sunglasses, expensive camera, filthy child leash, bag of gross foreign snacks, driftwood bracelet, driftwood pants, driftwood hat, sea avocado, sea cucumber, sea carrot, kelp, taco shell, magenta seashell, cyan seashell, gray seashell, green seashell, yellow seashell`;
+
+for (const item of autosellables) {
+  autosell(itemAmount(item), item);
+}
 
 while (myMp() > 1100 && haveEffect($effect`Leash of Linguini`) < 20000) {
   useSkill($skill`Leash of Linguini`, 10);
@@ -144,18 +155,18 @@ while (myMp() > 1100 && haveEffect($effect`Disco Leer`) < 20000) {
 const extroPrice = mallPrice($item`Extrovermectin™`) - Math.round(Math.random() * 500);
 putShop(extroPrice, 2, itemAmount($item`Extrovermectin™`), $item`Extrovermectin™`);
 
+if (haveEffect($effect`Empathy`) < 300) userConfirm("You're almost out of empathy", 600000, true);
+if (haveEffect($effect`Polka of Plenty`) < 300)
+  userConfirm("You're almost out of polka", 600000, true);
+if (haveEffect($effect`Fat Leon's Phat Loot Lyric`) < 300)
+  userConfirm("You're almost out of phat loot", 600000, true);
+
 print(
   `Today's lazy farming session took ${
     (gametimeToInt() - starttime) / 60000
   } minutes to run and earned ${myMeat() - startmeat} meat.`,
   "green"
 );
-
-if (haveEffect($effect`Empathy`) < 300) userConfirm("You're almost out of empathy", 600000, true);
-if (haveEffect($effect`Polka of Plenty`) < 300)
-  userConfirm("You're almost out of polka", 600000, true);
-if (haveEffect($effect`Fat Leon's Phat Loot Lyric`) < 300)
-  userConfirm("You're almost out of phat loot", 600000, true);
 
 if (have($item`meteorite fragment`)) {
   userConfirm("Holy shit a fragment!", 600000, true);

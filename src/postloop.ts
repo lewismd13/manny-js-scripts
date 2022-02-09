@@ -219,13 +219,8 @@ print("Stone smashed. Get your PVP on!", "green");
 if (availableAmount($item`blood-drive sticker`) > 10) {
   putShop(0, 0, 1, $item`blood-drive sticker`);
 }
-// putShop(0, 0, 1, $item`emergency margarita`);
-// putShop(0, 0, 1, $item`bag of grain`);
-// put_shop(0, 0, 1, $item[squeaky toy rose]);
 
 SourceTerminal.enquiry($effect`familiar.enq`);
-
-// cliExecute("terminal enquiry familiar.enq");
 
 if (!get("lockPicked")) {
   setChoice(1414, 1);
@@ -306,8 +301,8 @@ putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(49995, 0, 3, $item`pocket wish`);
 if (have($item`superduperheated metal`)) putShop(0, 0, $item`superduperheated metal`);
 
-if (get("_questPartyFairQuest") === "booze") {
+inboxCleanup();
+
+if (get("_questPartyFairQuest") === "booze" || get("_questPartyFairQuest") === "food") {
   print("hey try that vanduffel cheese", "green");
 }
-
-inboxCleanup();
