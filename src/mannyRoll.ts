@@ -13,7 +13,7 @@ import {
   useFamiliar,
 } from "kolmafia";
 import { $familiar, $item, $items, ChateauMantegna, Clan, have } from "libram";
-import { mannyCleanup, nightcap, randomPrank, randomSafari } from "./lib";
+import { breakfastCounter, mannyCleanup, nightcap, randomPrank, randomSafari } from "./lib";
 
 Clan.join("Alliance from Hell");
 
@@ -44,8 +44,10 @@ if (have($item`clockwork maid`)) {
   use($item`clockwork maid`);
 }
 
-if (ChateauMantegna.getCeiling() !== $item`artificial skylight`)
-  ChateauMantegna.changeCeiling($item`artificial skylight`);
+breakfastCounter();
+
+if (ChateauMantegna.getCeiling() !== "artificial skylight")
+  ChateauMantegna.changeCeiling("artificial skylight");
 
 useFamiliar($familiar`Trick-or-Treating Tot`);
 retrieveItem($item`li'l unicorn costume`);

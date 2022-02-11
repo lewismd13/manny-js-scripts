@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "core-js": "^3.20.2",
-    "kolmafia": "^1.4.0",
-    "libram": "^0.5.7"
+    "kolmafia": "^2.1.1",
+    "libram": "^0.6.6"
   },
   "author": "Manendra",
   "license": "ISC",

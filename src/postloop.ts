@@ -35,15 +35,17 @@ import {
   $familiar,
   $item,
   $location,
+  $monster,
   $skill,
   AsdonMartin,
   Clan,
+  CombatLoversLocket,
   get,
   have,
   Macro,
   SourceTerminal,
 } from "libram";
-import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
+import { inboxCleanup, locketRobortDrop, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
 // TODO: pull the shit I assume is already pulled from CS. ie a bunch of unrestricted iotms
@@ -267,6 +269,13 @@ if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   putCloset(1, dupeTarget);
 } else {
   print(`Something went wrong duping a ${dupeTarget.name}`, "red");
+}
+
+if (
+  CombatLoversLocket.reminiscesLeft() > 1 ||
+  !CombatLoversLocket.availableLocketMonsters().includes($monster`Knob Goblin Embezzler`)
+) {
+  locketRobortDrop();
 }
 
 if (have($effect`Spirit of Cayenne`)) useSkill($skill`Spirit of Nothing`);

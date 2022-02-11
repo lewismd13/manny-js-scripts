@@ -132,7 +132,7 @@ maximize("adv", false);
 // cleanup time
 use($item`bag of park garbage`, itemAmount($item`bag of park garbage`) - 10);
 
-const mallables = $items`sea lace, grain of sand, 11-leaf clover, bunch of sea grapes`;
+const mallables = $items`sea lace, 11-leaf clover, bunch of sea grapes`;
 
 for (const item of mallables) {
   putShop(mallPrice(item) - 10, 0, itemAmount(item), item);
@@ -164,7 +164,9 @@ if (haveEffect($effect`Fat Leon's Phat Loot Lyric`) < 300)
 print(
   `Today's lazy farming session took ${
     (gametimeToInt() - starttime) / 60000
-  } minutes to run and earned ${myMeat() - startmeat} meat.`,
+  } minutes to run and earned ${myMeat() - startmeat} meat. Plus another ${
+    extroPrice * 5
+  } meat from selling extros`,
   "green"
 );
 

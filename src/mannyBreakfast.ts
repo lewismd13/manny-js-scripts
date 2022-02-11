@@ -30,14 +30,16 @@ import {
   $familiar,
   $item,
   $location,
+  $monster,
   $skill,
   $slot,
   Clan,
+  CombatLoversLocket,
   get,
   Macro,
   SourceTerminal,
 } from "libram";
-import { mannyQuestVolcoino, setChoice } from "./lib";
+import { breakfastCounter, locketRobortDrop, mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -151,6 +153,13 @@ while (get("_deckCardsDrawn") < 11) {
   }
 }
 
+if (
+  CombatLoversLocket.reminiscesLeft() > 1 ||
+  !CombatLoversLocket.availableLocketMonsters().includes($monster`Knob Goblin Embezzler`)
+) {
+  locketRobortDrop();
+}
+
 cliExecute("shower cold");
 cliExecute("bastille mainstat brutalist gesture");
 cliExecute("briefcase collect");
@@ -243,6 +252,14 @@ if (get("_questPartyFairQuest") === "") {
 }
 
 mannyQuestVolcoino();
+
+if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
+  visitUrl("place.php?whichplace=monorail&action=monorail_downtown");
+  runChoice(7); // visit breakfast counter
+  runChoice(4); //
+}
+
+breakfastCounter();
 
 if (get("_questPartyFairQuest") === "food") {
   print("Hey, go talk to Geraldine, time for another sliderpocalypse!", "yellow");

@@ -3,6 +3,7 @@ import {
   adv1,
   autosell,
   availableAmount,
+  availableChoiceOptions,
   bufferToFile,
   buy,
   buyUsingStorage,
@@ -11,6 +12,7 @@ import {
   create,
   drinksilent,
   eat,
+  Effect,
   equip,
   familiarWeight,
   fullnessLimit,
@@ -21,13 +23,14 @@ import {
   haveEffect,
   haveSkill,
   inebrietyLimit,
-  inMultiFight,
+  Item,
   itemAmount,
+  Location,
   maximize,
+  Monster,
   myAdventures,
   myFamiliar,
   myFullness,
-  myHash,
   myInebriety,
   myLocation,
   myMaxmp,
@@ -36,11 +39,12 @@ import {
   pullsRemaining,
   putShop,
   retrieveItem,
+  retrievePrice,
   runChoice,
-  runCombat,
   setAutoAttack,
   setProperty,
   shopAmount,
+  Skill,
   storageAmount,
   takeShop,
   toEffect,
@@ -64,8 +68,11 @@ import {
   $location,
   $monster,
   $skill,
+  $slot,
   adventureMacro,
+  CombatLoversLocket,
   get,
+  have,
   Kmail,
   Macro,
 } from "libram";
@@ -574,66 +581,6 @@ export function faxEmbezzler(): void {
   }
 }
 
-export function bishopChain(): void {
-  if (get("_pocketProfessorLectures") < 13 && get("_witchessFights") < 5) {
-    useFamiliar($familiar`Pocket Professor`);
-    equip($item`Pocket Professor memory chip`);
-    maximize("familiar weight +equip pocket professor memory chip", false);
-    useSkill(1, $skill`Blood Bond`);
-    useSkill(1, $skill`Leash of Linguini`);
-    useSkill(1, $skill`Empathy of the Newt`);
-    cliExecute("witchess");
-    cliExecute("beach head 10");
-    Macro.trySkill($skill`lecture on relativity`)
-      .skill($skill`Candyblast`)
-      .repeat()
-      .setAutoAttack();
-    visitUrl("campground.php?action=witchess");
-    runChoice(1);
-    visitUrl(`choice.php?option=1&pwd=${myHash()}&whichchoice=1182&piece=1942`, false);
-    while (inMultiFight()) {
-      runCombat();
-    }
-    setAutoAttack(0);
-  }
-}
-
-export function embezzlerChain(): void {
-  if (get("_pocketProfessorLectures") === 0 && get("_photocopyUsed") === false) {
-    useFamiliar($familiar`Pocket Professor`);
-    equip($item`Pocket Professor memory chip`);
-    maximize("familiar weight +equip pocket professor memory chip", false);
-    equip($item`duct tape shirt`);
-    useSkill(2, $skill`Blood Bond`);
-    useSkill(2, $skill`Leash of Linguini`);
-    useSkill(2, $skill`Empathy of the Newt`);
-    // useSkill(2, $skill`polka of plenty`);
-    // useSkill(2, $skill`disco leer`);
-    // sweetSynthesis($item`milk stud`, $item`swizzler`);
-    cliExecute("witchess");
-    cliExecute("beach head 10");
-    if (get("boomBoxSong") !== "Total Eclipse of Your Meat") {
-      cliExecute("boombox meat");
-    }
-    Macro.trySkill($skill`lecture on relativity`)
-      .skill($skill`Sing Along`)
-      .skill($skill`Candyblast`)
-      .repeat()
-      .setAutoAttack();
-    faxEmbezzler();
-    // visitUrl("campground.php?action=witchess");
-    // runChoice(1);
-    // visitUrl("choice.php?option=1&pwd=" + myHash() + "&whichchoice=1182&piece=1942", false);
-    use(1, $item`photocopied monster`);
-    while (inMultiFight()) {
-      runCombat();
-    }
-    setAutoAttack(0);
-  } else {
-    print("I think you already copied embezzlers, bud", "red");
-  }
-}
-
 export function mannyQuestVolcoino() {
   visitUrl("place.php?whichplace=airport_hot&action=airport4_questhub");
   if (get("_volcanoItem2") === 8425) {
@@ -724,4 +671,67 @@ export function abort(message: string) {
   print(message);
   bufferToFile(message, "wrapperresult.txt");
   throw `${message}`;
+}
+
+function getChoiceOption(partialText: string): number {
+  if (handlingChoice()) {
+    const findResults = Object.entries(availableChoiceOptions()).find(
+      (value) => value[1].indexOf(partialText) > -1
+    );
+    if (findResults) {
+      return parseInt(findResults[0]);
+    }
+  }
+  return -1;
+}
+
+export function breakfastCounter(): void {
+  visitUrl("place.php?whichplace=monorail&action=monorail_downtown");
+
+  const breakfast = getChoiceOption("Visit the Breakfast Counter");
+  if (breakfast > 0) {
+    runChoice(breakfast);
+    const blueberry = getChoiceOption("Order a blueberry muffin");
+    if (!have($item`blueberry muffin`) && blueberry > 0) {
+      runChoice(blueberry);
+    }
+    const leaveCounter = getChoiceOption("Back to the Platform!");
+    if (leaveCounter > 0) {
+      runChoice(leaveCounter);
+    }
+  }
+  const leaveStation = getChoiceOption("Nevermind");
+  if (leaveStation > 0) {
+    runChoice(leaveStation);
+  }
+  if (handlingChoice()) {
+    throw "Failed to leave the monorail station!!";
+  }
+}
+
+export function locketRobortDrop(): void {
+  const robortPrices = new Map([
+    [retrievePrice($item`Bloody Nora`), $monster`Black Crayon Fish`],
+    [retrievePrice($item`Feliz Navidad`), $monster`Black Crayon Crimbo Elf`],
+    [retrievePrice($item`single entendre`), $monster`Black Crayon Constellation`],
+    [retrievePrice($item`drive-by shooting`), $monster`Black Crayon Penguin`],
+  ]);
+
+  const bestMob = [...robortPrices.entries()].reduce((a, b) => (b[0] > a[0] ? b : a));
+  if (CombatLoversLocket.availableLocketMonsters().includes(bestMob[1])) {
+    useFamiliar($familiar`Robortender`);
+    retrieveItem($item`toggle switch (Bartend)`);
+    equip($item`toggle switch (Bartend)`);
+    equip($slot`acc1`, $item`Mr. Cheeng's spectacles`);
+    equip($slot`acc2`, $item`Mr. Screege's spectacles`);
+    equip($slot`acc3`, $item`lucky gold ring`);
+    equip($slot`weapon`, $item`garbage sticker`);
+    retrieveItem($item`can of mixed everything`);
+    equip($item`can of mixed everything`);
+    Macro.skill($skill`Curse of Weaksauce`)
+      .skill($skill`Saucegeyser`)
+      .setAutoAttack();
+    CombatLoversLocket.reminisce(bestMob[1]);
+    setAutoAttack(0);
+  }
 }
