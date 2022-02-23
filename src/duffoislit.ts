@@ -4,8 +4,10 @@ import {
   buy,
   cliExecute,
   equip,
+  equippedItem,
   handlingChoice,
   inebrietyLimit,
+  Item,
   mallPrice,
   myInebriety,
   print,
@@ -16,20 +18,26 @@ import {
   setAutoAttack,
   shopAmount,
   use,
+  useFamiliar,
   userConfirm,
 } from "kolmafia";
-import { $item, $location, get, Macro } from "libram";
+import { $familiar, $item, $location, $slot, get, Macro } from "libram";
 import { setChoice } from "./lib";
 
 // TODO: handle the initial choice if needed, instead of throwing
 
 if (get("_questPartyFair") === "unstarted") throw "you actually need to accept the quest first";
 
+if (equippedItem($slot`offhand`) === $item`Kramco Sausage-o-Matic™`)
+  equip($slot`offhand`, $item`none`);
+
+useFamiliar($familiar`Frumious Bandersnatch`);
+
 // ideas: jars (duh), thermoses, kardashian gin, CS drinks, robort drinks, longterm greedy dogs or very fancy whiskey
 export const duffoBooze = [
   $item`jar of fermented pickle juice`,
   $item`Dreadsylvanian grimlet`,
-  $item`Shot of Kardashian Gin`,
+  $item`Boulevardier cocktail`,
 ];
 
 for (const booze of duffoBooze) {

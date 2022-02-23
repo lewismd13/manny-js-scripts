@@ -5,7 +5,6 @@ import {
   canInteract,
   cliExecute,
   containsText,
-  equip,
   getProperty,
   itemAmount,
   mallPrice,
@@ -16,30 +15,15 @@ import {
   print,
   putShop,
   random,
-  retrieveItem,
   reverseNumberology,
   runChoice,
-  setAutoAttack,
   takeStorage,
   toInt,
   use,
-  useFamiliar,
   visitUrl,
 } from "kolmafia";
-import {
-  $familiar,
-  $item,
-  $location,
-  $monster,
-  $skill,
-  $slot,
-  Clan,
-  CombatLoversLocket,
-  get,
-  Macro,
-  SourceTerminal,
-} from "libram";
-import { breakfastCounter, locketRobortDrop, mannyQuestVolcoino, setChoice } from "./lib";
+import { $item, $location, Clan, get, SourceTerminal } from "libram";
+import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -123,13 +107,12 @@ while (
   cliExecute("numberology 69");
 }
 
-// TODO: Use robort and fight an elf instead of the mickey card
+// this fights the highest value phylum with your first deck pull for the guaranteed robort drop
+// then it pulls blue mana, then gift card or mickey based on gift card prices
 while (get("_deckCardsDrawn") < 11) {
-  if (
-    mallPrice($item`peppermint sprig`) > 10000 &&
-    mallPrice($item`Feliz Navidad`) > 10000 &&
-    !get("_deckCardsSeen").includes("Christmas")
-  ) {
+  /*
+  const bestMob = [...robortPrices.entries()].reduce((a, b) => (b[0] > a[0] ? b : a));
+  if (bestMob[0] > 10000 && get("_deckCardsDrawn") === 0) {
     useFamiliar($familiar`Robortender`);
     retrieveItem($item`toggle switch (Bartend)`);
     equip($item`toggle switch (Bartend)`);
@@ -140,11 +123,14 @@ while (get("_deckCardsDrawn") < 11) {
     retrieveItem($item`can of mixed everything`);
     equip($item`can of mixed everything`);
     Macro.skill($skill`Curse of Weaksauce`)
+      .trySkill($skill`Shattering Punch`)
       .skill($skill`Saucegeyser`)
       .setAutoAttack();
-    cliExecute("cheat phylum elf");
+    cliExecute(`cheat phylum ${bestMob[1].phylum}`);
     setAutoAttack(0);
-  } else if (!get("_deckCardsSeen").includes("Ancestral")) cliExecute("cheat ancestral recall");
+  } else */
+
+  if (!get("_deckCardsSeen").includes("Ancestral")) cliExecute("cheat ancestral recall");
   else if (!get("_deckCardsSeen").includes("Island")) cliExecute("cheat island");
   else if (mallPrice($item`gift card`) > 10000 && !get("_deckCardsSeen").includes("gift")) {
     cliExecute("cheat gift card");
@@ -152,26 +138,20 @@ while (get("_deckCardsDrawn") < 11) {
     cliExecute("cheat 1952 mickey mantle");
   }
 }
-
+/*
 if (
   CombatLoversLocket.reminiscesLeft() > 1 ||
   !CombatLoversLocket.availableLocketMonsters().includes($monster`Knob Goblin Embezzler`)
 ) {
   locketRobortDrop();
 }
-
-cliExecute("shower cold");
-cliExecute("bastille mainstat brutalist gesture");
-cliExecute("briefcase collect");
-/*
-if (!get("_timeSpinnerReplicatorUsed")) {
-  cliExecute("farfuture gin");
-}
 */
+cliExecute("shower cold");
+// cliExecute("bastille mainstat brutalist gesture");
+cliExecute("briefcase collect");
 cliExecute("detective solver");
 
 while (toInt(getProperty("_sourceTerminalExtrudes")) < 3) {
-  // cliExecute("terminal extrude booze");
   SourceTerminal.extrude($item`hacked gibson`);
 }
 
@@ -184,51 +164,11 @@ if (get("_saberMod") === 0) {
   runChoice(4);
 }
 
-/*
-if (availableAmount($item`Pantsgiving`) === 0) {
-  takeStash(1, $item`Pantsgiving`);
-}
-equip($item`Pantsgiving`);
-
-while (toInt(getProperty("_snojoFreeFights")) < 10) {
-  setAutoAttack("gnat extract mortar weak");
-  adv1($location`The X-32-F Combat Training Snowman`, -1, "");
-}
-
-setAutoAttack(0);
-equip($slot`pants`, $item`none`);
-if (availableAmount($item`Pantsgiving`) > 0) {
-  putStash(1, $item`Pantsgiving`);
-}
-*/
 use(1, $item`Bird-a-Day calendar`);
-
-// cheesefax fortune
-
-//BafH
-
-//Get Free Volcoino
 
 getVolcoino();
 getFunFunds();
-/*
-if (!get("_loveTunnelUsed")) {
-  useFamiliar($familiar`Golden Monkey`);
-  equip($item`Fourth of May Cosplay Saber`);
-  useSkill($skill`Carol of the Bulls`);
-  useSkill($skill`Carol of the Hells`);
-  setChoice(1222, 1); // Entrance
-  setChoice(1223, 1); // Fight LOV Enforcer
-  setChoice(1224, 2); // LOV Epaulettes
-  setChoice(1225, 1); // Fight LOV Engineer
-  setChoice(1226, 2); // Open Heart Surgery
-  setChoice(1227, 1); // Fight LOV Equivocator
-  setChoice(1228, 1); // Take enamorang
-  setAutoAttack("HCCS_LOV_tunnel");
-  adv1($location`The Tunnel of L.O.V.E.`, -1, "");
-  setAutoAttack(0);
-}
-*/
+
 if (myGardenType() === "thanksgarden" && !get("_mushroomGardenVisited")) {
   cliExecute("garden pick");
   use(1, $item`packet of tall grass seeds`);

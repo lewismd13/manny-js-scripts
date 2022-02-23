@@ -35,17 +35,15 @@ import {
   $familiar,
   $item,
   $location,
-  $monster,
   $skill,
   AsdonMartin,
   Clan,
-  CombatLoversLocket,
   get,
   have,
   Macro,
   SourceTerminal,
 } from "libram";
-import { inboxCleanup, locketRobortDrop, mannyQuestVolcoino, setChoice } from "./lib";
+import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
 // TODO: pull the shit I assume is already pulled from CS. ie a bunch of unrestricted iotms
@@ -78,84 +76,6 @@ function getFunFunds() {
   } else print("Failed to claim FunFunds.", "red");
 }
 
-print("I really hope this works!", "blue");
-/*
-cliExecute("pull * magical sausage");
-cliExecute("pull * bottle of gin");
-cliExecute("pull * perfect ice cube");
-cliExecute("pull * Asdon Martin keyfob");
-cliExecute("pull * bag of park garbage");
-cliExecute("pull * borrowed time");
-cliExecute("pull * brick");
-cliExecute("pull * Clara's bell");
-cliExecute("pull * fishy pipe");
-cliExecute("pull * Freddy Kruegerand");
-cliExecute("pull * heat-resistant sheet metal");
-cliExecute("pull * magical sausage casing");
-cliExecute("pull * mime army shotglass");
-cliExecute("pull * packet of tall grass seeds");
-cliExecute("pull * packet of thanksgarden seeds");
-cliExecute("pull * packet of winter seeds");
-cliExecute("pull * Poke gro fertilizer");
-cliExecute("pull * School of Hard Knocks Diploma");
-cliExecute("pull * Source essence");
-cliExecute("pull * Special Seasoning");
-cliExecute("pull * sprinkles");
-cliExecute("pull * subscription cocoa dispenser");
-cliExecute("pull * glitch season reward name");
-cliExecute("pull * bauxite beret");
-cliExecute("pull * dreadful fedora");
-cliExecute("pull * hemlock helm");
-cliExecute("pull * papier-mitre");
-cliExecute("pull * smooth velvet hat");
-cliExecute("pull * The Crown of Ed the Undying");
-cliExecute("pull * high-temperature mining drill");
-cliExecute("pull * plexiglass pikestaff");
-cliExecute("pull * Staff of Simmering Hatred");
-cliExecute("pull * Drunkula's wineglass");
-cliExecute("pull * hobo code binder");
-cliExecute("pull * bauxite boxers");
-cliExecute("pull * psychic's pslacks");
-cliExecute("pull * smooth velvet pants");
-cliExecute("pull * bauxite bow-tie");
-cliExecute("pull * Crimbolex watch");
-cliExecute("pull * gold skull ring");
-cliExecute("pull * lucky gold ring");
-cliExecute("pull * mafia pinky ring");
-cliExecute("pull * mafia pointer finger ring");
-cliExecute("pull * mafia thumb ring");
-cliExecute("pull * Mr. Cheeng's spectacles");
-cliExecute("pull * offensive moustache");
-cliExecute("pull * smooth velvet hanky");
-cliExecute("pull * smooth velvet pocket square");
-cliExecute("pull * smooth velvet socks");
-cliExecute("pull * li'l unicorn costume");
-cliExecute("pull * Pocket Professor memory chip");
-cliExecute("pull * magical mystery juice");
-cliExecute("pull * New Age healing crystal");
-cliExecute("pull * lucky cat's paw");
-cliExecute("pull * magical mystery juice");
-cliExecute("pull * toggle switch (bartend)");
-cliExecute("pull * toggle switch (bounce)");
-cliExecute("pull 1 etched hourglass");
-cliExecute("pull 1 wormwood wedding ring");
-cliExecute("pull 1 potato alarm clock");
-cliExecute("pull 1000000 meat");
-cliExecute("pull * lov enamorang");
-cliExecute("pull * lov extraterrestrial chocolate");
-cliExecute("pull * sugar chapeau");
-cliExecute("pull * sugar shank");
-cliExecute("pull * sugar shotgun");
-cliExecute("pull * fudgie roll");
-cliExecute("pull * sugar shillelagh");
-cliExecute("pull * sugar shield");
-cliExecute("pull * sugar shorts");
-cliExecute("pull * sugar shirt");
-cliExecute("pull 1 very fancy whiskey");
-cliExecute("pull 1 cold medicine cabinet");
-cliExecute("pull * louder than bomb");
-cliExecute("pull 1 earthenware muffin tin");
-*/
 cliExecute("pull all");
 
 cliExecute("refresh all");
@@ -243,6 +163,8 @@ while (get("_deckCardsDrawn") < 11) {
 
 cliExecute("briefcase collect");
 
+if (!get("_detectiveCasesCompleted")) cliExecute("detective solver");
+
 if (get("_timeSpinnerFoodAvailable")) cliExecute("farfuture gin");
 
 while (get("_sourceTerminalExtrudes") < 3 && itemAmount($item`Source essence`) > 10) {
@@ -271,17 +193,9 @@ if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   print(`Something went wrong duping a ${dupeTarget.name}`, "red");
 }
 
-if (
-  CombatLoversLocket.reminiscesLeft() > 1 ||
-  !CombatLoversLocket.availableLocketMonsters().includes($monster`Knob Goblin Embezzler`)
-) {
-  locketRobortDrop();
-}
-
 if (have($effect`Spirit of Cayenne`)) useSkill($skill`Spirit of Nothing`);
 
 retrieveItem(20, $item`heat-resistant sheet metal`);
-// setAutoAttack("gnat extract mortar weak");
 Macro.trySkill($skill`Curse of Weaksauce`)
   .trySkill($skill`Stuffed Mortar Shell`)
   .trySkill($skill`Extract`)
@@ -313,5 +227,5 @@ if (have($item`superduperheated metal`)) putShop(0, 0, $item`superduperheated me
 inboxCleanup();
 
 if (get("_questPartyFairQuest") === "booze" || get("_questPartyFairQuest") === "food") {
-  print("hey try that vanduffel cheese", "green");
+  print("hey try that vanduffel cheese", "yellow");
 }

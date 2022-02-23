@@ -55,7 +55,7 @@ if (!get("_dinseyGarbageDisposed")) {
 if (myFullness() === 0) {
   if (!get("_milkOfMagnesiumUsed")) use($item`milk of magnesium`);
   eatsilent(3, $item`fleetwood mac 'n' cheese`);
-  eatsilent(2, $item`jumping horseradish`);
+  eatsilent(1, $item`This Charming Flan`);
 }
 
 if (myInebriety() === 0) {

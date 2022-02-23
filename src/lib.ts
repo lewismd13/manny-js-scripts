@@ -709,14 +709,14 @@ export function breakfastCounter(): void {
   }
 }
 
-export function locketRobortDrop(): void {
-  const robortPrices = new Map([
-    [retrievePrice($item`Bloody Nora`), $monster`Black Crayon Fish`],
-    [retrievePrice($item`Feliz Navidad`), $monster`Black Crayon Crimbo Elf`],
-    [retrievePrice($item`single entendre`), $monster`Black Crayon Constellation`],
-    [retrievePrice($item`drive-by shooting`), $monster`Black Crayon Penguin`],
-  ]);
+export const robortPrices = new Map([
+  [retrievePrice($item`Bloody Nora`), $monster`Black Crayon Fish`],
+  [retrievePrice($item`Feliz Navidad`), $monster`Black Crayon Crimbo Elf`],
+  [retrievePrice($item`single entendre`), $monster`Black Crayon Constellation`],
+  [retrievePrice($item`drive-by shooting`), $monster`Black Crayon Penguin`],
+]);
 
+export function locketRobortDrop(): void {
   const bestMob = [...robortPrices.entries()].reduce((a, b) => (b[0] > a[0] ? b : a));
   if (CombatLoversLocket.availableLocketMonsters().includes(bestMob[1])) {
     useFamiliar($familiar`Robortender`);
