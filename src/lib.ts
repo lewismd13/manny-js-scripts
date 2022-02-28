@@ -477,10 +477,11 @@ export function randomSafari() {
     "1741165",
     "1993636",
     "2339258",
+    "DanceCommander6",
   ];
 
   while ($skill`Experience Safari`.timescast < get("skillLevel180")) {
-    useSkill($skill`Experience Safari`, 1, playerIDs[getRandomInt(0, 18)]);
+    useSkill($skill`Experience Safari`, 1, playerIDs[getRandomInt(0, 19)]);
   }
 }
 
@@ -552,8 +553,8 @@ export function nightcap() {
     }
     useSkill($skill`The Ode to Booze`, 1);
     if (haveEffect($effect`Ode to Booze`) < 10) useSkill($skill`The Ode to Booze`);
-    retrieveItem($item`emergency margarita`);
-    drinksilent($item`emergency margarita`);
+    retrieveItem($item`vintage smart drink`);
+    drinksilent($item`vintage smart drink`);
   } else if (myInebriety() > inebrietyLimit() && myFullness() === fullnessLimit()) {
     print("you're all good in the hood");
   } else {

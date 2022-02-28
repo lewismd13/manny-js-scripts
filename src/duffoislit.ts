@@ -33,11 +33,11 @@ if (equippedItem($slot`offhand`) === $item`Kramco Sausage-o-Matic™`)
 
 useFamiliar($familiar`Frumious Bandersnatch`);
 
-// ideas: jars (duh), thermoses, kardashian gin, CS drinks, robort drinks, longterm greedy dogs or very fancy whiskey
+// ideas: thermoses, CS drinks, robort drinks, longterm greedy dogs or very fancy whiskey
 export const duffoBooze = [
   $item`jar of fermented pickle juice`,
   $item`Dreadsylvanian grimlet`,
-  $item`Boulevardier cocktail`,
+  $item`Shot of Kardashian Gin`,
 ];
 
 for (const booze of duffoBooze) {
@@ -92,7 +92,7 @@ if (
   }
 }
 
-// ideas: horseradishes, spectral pickles, spooky pockets, shawarma
+// ideas: spectral pickles, shawarma
 const duffoFood = [
   $item`extra-greasy slider`,
   $item`Dreadsylvanian spooky pocket`,

@@ -2,6 +2,7 @@ import {
   availableAmount,
   buy,
   cliExecute,
+  eudoraItem,
   inebrietyLimit,
   maximize,
   myGardenType,
@@ -11,6 +12,7 @@ import {
   retrieveItem,
   use,
   useFamiliar,
+  visitUrl,
 } from "kolmafia";
 import { $familiar, $item, $items, ChateauMantegna, Clan, have } from "libram";
 import { breakfastCounter, mannyCleanup, nightcap, randomPrank, randomSafari } from "./lib";
@@ -48,6 +50,9 @@ breakfastCounter();
 
 if (ChateauMantegna.getCeiling() !== "artificial skylight")
   ChateauMantegna.changeCeiling("artificial skylight");
+
+if (eudoraItem() !== $item`New-You Club Membership Form`)
+  visitUrl(`account.php?actions[]=whichpenpal&whichpenpal=4&action=Update`, true);
 
 useFamiliar($familiar`Trick-or-Treating Tot`);
 retrieveItem($item`li'l unicorn costume`);

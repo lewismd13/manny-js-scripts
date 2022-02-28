@@ -33,7 +33,18 @@ import {
   useSkill,
   visitUrl,
 } from "kolmafia";
-import { $effect, $familiar, $item, $items, $location, $skill, get, have, Macro } from "libram";
+import {
+  $effect,
+  $familiar,
+  $item,
+  $items,
+  $location,
+  $skill,
+  Clan,
+  get,
+  have,
+  Macro,
+} from "libram";
 
 if (myInebriety() > inebrietyLimit()) {
   print("You're drunk, I think you ran this already.");
@@ -81,11 +92,17 @@ equip($item`amulet coin`);
 
 outfit("farming");
 
+// afhobo doesn't have a loaded VIP room
+
+Clan.join("Alliance From Heck");
+
 if (!have($effect`Meet the Meat`) && !get("_clanFortuneBuffUsed")) cliExecute("fortune buff meat");
 
 if (!get("concertVisited")) cliExecute("concert winklered");
 
 if (get("_poolGames") === 0) cliExecute("pool aggressive, aggressive, aggressive");
+
+Clan.join("Alliance From Hobopolis");
 
 while (haveEffect($effect`How to Scam Tourists`) < 1000) use(5, $item`How to Avoid Scams`);
 
