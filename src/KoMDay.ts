@@ -14,7 +14,6 @@ import {
   mallPrice,
   maximize,
   myAdventures,
-  myDaycount,
   myFullness,
   myInebriety,
   myMeat,
@@ -123,13 +122,10 @@ while (myAdventures() > 60 && get("_coldMedicineConsults") < 5) {
 // we've got them all now so just blast through the rest
 // on odd numbered days we comb the beach
 const turnsToBurn = myAdventures() - 50;
-if (myAdventures() > 50 && myDaycount() % 2 === 0) {
-  cliExecute(`adventure ${Math.floor(turnsToBurn / 0.96)} barf mountain`);
-} else if (myAdventures() > 50) {
-  retrieveItem($item`piece of driftwood`);
-  if (!have($item`driftwood beach comb`)) use($item`piece of driftwood`);
-  cliExecute(`combo ${turnsToBurn + 11}`);
-}
+
+retrieveItem($item`piece of driftwood`);
+if (!have($item`driftwood beach comb`)) use($item`piece of driftwood`);
+cliExecute(`combo ${turnsToBurn + 11}`);
 
 setAutoAttack(0);
 
