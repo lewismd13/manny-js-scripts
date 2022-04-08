@@ -12,6 +12,7 @@ import {
   haveEffect,
   itemAmount,
   knollAvailable,
+  myMeat,
   outfit,
   print,
   putCloset,
@@ -80,6 +81,8 @@ cliExecute("pull all");
 
 cliExecute("refresh all");
 
+putCloset(myMeat() - 2000000);
+
 setProperty("autoSatisfyWithNPCs", "true");
 setProperty("hpAutoRecovery", "0.7");
 setProperty("hpAutoRecoveryTarget", "0.95");
@@ -110,7 +113,7 @@ if (get("_clipartSummons") === 0) {
   cliExecute("create 3 box of familiar jacks");
 }
 
-cliExecute("make 23 magical sausage");
+cliExecute(`make ${23 - get("_sausagesMade")} magical sausage`);
 
 if (get("_etchedHourglassUsed") === false) {
   use($item`etched hourglass`);

@@ -3,6 +3,7 @@ import {
   buy,
   cliExecute,
   eudoraItem,
+  getCampground,
   inebrietyLimit,
   maximize,
   myGardenType,
@@ -39,8 +40,8 @@ if (myGardenType() === "grass") {
   use($item`Poké-Gro fertilizer`); // fertilizer
   use($item`packet of thanksgarden seeds`);
 }
-
-buy($item`clockwork maid`, 1, 10000);
+if (!have($item`clockwork maid`) && getCampground()["clockwork maid"] !== 1)
+  buy($item`clockwork maid`, 1, 10000);
 
 if (have($item`clockwork maid`)) {
   use($item`clockwork maid`);

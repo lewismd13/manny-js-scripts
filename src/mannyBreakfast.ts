@@ -85,6 +85,7 @@ if (get("_daycareGymScavenges") === 0) {
 const raffleTix = 5 + random(5);
 
 buyRaffle(raffleTix);
+
 if (get("_sausagesMade") === 0) {
   cliExecute("make 23 magical sausage");
 }
@@ -178,11 +179,6 @@ putShop(0, 0, availableAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(0, 0, availableAmount($item`cornucopia`), $item`cornucopia`);
 putShop(49995, 0, 3, $item`pocket wish`);
 putShop(0, 0, availableAmount($item`11-leaf clover`), $item`11-leaf clover`);
-
-if (get("_cargoPocketEmptied") === false && !containsText(get("cargoPocketsEmptied"), "533")) {
-  cliExecute("cargo 533");
-  putShop(50000, 0, availableAmount($item`greasy desk bell`), $item`greasy desk bell`);
-}
 
 cliExecute("ccs default");
 

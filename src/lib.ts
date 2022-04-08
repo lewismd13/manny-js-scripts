@@ -10,19 +10,16 @@ import {
   chatPrivate,
   cliExecute,
   create,
-  drinksilent,
   eat,
   Effect,
   equip,
   familiarWeight,
-  fullnessLimit,
   getClanName,
   getFuel,
   getProperty,
   handlingChoice,
   haveEffect,
   haveSkill,
-  inebrietyLimit,
   Item,
   itemAmount,
   Location,
@@ -30,8 +27,6 @@ import {
   Monster,
   myAdventures,
   myFamiliar,
-  myFullness,
-  myInebriety,
   myLocation,
   myMaxmp,
   myMp,
@@ -516,7 +511,6 @@ export function mannyCleanup(): void {
   autosell($item`bag of gross foreign snacks`, itemAmount($item`bag of gross foreign snacks`));
   putShop(200, 0, itemAmount($item`gold nuggets`), $item`gold nuggets`);
   putShop(0, 0, itemAmount($item`cornucopia`), $item`cornucopia`);
-  putShop(0, 0, itemAmount($item`elemental sugarcube`), $item`elemental sugarcube`);
   putShop(8900, 0, itemAmount($item`abandoned candy`), $item`abandoned candy`);
   autosell($item`meat stack`, itemAmount($item`meat stack`));
   putShop(0, 0, itemAmount($item`11-leaf clover`), $item`11-leaf clover`);
@@ -540,7 +534,8 @@ export function mannyCleanup(): void {
 }
 
 export function nightcap() {
-  // cliExecute("CONSUME NIGHTCAP");
+  cliExecute("CONSUME NIGHTCAP");
+  /*
   if (myInebriety() === inebrietyLimit() && myFullness() === fullnessLimit()) {
     if (myFamiliar() !== $familiar`Stooper`) {
       useFamiliar($familiar`Stooper`);
@@ -559,8 +554,8 @@ export function nightcap() {
     print("you're all good in the hood");
   } else {
     throw "are you sure you want to overdrink? you have some open organ space";
-    // print("I hope you overdrank on purpose");
-  }
+    */
+  // print("I hope you overdrank on purpose");
 }
 
 export function checkFax(): boolean {
@@ -605,7 +600,12 @@ export function mannyQuestVolcoino() {
     visitUrl("place.php?whichplace=airport_hot&action=airport4_questhub");
     runChoice(1);
   } else if (get("_volcanoItem1") === 8523) {
-    if (!get("_claraBellUsed") && itemAmount($item`fused fuse`) === 0) {
+    if (
+      !get("_claraBellUsed") &&
+      itemAmount($item`fused fuse`) === 0 &&
+      get("_questPartyFairQuest") !== "food" &&
+      get("_questPartyFairQuest") !== "booze"
+    ) {
       use($item`Clara's bell`);
       setChoice(1091, 7);
       Macro.skill($skill`Saucestorm`)

@@ -37,7 +37,7 @@ useFamiliar($familiar`Frumious Bandersnatch`);
 export const duffoBooze = [
   $item`jar of fermented pickle juice`,
   $item`Dreadsylvanian grimlet`,
-  $item`Shot of Kardashian Gin`,
+  $item`vintage smart drink`,
 ];
 
 for (const booze of duffoBooze) {
