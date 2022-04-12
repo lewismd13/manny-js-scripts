@@ -5,6 +5,7 @@ import {
   cliExecute,
   equip,
   equippedItem,
+  gametimeToInt,
   handlingChoice,
   inebrietyLimit,
   Item,
@@ -40,6 +41,8 @@ export const duffoBooze = [
   $item`vintage smart drink`,
 ];
 
+let starttime = 0;
+
 for (const booze of duffoBooze) {
   if (availableAmount(booze) < 550) throw `You don't have 550 ${booze}`;
 }
@@ -62,6 +65,7 @@ if (
       retrieveItem($item`Louder Than Bomb`);
       Macro.tryItem($item`Louder Than Bomb`).setAutoAttack();
     }
+    starttime = gametimeToInt();
     for (const booze of duffoBooze) {
       retrieveItem(booze, 550);
       putShop(0, 0, 550, booze);
@@ -78,6 +82,7 @@ if (
     for (const booze of duffoBooze) {
       cliExecute(`shop take all ${booze.name}`);
     }
+    print(`Items were in the mall for ${(gametimeToInt() - starttime) / 1000} seconds`, "orange");
     setAutoAttack(0);
     if (get("_questPartyFairProgress")) {
       const questBooze = get("_questPartyFairProgress").split(" ");
@@ -121,6 +126,7 @@ if (
       retrieveItem($item`Louder Than Bomb`);
       Macro.tryItem($item`Louder Than Bomb`).setAutoAttack();
     }
+    starttime = gametimeToInt();
     for (const food of duffoFood) {
       retrieveItem(food, 550);
       putShop(0, 0, 550, food);
@@ -137,6 +143,7 @@ if (
     for (const food of duffoFood) {
       cliExecute(`shop take all ${food.name}`);
     }
+    print(`Items were in the mall for ${(gametimeToInt() - starttime) / 1000} seconds`, "orange");
     setAutoAttack(0);
     if (get("_questPartyFairProgress")) {
       const questFood = get("_questPartyFairProgress").split(" ");

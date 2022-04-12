@@ -88,6 +88,7 @@ setProperty("hpAutoRecovery", "0.7");
 setProperty("hpAutoRecoveryTarget", "0.95");
 setProperty("mpAutoRecovery", "0.1");
 setProperty("mpAutoRecoveryTarget", "0.3");
+if (get("logPreferenceChange")) setProperty("logPreferenceChange", "false");
 buy(1, $item`Queue Du Coq cocktailcrafting kit`);
 use(1, $item`Queue Du Coq cocktailcrafting kit`);
 
@@ -221,7 +222,7 @@ mannyQuestVolcoino();
 cliExecute("ccs default");
 cliExecute("breakfast");
 
-if (!get("moonTuned")) cliExecute("spoon blender");
+if (!get("moonTuned")) cliExecute("spoon platypus");
 
 putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(49995, 0, 3, $item`pocket wish`);
