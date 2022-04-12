@@ -86,7 +86,7 @@ if (
     setAutoAttack(0);
     if (get("_questPartyFairProgress")) {
       const questBooze = get("_questPartyFairProgress").split(" ");
-      print(`your booze quest is ${Item.get(questBooze[1])}`, `yellow`);
+      print(`your duffo quest is ${Item.get(questBooze[1])}`, `yellow`);
     } else {
       print("something went wrong accepting booze quest");
     }
@@ -147,7 +147,7 @@ if (
     setAutoAttack(0);
     if (get("_questPartyFairProgress")) {
       const questFood = get("_questPartyFairProgress").split(" ");
-      print(`your food quest is ${Item.get(questFood[1])}`, `yellow`);
+      print(`your duffo quest is ${Item.get(questFood[1])}`, `yellow`);
     } else {
       print("something went wrong accepting food quest");
     }
