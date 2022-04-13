@@ -28,6 +28,7 @@ import {
   toInt,
   use,
   useFamiliar,
+  userConfirm,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -128,9 +129,16 @@ if (getWorkshed() !== workshed) {
 if (have($item`Little Geneticist DNA-Splicing Lab`))
   putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
 
-if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
-  AsdonMartin.drive($effect`Driving Observantly`, 1100);
-  use($item`cold medicine cabinet`);
+if (!get("csServicesPerformed")) {
+  if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
+    AsdonMartin.drive($effect`Driving Observantly`, 1100);
+    use($item`cold medicine cabinet`);
+  }
+} else if (!userConfirm("will you be doing a casual today?")) {
+  if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
+    AsdonMartin.drive($effect`Driving Observantly`, 1100);
+    use($item`cold medicine cabinet`);
+  }
 }
 
 if (have($item`Thwaitgold termite statuette`)) putDisplay(1, $item`Thwaitgold termite statuette`);
@@ -168,8 +176,6 @@ while (get("_deckCardsDrawn") < 11) {
 cliExecute("briefcase collect");
 
 if (!get("_detectiveCasesCompleted")) cliExecute("detective solver");
-
-if (get("_timeSpinnerFoodAvailable")) cliExecute("farfuture gin");
 
 while (get("_sourceTerminalExtrudes") < 3 && itemAmount($item`Source essence`) > 10) {
   // cliExecute("terminal extrude booze");

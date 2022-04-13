@@ -651,17 +651,21 @@ export function inboxCleanup() {
       const items = kmail.items();
       items.forEach((quantity, item) => {
         if (skillBooks.includes(item)) {
-          print("You got a skillbook!");
+          print("You got a skillbook!", "orange");
         } else {
           print(`tough luck, just a ${item}`);
           kmail.delete();
         }
       });
-    } else if (kmail.senderName === "The Loathing Postal Service") {
+    } else if (
+      kmail.senderName === "The Loathing Postal Service" ||
+      kmail.senderName === "Lady Spookyraven's Ghost"
+    ) {
       kmail.delete();
     }
   });
 }
+
 export function escapeChoice() {
   if (handlingChoice()) {
     runChoice(-1);
