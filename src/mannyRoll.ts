@@ -55,5 +55,5 @@ if (eudoraItem() !== $item`New-You Club Membership Form`)
 
 useFamiliar($familiar`Trick-or-Treating Tot`);
 retrieveItem($item`li'l unicorn costume`);
-maximize("adv", false);
+maximize("adv +equip Spacegate scientist's insignia +equip Sasq™ watch", false);
 Clan.join("Alliance From Hobopolis");
