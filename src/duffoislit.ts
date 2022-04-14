@@ -39,6 +39,7 @@ export const duffoBooze = [
   $item`jar of fermented pickle juice`,
   $item`Dreadsylvanian grimlet`,
   $item`vintage smart drink`,
+  $item`Schrödinger's thermos`,
 ];
 
 let starttime = 0;
@@ -102,6 +103,7 @@ const duffoFood = [
   $item`extra-greasy slider`,
   $item`Dreadsylvanian spooky pocket`,
   $item`jumping horseradish`,
+  $item`quantum taco`,
 ];
 
 for (const food of duffoFood) {
