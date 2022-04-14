@@ -450,7 +450,7 @@ export function randomSafari() {
     "phreddrickkv2",
     "2548033",
     "Phillammon",
-    "2705901",
+    "Malibu Stacey",
     "ReverKiller",
     "beldur",
     "887028",
@@ -738,5 +738,17 @@ export function locketRobortDrop(): void {
       .setAutoAttack();
     CombatLoversLocket.reminisce(bestMob[1]);
     setAutoAttack(0);
+  }
+}
+
+export function feedRobort(): void {
+  if (have($familiar`Robortender`)) {
+    for (const drink of $items`Newark, drive-by shooting, Feliz Navidad, single entendre`) {
+      if (get("_roboDrinks").includes(drink.name)) continue;
+      useFamiliar($familiar`Robortender`);
+      if (itemAmount(drink) === 0) retrieveItem(1, drink);
+      print(`Feeding robortender ${drink}.`);
+      visitUrl(`inventory.php?action=robooze&which=1&whichitem=${toInt(drink)}`);
+    }
   }
 }

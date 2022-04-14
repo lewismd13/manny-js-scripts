@@ -45,7 +45,7 @@ import {
   Macro,
   SourceTerminal,
 } from "libram";
-import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
+import { feedRobort, inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
 // TODO: pull the shit I assume is already pulled from CS. ie a bunch of unrestricted iotms
@@ -233,6 +233,8 @@ if (!get("moonTuned")) cliExecute("spoon platypus");
 putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(49995, 0, 3, $item`pocket wish`);
 if (have($item`superduperheated metal`)) putShop(0, 0, $item`superduperheated metal`);
+
+feedRobort();
 
 inboxCleanup();
 
