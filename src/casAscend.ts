@@ -11,7 +11,7 @@ import {
   prepareAscension,
   SongBoom,
 } from "libram";
-import { randomPrank, randomSafari, setChoice } from "./lib";
+import { randomPrank, randomSafari, setChoice, tryUse } from "./lib";
 
 randomPrank();
 randomSafari();
@@ -60,3 +60,11 @@ if (get("_saberMod") === 0) {
   visitUrl("main.php?action=may4");
   runChoice(4);
 }
+
+// Chateau meat bank
+visitUrl("place.php?whichplace=chateau&action=chateauDesk1");
+
+// Sell pork gems
+visitUrl("tutorial.php?action=toot");
+tryUse(1, $item`letter from King Ralph XI`);
+tryUse(1, $item`pork elf goodies sack`);
