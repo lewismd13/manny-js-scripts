@@ -23,6 +23,7 @@ import {
   visitUrl,
 } from "kolmafia";
 import { $item, $location, Clan, get, SourceTerminal } from "libram";
+import { bafhWls } from "./bafh";
 import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
@@ -188,6 +189,8 @@ if (get("_questPartyFairQuest") === "") {
 }
 
 mannyQuestVolcoino();
+
+bafhWls();
 
 if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
   visitUrl("place.php?whichplace=monorail&action=monorail_downtown");

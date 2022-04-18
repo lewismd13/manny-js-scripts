@@ -1,9 +1,20 @@
-import { adv1, cliExecute, myGardenType, print, runChoice, use, visitUrl } from "kolmafia";
+import {
+  adv1,
+  cliExecute,
+  myGardenType,
+  print,
+  runChoice,
+  stashAmount,
+  takeStash,
+  use,
+  visitUrl,
+} from "kolmafia";
 import {
   $class,
   $item,
   $location,
   ascend,
+  Clan,
   get,
   have,
   Lifestyle,
@@ -11,10 +22,14 @@ import {
   prepareAscension,
   SongBoom,
 } from "libram";
-import { randomPrank, randomSafari, setChoice, tryUse } from "./lib";
+import { randomPrank, randomSafari, setChoice } from "./lib";
 
 randomPrank();
 randomSafari();
+
+Clan.join("Alliance From Hell");
+if (!have($item`Greatest American Pants`) && stashAmount($item`Greatest American Pants`))
+  takeStash($item`Greatest American Pants`, 1);
 
 prepareAscension({
   workshed: "Asdon Martin keyfob",
@@ -55,6 +70,9 @@ if (SongBoom.song() !== "Food Vibrations") SongBoom.setSong("Food Vibrations");
 
 if (have($item`astral six-pack`)) use($item`astral six-pack`);
 
+Clan.join("Alliance From Hell");
+if (stashAmount($item`Greatest American Pants`)) takeStash($item`Greatest American Pants`, 1);
+
 // Upgrade saber for fam wt
 if (get("_saberMod") === 0) {
   visitUrl("main.php?action=may4");
@@ -63,8 +81,3 @@ if (get("_saberMod") === 0) {
 
 // Chateau meat bank
 visitUrl("place.php?whichplace=chateau&action=chateauDesk1");
-
-// Sell pork gems
-visitUrl("tutorial.php?action=toot");
-tryUse(1, $item`letter from King Ralph XI`);
-tryUse(1, $item`pork elf goodies sack`);

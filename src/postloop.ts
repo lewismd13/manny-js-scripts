@@ -12,7 +12,6 @@ import {
   haveEffect,
   itemAmount,
   knollAvailable,
-  myMeat,
   outfit,
   print,
   putCloset,
@@ -82,8 +81,6 @@ cliExecute("pull all");
 
 cliExecute("refresh all");
 
-putCloset(myMeat() - 2000000);
-
 setProperty("autoSatisfyWithNPCs", "true");
 setProperty("hpAutoRecovery", "0.7");
 setProperty("hpAutoRecoveryTarget", "0.95");
@@ -128,6 +125,8 @@ if (getWorkshed() !== workshed) {
 }
 if (have($item`Little Geneticist DNA-Splicing Lab`))
   putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
+
+if (have($item`Greatest American Pants`)) putStash(1, $item`Greatest American Pants`);
 
 if (!get("csServicesPerformed")) {
   if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
@@ -233,6 +232,11 @@ if (!get("moonTuned")) cliExecute("spoon platypus");
 putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(49995, 0, 3, $item`pocket wish`);
 if (have($item`superduperheated metal`)) putShop(0, 0, $item`superduperheated metal`);
+
+if (have($item`Greatest American Pants`)) {
+  Clan.join("Alliance From Hell");
+  putStash($item`Greatest American Pants`, 1);
+}
 
 feedRobort();
 
