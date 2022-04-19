@@ -14,9 +14,10 @@ import {
   visitUrl,
 } from "kolmafia";
 import { $familiar, $item, ChateauMantegna, Clan, have } from "libram";
+import { bafhWls } from "./bafh";
 import { breakfastCounter, mannyCleanup, nightcap, randomPrank, randomSafari } from "./lib";
 
-Clan.join("Alliance from Hell");
+bafhWls();
 
 if (pvpAttacksLeft() > 0) {
   cliExecute("UberPvPOptimizer");
