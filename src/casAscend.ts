@@ -47,7 +47,8 @@ ascend(
   $class`Seal Clubber`,
   Lifestyle.casual,
   "canadia",
-  $item`astral six-pack`
+  $item`astral six-pack`,
+  $item`astral pet sweater`
 );
 
 if (get("_questPartyFairQuest") === "") {
@@ -81,3 +82,6 @@ if (get("_saberMod") === 0) {
 
 // Chateau meat bank
 visitUrl("place.php?whichplace=chateau&action=chateauDesk1");
+
+// get cowboy boots
+visitUrl("place.php?whichplace=town_right&action=townright_ltt");

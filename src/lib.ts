@@ -10,16 +10,19 @@ import {
   chatPrivate,
   cliExecute,
   create,
+  drinksilent,
   eat,
   Effect,
   equip,
   familiarWeight,
+  fullnessLimit,
   getClanName,
   getFuel,
   getProperty,
   handlingChoice,
   haveEffect,
   haveSkill,
+  inebrietyLimit,
   Item,
   itemAmount,
   Location,
@@ -27,9 +30,12 @@ import {
   Monster,
   myAdventures,
   myFamiliar,
+  myFullness,
+  myInebriety,
   myLocation,
   myMaxmp,
   myMp,
+  mySpleenUse,
   print,
   pullsRemaining,
   putShop,
@@ -40,7 +46,9 @@ import {
   setProperty,
   shopAmount,
   Skill,
+  spleenLimit,
   storageAmount,
+  sweetSynthesis,
   takeShop,
   toEffect,
   toInt,
@@ -448,7 +456,7 @@ export function randomPrank(): void {
 export function randomSafari() {
   const playerIDs: string[] = [
     "phreddrickkv2",
-    "2548033",
+    // "boesbert",
     "Phillammon",
     "Malibu Stacey",
     "ReverKiller",
@@ -476,7 +484,7 @@ export function randomSafari() {
   ];
 
   while ($skill`Experience Safari`.timescast < get("skillLevel180")) {
-    useSkill($skill`Experience Safari`, 1, playerIDs[getRandomInt(0, 19)]);
+    useSkill($skill`Experience Safari`, 1, playerIDs[getRandomInt(0, 18)]);
   }
 }
 
@@ -534,8 +542,8 @@ export function mannyCleanup(): void {
 }
 
 export function nightcap() {
-  cliExecute("CONSUME NIGHTCAP");
-  /*
+  // cliExecute("CONSUME NIGHTCAP");
+
   if (myInebriety() === inebrietyLimit() && myFullness() === fullnessLimit()) {
     if (myFamiliar() !== $familiar`Stooper`) {
       useFamiliar($familiar`Stooper`);
@@ -547,15 +555,19 @@ export function nightcap() {
       }
     }
     useSkill($skill`The Ode to Booze`, 1);
-    if (haveEffect($effect`Ode to Booze`) < 10) useSkill($skill`The Ode to Booze`);
-    retrieveItem($item`vintage smart drink`);
-    drinksilent($item`vintage smart drink`);
+    if (haveEffect($effect`Ode to Booze`) < 5) useSkill($skill`The Ode to Booze`);
+    retrieveItem($item`jar of fermented pickle juice`);
+    drinksilent($item`jar of fermented pickle juice`);
+    while (mySpleenUse() < spleenLimit()) {
+      sweetSynthesis($effect`Synthesis: Greed`);
+    }
   } else if (myInebriety() > inebrietyLimit() && myFullness() === fullnessLimit()) {
     print("you're all good in the hood");
   } else {
     throw "are you sure you want to overdrink? you have some open organ space";
-    */
-  // print("I hope you overdrank on purpose");
+
+    // print("I hope you overdrank on purpose");
+  }
 }
 
 export function checkFax(): boolean {

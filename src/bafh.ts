@@ -8,7 +8,7 @@ export function bafhWls(): void {
   const inbox = Kmail.inbox();
 
   inbox.forEach((kmail) => {
-    if (kmail.message === "whitelist bafh") {
+    if (kmail.message.includes("whitelist bafh")) {
       bafh.addPlayerToWhitelist(kmail.senderId);
 
       kmail.delete();

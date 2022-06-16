@@ -10,6 +10,7 @@ import {
   getWorkshed,
   gnomadsAvailable,
   haveEffect,
+  Item,
   itemAmount,
   knollAvailable,
   outfit,
@@ -40,11 +41,14 @@ import {
   AsdonMartin,
   Clan,
   get,
+  getSaleValue,
   have,
   Macro,
+  Session,
+  SongBoom,
   SourceTerminal,
 } from "libram";
-import { feedRobort, inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
+import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
 // TODO: pull the shit I assume is already pulled from CS. ie a bunch of unrestricted iotms
@@ -81,6 +85,8 @@ cliExecute("pull all");
 
 cliExecute("refresh all");
 
+const start = Session.current();
+
 setProperty("autoSatisfyWithNPCs", "true");
 setProperty("hpAutoRecovery", "0.7");
 setProperty("hpAutoRecoveryTarget", "0.95");
@@ -89,6 +95,7 @@ setProperty("mpAutoRecoveryTarget", "0.3");
 if (get("logPreferenceChange")) setProperty("logPreferenceChange", "false");
 buy(1, $item`Queue Du Coq cocktailcrafting kit`);
 use(1, $item`Queue Du Coq cocktailcrafting kit`);
+if (SongBoom.song() !== "Food Vibrations") SongBoom.setSong("Food Vibrations");
 
 cliExecute("ccs libramMacro");
 
@@ -132,6 +139,7 @@ if (!get("csServicesPerformed")) {
   if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
     AsdonMartin.drive($effect`Driving Observantly`, 1100);
     use($item`cold medicine cabinet`);
+    // use($item`snow machine`);
   }
 } else if (!userConfirm("will you be doing a casual today?")) {
   if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
@@ -149,17 +157,12 @@ if (haveEffect($effect`Feeling Lost`) !== 0) {
 visitUrl("peevpee.php?action=smashstone&confirm=on");
 print("Stone smashed. Get your PVP on!", "green");
 
-if (availableAmount($item`blood-drive sticker`) > 10) {
-  putShop(0, 0, 1, $item`blood-drive sticker`);
-}
-
 SourceTerminal.enquiry($effect`familiar.enq`);
 
 if (!get("lockPicked")) {
   setChoice(1414, 1);
   useSkill(1, $skill`Lock Picking`);
   cliExecute("create 1 boris's key lime pie");
-  putShop(0, 0, $item`Boris's key lime pie`);
 }
 
 while (get("_deckCardsDrawn") < 11) {
@@ -193,7 +196,6 @@ if (itemAmount(dupeTarget) === 0 && closetAmount(dupeTarget) > 0) takeCloset(1, 
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
   setChoice(1119, 4);
-  // setProperty("choiceAdventure1119", "4");
   setProperty("choiceAdventure1125", `1&iid=${toInt(dupeTarget)}`);
   adv1($location`The Deep Machine Tunnels`, -1, "");
   // putShop(0, 0, 1, dupeTarget);
@@ -229,18 +231,40 @@ cliExecute("breakfast");
 
 if (!get("moonTuned")) cliExecute("spoon platypus");
 
+const final = Session.current().diff(start);
+
 putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(49995, 0, 3, $item`pocket wish`);
 if (have($item`superduperheated metal`)) putShop(0, 0, $item`superduperheated metal`);
+if (availableAmount($item`blood-drive sticker`) > 10) {
+  putShop(0, 0, 1, $item`blood-drive sticker`);
+}
+if (have($item`Boris's key lime pie`)) putShop(0, 0, $item`Boris's key lime pie`);
 
 if (have($item`Greatest American Pants`)) {
   Clan.join("Alliance From Hell");
   putStash($item`Greatest American Pants`, 1);
 }
 
-feedRobort();
+// feedRobort();
 
 inboxCleanup();
+
+export function mannyValue(item: Item): number {
+  if (item === $item`Volcoino`) {
+    return getSaleValue($item`one-day ticket to That 70s Volcano`) / 3;
+  } else return getSaleValue(item);
+}
+
+const { meat, items, itemDetails } = final.value(mannyValue);
+
+const winners = itemDetails.sort((a, b) => b.value - a.value).slice(0, 3);
+
+print(`Your daily flags earned you ${meat} liquid meat and ${items} meat from items.`);
+print(`Extreme Items:`);
+for (const detail of [...winners]) {
+  print(`${detail.quantity} ${detail.item} worth ${detail.value} total`);
+}
 
 if (get("_questPartyFairQuest") === "booze" || get("_questPartyFairQuest") === "food") {
   print("hey try that vanduffel cheese", "yellow");
