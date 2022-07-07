@@ -21,21 +21,15 @@
 */
 
 import {
-  availableAmount,
-  bufferToFile,
-  buy,
   cliExecute,
   inebrietyLimit,
   myAdventures,
   myDaycount,
-  myFullness,
   myInebriety,
   myPath,
-  stashAmount,
-  takeStash,
 } from "kolmafia";
-import { $item, Clan, get } from "libram";
-import { abort, escapeChoice } from "./lib";
+import { Clan, get } from "libram";
+import { abort } from "./lib";
 
 /*
 class dailyStep {
@@ -91,70 +85,46 @@ if (myDaycount() > 1) {
   }
 
   // check if we successfully ate/drank and then run garbo, making sure we have access to a pantsgiving and katana
-  if (myInebriety() !== 0 || myFullness() !== 0) {
-    abort(`Something went wrong with diet`);
-  } else if (myAdventures() > 0) {
-    Clan.join("Alliance From Heck");
-    if (stashAmount($item`Pantsgiving`) > 0 && stashAmount($item`haiku katana`) > 0) {
-      cliExecute("garbo ascend");
-      escapeChoice();
-    } else {
-      // TODO: make this make sense
-      Clan.join("Alliance From Hell");
-      if (!takeStash($item`Pantsgiving`, 1)) abort("Failed to get pantsgiving.");
-      if (!takeStash($item`haiku katana`, 1)) abort("Failed to get haiku katana.");
-    }
+  if (myAdventures() > 0 && myInebriety() < inebrietyLimit()) {
+    cliExecute("garbo ascend yachtzeechain");
   }
-
-  // if garbo is done running, time to nightcap and run it again
-  // TODO: When switching to garbo diet, this should be CONSUME NIGHTCAP NOMEAT
-  if (myAdventures() > 0) {
-    abort(`Looks like garbo broke, you still have turns.`);
-  } else {
-    cliExecute("nightcap");
-    if (myInebriety() > inebrietyLimit()) {
-      cliExecute("garbo ascend");
-      escapeChoice();
-    } else {
-      abort(`Something went wrong nightcapping`);
-    }
-  }
-
-  // now we get ready to loop
-  if (myInebriety() > inebrietyLimit() && myAdventures() === 0) {
-    cliExecute("hccsPre"); // TODO: make these bean's things
-    cliExecute("hccsAscend");
-  } else abort(`You either failed to nightcap or still have turns left`);
 }
+
+// if garbo is done running, time to nightcap and run it again
+// TODO: When switching to garbo diet, this should be CONSUME NIGHTCAP NOMEAT
+if (myAdventures() > 0) {
+  abort(`Looks like garbo broke, you still have turns.`);
+} else {
+  cliExecute("overdrink");
+  if (myInebriety() > inebrietyLimit()) {
+    cliExecute("garbo ascend");
+  } else {
+    abort(`Something went wrong nightcapping`);
+  }
+}
+
+// now we get ready to loop
+if (myInebriety() > inebrietyLimit() && myAdventures() === 0) {
+  cliExecute("hccsAscend");
+} else abort(`You either failed to nightcap or still have turns left`);
+
 // Check that we made it into CS and then run the loop script
 if (myPath() === "Community Service") {
-  cliExecute("mannyLoop"); // TODO: switch to bean-hccs
-  escapeChoice();
+  cliExecute("mannyLoop");
 } else abort(`You should be in CS and you're not`);
 
 // Now we should be done looping, so run the postloop and mafia breakfast
 if (myPath() === "None" && myDaycount() === 1) {
   cliExecute("postloop");
-  escapeChoice();
 } else abort(`Something went wrong and you didn't finish the loop`);
 
 // if we are in casual and done with breakfast, time to do diet
-if (myPath() === "None" && get("breakfastCompleted")) {
-  // buy a melange because of mafia price limit
-  if (availableAmount($item`spice melange`) < 1) {
-    buy($item`spice melange`, 1, 300000);
-  }
-} else abort(`Something went wrong with postloop`);
-
-// check if we successfully ate/drank and then run garbo
-if (myAdventures() > 0 && myInebriety() < inebrietyLimit()) {
-  cliExecute("garbo ascend");
-  escapeChoice();
+if (myPath() === "None" && get("breakfastCompleted") && myAdventures() > 0) {
+  cliExecute("garbo yachtzeechain");
 }
 
 // Check to make sure garbo finished running (aka that we have no adventures left)
 // if so, burn pvp fights and run rollover script
-// TODO: make the pvp part more robust, just use "swagger"?
 if (myAdventures() !== 0) {
   abort(`garbo doesn't seem to have finished properly`);
 } else {
@@ -162,11 +132,11 @@ if (myAdventures() !== 0) {
   cliExecute("mannyRoll");
 }
 
-// Drop a status message in a text file that can be read from a powershell session
+/* Drop a status message in a text file that can be read from a powershell session
 if (myDaycount() === 1 && myInebriety() > inebrietyLimit() && myAdventures() < 100) {
   bufferToFile("Success!", "wrapperresult.txt");
 } else {
   bufferToFile("Something went wrong.", "wrapperresult.txt");
 }
-
+*/
 cliExecute("exit");

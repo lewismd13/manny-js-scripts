@@ -10,6 +10,7 @@ import {
   getWorkshed,
   gnomadsAvailable,
   haveEffect,
+  isHeadless,
   Item,
   itemAmount,
   knollAvailable,
@@ -96,6 +97,7 @@ if (get("logPreferenceChange")) setProperty("logPreferenceChange", "false");
 buy(1, $item`Queue Du Coq cocktailcrafting kit`);
 use(1, $item`Queue Du Coq cocktailcrafting kit`);
 if (SongBoom.song() !== "Food Vibrations") SongBoom.setSong("Food Vibrations");
+if (!get("backupCameraReverserEnabled")) cliExecute("backupcamera reverser on");
 
 cliExecute("ccs libramMacro");
 
@@ -119,7 +121,9 @@ if (get("_clipartSummons") === 0) {
   cliExecute("create 3 box of familiar jacks");
 }
 
-cliExecute(`make ${23 - get("_sausagesMade")} magical sausage`);
+while (get("_sausagesMade") < 23 && have($item`magical sausage casing`)) {
+  cliExecute("make 1 magical sausage");
+}
 
 if (get("_etchedHourglassUsed") === false) {
   use($item`etched hourglass`);
@@ -135,7 +139,7 @@ if (have($item`Little Geneticist DNA-Splicing Lab`))
 
 if (have($item`Greatest American Pants`)) putStash(1, $item`Greatest American Pants`);
 
-if (!get("csServicesPerformed")) {
+if (!get("csServicesPerformed") || isHeadless()) {
   if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
     AsdonMartin.drive($effect`Driving Observantly`, 1100);
     use($item`cold medicine cabinet`);

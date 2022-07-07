@@ -22,7 +22,7 @@ import {
   use,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, Clan, get, SourceTerminal } from "libram";
+import { $item, $location, Clan, get, have, SourceTerminal } from "libram";
 import { bafhWls } from "./bafh";
 import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
 
@@ -87,8 +87,8 @@ const raffleTix = 5 + random(5);
 
 buyRaffle(raffleTix);
 
-if (get("_sausagesMade") === 0) {
-  cliExecute("make 23 magical sausage");
+while (get("_sausagesMade") < 23 && have($item`magical sausage casing`)) {
+  cliExecute("make 1 magical sausage");
 }
 
 while (
@@ -205,3 +205,5 @@ if (get("_questPartyFairQuest") === "food") {
 } else if (get("_questPartyFairQuest") === "booze") {
   print("Hey, go talk to Gerald, get that jarmageddon!", "yellow");
 } else print(`Sorry, your NEP quest is ${get("_questPartyFairQuest")}.`);
+
+// setProperty("mannyDayStep", "breakfastComplete");
