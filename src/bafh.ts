@@ -1,3 +1,4 @@
+import { setProperty } from "kolmafia";
 import { Clan, Kmail } from "libram";
 
 export function bafhWls(): void {
@@ -14,6 +15,8 @@ export function bafhWls(): void {
       kmail.delete();
     }
   });
+
+  setProperty("_bafhWlsDone", "1");
 
   Clan.join("Alliance From Hell");
 }

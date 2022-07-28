@@ -29,6 +29,7 @@
     "webpack-cli": "^4.8.0"
   },
   "dependencies": {
+    "browserslist": "^4.21.3",
     "core-js": "^3.20.2",
     "grimoire-kolmafia": "^0.2.3",
     "kolmafia": "^3.0.3",
