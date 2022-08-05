@@ -22,7 +22,7 @@ import {
   use,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, Clan, get, have, SourceTerminal } from "libram";
+import { $item, $location, Clan, get, SourceTerminal } from "libram";
 import { bafhWls } from "./bafh";
 import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
 
@@ -86,10 +86,6 @@ if (get("_daycareGymScavenges") === 0) {
 const raffleTix = 5 + random(5);
 
 buyRaffle(raffleTix);
-
-while (get("_sausagesMade") < 23 && have($item`magical sausage casing`)) {
-  cliExecute("make 1 magical sausage");
-}
 
 while (
   Object.keys(reverseNumberology()).includes("69") &&

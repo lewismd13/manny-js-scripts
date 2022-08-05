@@ -121,10 +121,6 @@ if (get("_clipartSummons") === 0) {
   cliExecute("create 3 box of familiar jacks");
 }
 
-while (get("_sausagesMade") < 23 && have($item`magical sausage casing`)) {
-  cliExecute("make 1 magical sausage");
-}
-
 if (get("_etchedHourglassUsed") === false) {
   use($item`etched hourglass`);
 }
