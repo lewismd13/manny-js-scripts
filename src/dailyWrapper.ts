@@ -8,6 +8,7 @@ import {
   getWorkshed,
   isHeadless,
   itemAmount,
+  myStorageMeat,
   print,
   putCloset,
   putShop,
@@ -16,6 +17,7 @@ import {
   retrieveItem,
   setAutoAttack,
   setProperty,
+  storageAmount,
   takeCloset,
   toInt,
   use,
@@ -37,6 +39,7 @@ import {
   get,
   have,
   Macro,
+  SongBoom,
 } from "libram";
 import { bafhWls } from "./bafh";
 import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
@@ -109,7 +112,7 @@ const checkNEP: Task = {
   },
 };
 
-const stockables = $items`11-leaf clover, battery (AAA), cornucopia, pocket wish, cute mushroom, gift card`;
+const stockables = $items`11-leaf clover, battery (AAA), cornucopia, pocket wish, cute mushroom, gift card, abandoned candy`;
 
 const stockShop: Task = {
   name: "Stock Mallstore",
@@ -213,6 +216,32 @@ const doggieCoin: Task = {
   },
 };
 
+const emptyHagnks: Task = {
+  name: "Empty Hagnk's",
+  completed: () => myStorageMeat() === 0 && storageAmount($item`Ol' Scratch's stovepipe hat`) === 0,
+  do: () => cliExecute("pull all"),
+};
+
+const defaultPrefs: Task = {
+  name: "Set default prefs",
+  completed: () =>
+    get("autoSatisfyWithNPCs") === true &&
+    get("mpAutoRecovery") === 0.1 &&
+    get("logPreferenceChange") === false &&
+    get("backupCameraReverserEnabled"),
+  do: () => {
+    cliExecute("ccs default");
+    setProperty("autoSatisfyWithNPCs", "true");
+    setProperty("hpAutoRecovery", "0.7");
+    setProperty("hpAutoRecoveryTarget", "0.95");
+    setProperty("mpAutoRecovery", "0.1");
+    setProperty("mpAutoRecoveryTarget", "0.3");
+    if (get("logPreferenceChange")) setProperty("logPreferenceChange", "false");
+    if (SongBoom.song() !== "Food Vibrations") SongBoom.setSong("Food Vibrations");
+    if (!get("backupCameraReverserEnabled")) cliExecute("backupcamera reverser on");
+  },
+};
+
 const genericPvp: Task = {
   name: "pvp",
   completed: () => pvpAttacksLeft() === 0,
@@ -245,5 +274,18 @@ const mannyBreakfast: Quest<Task> = {
 const postloop: Quest<Task> = {
   name: "Postloop",
   completed: () => get("breakfastCompleted"),
-  tasks: [joinAFH, detectiveSolver, questCoino, checkNEP, mafiaBreakfast, stockShop, checkNEP],
+  tasks: [
+    joinAFH,
+    emptyHagnks,
+    defaultPrefs,
+    detectiveSolver,
+    questCoino,
+    melfDupe,
+    makeKeyPie,
+    doggieCoin,
+    checkNEP,
+    mafiaBreakfast,
+    stockShop,
+    checkNEP,
+  ],
 };
