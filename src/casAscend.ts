@@ -13,12 +13,12 @@ import {
   $class,
   $item,
   $location,
+  $path,
   ascend,
   Clan,
   get,
   have,
   Lifestyle,
-  Paths,
   prepareAscension,
   SongBoom,
 } from "libram";
@@ -43,7 +43,7 @@ prepareAscension({
 });
 
 ascend(
-  Paths.Unrestricted,
+  $path`none`,
   $class`Seal Clubber`,
   Lifestyle.casual,
   "canadia",

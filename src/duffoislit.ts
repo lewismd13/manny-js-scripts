@@ -1,7 +1,6 @@
 import {
   adv1,
   availableAmount,
-  buy,
   cliExecute,
   equip,
   equippedItem,
@@ -9,7 +8,6 @@ import {
   handlingChoice,
   inebrietyLimit,
   Item,
-  mallPrice,
   myInebriety,
   print,
   putShop,
@@ -39,6 +37,7 @@ export const duffoBooze = [
   $item`jar of fermented pickle juice`,
   $item`Dreadsylvanian grimlet`,
   $item`Schrödinger's thermos`,
+  $item`vintage smart drink`,
 ];
 
 let starttime = 0;
@@ -70,8 +69,8 @@ if (
       retrieveItem(booze, 550);
       putShop(0, 0, 550, booze);
       repriceShop(402, booze);
-      buy(booze, 1, 100);
-      mallPrice(booze);
+      // buy(booze, 1, 100);
+      // mallPrice(booze);
     }
     setChoice(1322, 1);
     setChoice(1327, 3);
@@ -131,8 +130,8 @@ if (
       retrieveItem(food, 550);
       putShop(0, 0, 550, food);
       repriceShop(402, food);
-      buy(food, 1, 100);
-      mallPrice(food);
+      // buy(food, 1, 100);
+      // mallPrice(food);
     }
     setChoice(1322, 1);
     setChoice(1326, 3);

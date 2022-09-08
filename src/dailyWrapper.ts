@@ -6,8 +6,10 @@ import {
   containsText,
   equip,
   getWorkshed,
+  inebrietyLimit,
   isHeadless,
   itemAmount,
+  myInebriety,
   myStorageMeat,
   print,
   putCloset,
@@ -239,6 +241,32 @@ const defaultPrefs: Task = {
     if (get("logPreferenceChange")) setProperty("logPreferenceChange", "false");
     if (SongBoom.song() !== "Food Vibrations") SongBoom.setSong("Food Vibrations");
     if (!get("backupCameraReverserEnabled")) cliExecute("backupcamera reverser on");
+  },
+};
+
+const overdrink: Task = {
+  name: "Overdrink (not nightcap)",
+  completed: () => myInebriety() > inebrietyLimit(),
+  do: () => {
+    if (get("familiarSweat") > 210) {
+      cliExecute("drink stillsuit distillate");
+      cliExecute("CONSUME NIGHTCAP NOMEAT VALUE 4000");
+    } else {
+      cliExecute("CONSUME NIGHTCAP NOMEAT VALUE 4000");
+    }
+  },
+};
+
+const nightcap: Task = {
+  name: "Nightcap",
+  completed: () => myInebriety() > inebrietyLimit(),
+  do: () => {
+    if (get("familiarSweat") > 210) {
+      cliExecute("drink stillsuit distillate");
+      cliExecute("CONSUME NIGHTCAP NOMEAT VALUE 4000");
+    } else {
+      cliExecute("CONSUME NIGHTCAP NOMEAT VALUE 4000");
+    }
   },
 };
 

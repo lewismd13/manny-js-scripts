@@ -550,6 +550,8 @@ export function nightcap() {
       useSkill($skill`The Ode to Booze`, 1);
       if (availableAmount($item`astral pilsner`) > 0) {
         drinksilent($item`astral pilsner`);
+      } else if (get("familiarSweat") > 210) {
+        cliExecute("drink stillsuit distillate");
       } else {
         drinksilent($item`splendid martini`);
       }
