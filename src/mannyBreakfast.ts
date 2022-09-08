@@ -12,6 +12,7 @@ import {
   myName,
   myPath,
   outfit,
+  Path,
   print,
   putShop,
   random,
@@ -31,7 +32,7 @@ function buyRaffle(ticketQty: number) {
     availableAmount($item`raffle ticket`) < ticketQty &&
     myName() === "manendra" &&
     containsText(visitUrl("main.php"), "map7beach.gif") &&
-    myPath() !== "Zombie Slayer"
+    myPath() !== Path.get("Zombie Slayer")
   )
     cliExecute(`raffle ${ticketQty}${canInteract() ? " inventory" : " storage"}`);
   return availableAmount($item`raffle ticket`) >= ticketQty;
