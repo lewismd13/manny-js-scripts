@@ -7,6 +7,7 @@ import {
   equip,
   equippedItem,
   gametimeToInt,
+  getClanId,
   handlingChoice,
   inebrietyLimit,
   Item,
@@ -32,6 +33,8 @@ import { setChoice } from "./lib";
 // TODO: handle the initial choice if needed, instead of throwing
 
 const stash = false;
+
+const startclan = Clan.get().id;
 
 if (get("_questPartyFair") === "unstarted") throw "you actually need to accept the quest first";
 
@@ -114,12 +117,17 @@ if (
       cliExecute(`shop take all ${booze.name}`);
     }
     print(`Items were in the mall for ${(gametimeToInt() - starttime) / 1000} seconds`, "orange");
-    for (const booze of stashduffobooze) {
-      if (itemAmount(booze) >= 550) {
-        putStash(booze, 550);
-      } else {
-        print(`You don't have enough ${booze}, did something go wrong?`, "red");
+    if (stash) {
+      // TODO: check to make sure we're in the right clan
+      if (getClanId() !== 2046987341) Clan.join(2046987341);
+      for (const booze of stashduffobooze) {
+        if (itemAmount(booze) >= 550) {
+          putStash(booze, 550);
+        } else {
+          print(`You don't have enough ${booze}, did something go wrong?`, "red");
+        }
       }
+      Clan.join(startclan);
     }
     setAutoAttack(0);
     if (get("_questPartyFairProgress")) {
