@@ -1,6 +1,8 @@
 import {
   adv1,
   availableAmount,
+  batchClose,
+  batchOpen,
   cliExecute,
   equip,
   equippedItem,
@@ -8,22 +10,28 @@ import {
   handlingChoice,
   inebrietyLimit,
   Item,
+  itemAmount,
   myInebriety,
   print,
   putShop,
+  putStash,
   repriceShop,
   retrieveItem,
   runChoice,
   setAutoAttack,
   shopAmount,
+  stashAmount,
+  takeStash,
   use,
   useFamiliar,
   userConfirm,
 } from "kolmafia";
-import { $familiar, $item, $location, $slot, get, Macro } from "libram";
+import { $familiar, $item, $location, $slot, Clan, get, Macro } from "libram";
 import { setChoice } from "./lib";
 
 // TODO: handle the initial choice if needed, instead of throwing
+
+const stash = false;
 
 if (get("_questPartyFair") === "unstarted") throw "you actually need to accept the quest first";
 
@@ -40,6 +48,13 @@ export const duffoBooze = [
   $item`vintage smart drink`,
 ];
 
+export const stashduffobooze = [
+  $item`bottle of Greedy Dog`,
+  $item`bottle of Bloodweiser`,
+  $item`Feliz Navidad`,
+  $item`Gets-You-Drunk`,
+];
+
 let starttime = 0;
 
 for (const booze of duffoBooze) {
@@ -51,6 +66,16 @@ if (
   (!get("_claraBellUsed") || !get("_freePillKeeperUsed")) &&
   !get("_questPartyFairProgress")
 ) {
+  if (stash) {
+    Clan.join(2046987341);
+    for (const booze of stashduffobooze) {
+      if (stashAmount(booze) >= 550) {
+        takeStash(booze, 550);
+        duffoBooze.push(booze);
+      }
+    }
+  }
+
   for (const booze of duffoBooze) {
     if (shopAmount(booze) > 0) throw `You already have ${booze} in your shop. take it out first.`;
   }
@@ -68,20 +93,34 @@ if (
     for (const booze of duffoBooze) {
       retrieveItem(booze, 550);
       putShop(0, 0, 550, booze);
-      repriceShop(402, booze);
-      // buy(booze, 1, 100);
-      // mallPrice(booze);
     }
+    batchOpen();
+    for (const booze of duffoBooze) {
+      repriceShop(402, booze);
+    }
+    batchClose();
     setChoice(1322, 1);
     setChoice(1327, 3);
     setChoice(1324, 3);
     adv1($location`The Neverending Party`);
     if (handlingChoice()) runChoice(0);
   } finally {
+    batchOpen();
+    for (const booze of duffoBooze) {
+      repriceShop(999999999, booze);
+    }
+    batchClose();
     for (const booze of duffoBooze) {
       cliExecute(`shop take all ${booze.name}`);
     }
     print(`Items were in the mall for ${(gametimeToInt() - starttime) / 1000} seconds`, "orange");
+    for (const booze of stashduffobooze) {
+      if (itemAmount(booze) >= 550) {
+        putStash(booze, 550);
+      } else {
+        print(`You don't have enough ${booze}, did something go wrong?`, "red");
+      }
+    }
     setAutoAttack(0);
     if (get("_questPartyFairProgress")) {
       const questBooze = get("_questPartyFairProgress").split(" ");
@@ -129,16 +168,25 @@ if (
     for (const food of duffoFood) {
       retrieveItem(food, 550);
       putShop(0, 0, 550, food);
-      repriceShop(402, food);
-      // buy(food, 1, 100);
-      // mallPrice(food);
     }
+
+    batchOpen();
+    for (const food of duffoFood) {
+      repriceShop(402, food);
+    }
+    batchClose();
+
     setChoice(1322, 1);
     setChoice(1326, 3);
     setChoice(1324, 2);
     adv1($location`The Neverending Party`);
     if (handlingChoice()) runChoice(0);
   } finally {
+    batchOpen();
+    for (const food of duffoFood) {
+      repriceShop(999999999, food);
+    }
+    batchClose();
     for (const food of duffoFood) {
       cliExecute(`shop take all ${food.name}`);
     }
