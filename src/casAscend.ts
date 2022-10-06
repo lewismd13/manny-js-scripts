@@ -1,24 +1,33 @@
 import {
   adv1,
   cliExecute,
+  equip,
   myGardenType,
   print,
+  retrieveItem,
   runChoice,
+  runCombat,
+  setAutoAttack,
   stashAmount,
   takeStash,
   use,
+  useFamiliar,
   visitUrl,
 } from "kolmafia";
 import {
   $class,
+  $effect,
+  $familiar,
   $item,
   $location,
   $path,
+  $skill,
   ascend,
   Clan,
   get,
   have,
   Lifestyle,
+  Macro,
   prepareAscension,
   SongBoom,
 } from "libram";
@@ -38,15 +47,15 @@ prepareAscension({
   chateau: {
     desk: "Swiss piggy bank",
     ceiling: "ceiling fan",
-    nightstand: "electric muscle stimulator",
+    nightstand: "bowl of potpourri",
   },
 });
 
 ascend(
   $path`none`,
-  $class`Seal Clubber`,
+  $class`Accordion Thief`,
   Lifestyle.casual,
-  "canadia",
+  "packrat",
   $item`astral six-pack`,
   $item`astral pet sweater`
 );
@@ -85,3 +94,40 @@ visitUrl("place.php?whichplace=chateau&action=chateauDesk1");
 
 // get cowboy boots
 visitUrl("place.php?whichplace=town_right&action=townright_ltt");
+
+// fight a glitch
+cliExecute("fold makeshift garbage shirt");
+equip($item`makeshift garbage shirt`);
+equip($item`Fourth of May Cosplay Saber`);
+cliExecute("umbrella ml");
+equip($item`unbreakable umbrella`);
+equip($item`Eight Days a Week Pill Keeper`);
+equip($item`Daylight Shavings Helmet`);
+useFamiliar($familiar`Hovering Sombrero`);
+equip($item`astral pet sweater`);
+retrieveItem($item`gas balloon`);
+retrieveItem($item`gas can`, 2);
+if (!have($effect`That's Just Cloud-Talk, Man`)) {
+  visitUrl("place.php?whichplace=campaway&action=campaway_sky");
+}
+cliExecute("shower cool");
+
+if (!get("_glitchItemImplemented")) {
+  retrieveItem($item`[glitch season reward name]`);
+  use($item`[glitch season reward name]`);
+}
+
+Macro.item($item`gas balloon`)
+  .skill($skill`Feel Pride`)
+  .item($item`gas can`, $item`gas can`)
+  .setAutoAttack();
+
+visitUrl("inv_eat.php?pwd&whichitem=10207");
+runCombat(
+  Macro.item($item`gas balloon`)
+    .skill($skill`Feel Pride`)
+    .item($item`gas can`, $item`gas can`)
+    .toString()
+);
+
+setAutoAttack(0);
