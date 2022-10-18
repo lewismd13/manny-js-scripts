@@ -26,9 +26,10 @@ import {
   useFamiliar,
   userConfirm,
   useSkill,
+  wait,
 } from "kolmafia";
 
-import { Quest, Task } from "grimoire-kolmafia";
+import { Engine, Quest, Task } from "grimoire-kolmafia";
 import {
   $effect,
   $familiar,
@@ -111,6 +112,11 @@ const checkNEP: Task = {
   do: () => {
     setChoice(1322, 6); // Leave
     adv1($location`The Neverending Party`, -1, "");
+    if (get("_questPartyFairQuest") === "food") {
+      print("Hey, go talk to Geraldine, time for another sliderpocalypse!", "yellow");
+    } else if (get("_questPartyFairQuest") === "booze") {
+      print("Hey, go talk to Gerald, get that jarmageddon!", "yellow");
+    } else print(`Sorry, your NEP quest is ${get("_questPartyFairQuest")}.`);
   },
 };
 
@@ -249,6 +255,7 @@ const overdrink: Task = {
   completed: () => myInebriety() > inebrietyLimit(),
   do: () => {
     if (get("familiarSweat") > 210) {
+      useFamiliar($familiar`Stooper`);
       cliExecute("drink stillsuit distillate");
       cliExecute("CONSUME NIGHTCAP NOMEAT VALUE 4000");
     } else {
@@ -262,6 +269,7 @@ const nightcap: Task = {
   completed: () => myInebriety() > inebrietyLimit(),
   do: () => {
     if (get("familiarSweat") > 210) {
+      useFamiliar($familiar`Stooper`);
       cliExecute("drink stillsuit distillate");
       cliExecute("CONSUME NIGHTCAP NOMEAT VALUE 4000");
     } else {
@@ -317,3 +325,21 @@ const postloop: Quest<Task> = {
     checkNEP,
   ],
 };
+
+class LoopEngine extends Engine {
+  public run(actions?: number): void {
+    for (let i = 0; i < (actions ?? Infinity); i++) {
+      const task = this.getNextTask();
+      if (!task) return;
+      wait(3);
+      if (task.ready && !task.ready()) throw `Task ${task.name} is not ready`;
+      this.execute(task);
+    }
+  }
+
+  public log(): void {
+    this.tasks.forEach((t: Task) =>
+      print(`TASK: ${t.name} AVAILABLE: ${this.available(t)} COMPLETED: ${t.completed()}`)
+    );
+  }
+}
