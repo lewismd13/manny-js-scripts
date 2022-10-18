@@ -31,9 +31,9 @@
   "dependencies": {
     "browserslist": "^4.21.3",
     "core-js": "^3.20.2",
-    "grimoire-kolmafia": "^0.2.3",
-    "kolmafia": "^4.0.1",
-    "libram": "^0.7.1"
+    "grimoire-kolmafia": "^0.3.7",
+    "kolmafia": "^5.26840.0",
+    "libram": "^0.7.3"
   },
   "author": "Manendra",
   "license": "ISC",

@@ -2037,14 +2037,12 @@ graceful-fs@^4.1.2, graceful-fs@^4.2.4:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.9.tgz#041b05df45755e587a24942279b9d113146e1c96"
   integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
 
-grimoire-kolmafia@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/grimoire-kolmafia/-/grimoire-kolmafia-0.2.3.tgz#b44c7b92f07a4a63bd7262cc24ad6ee7e9f1f4d3"
-  integrity sha512-vuNsahupZIQGqpKAfLlFCgiPw2pEY3DaQ3R/4jzP9FJy4X/cBlfJXzufGSr1YyZMgGz+Rx8bJurpi0py8esOww==
+grimoire-kolmafia@^0.3.7:
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/grimoire-kolmafia/-/grimoire-kolmafia-0.3.7.tgz#90b0e9169790ff5e575e88218e97d1cf5607099a"
+  integrity sha512-T1yLaGv1fQ4S94iYuc60e7RdnIDanj5H+FSPnamaakK4LNyzSRuH5bFLDcL9cn1puaUB1SMOlHanZZHm0iXv2Q==
   dependencies:
     core-js "^3.16.4"
-    kolmafia ">=1.2.0"
-    libram ">=0.3.0"
 
 has-flag@^3.0.0:
   version "3.0.0"
@@ -2256,15 +2254,10 @@ kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kolmafia@>=1.2.0, kolmafia@^3.0.2:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-3.0.3.tgz#6d7e0a53ecdf2be11f4fd5de4e4b32c0b4cb6992"
-  integrity sha512-AD8emaY/+0HTzsgvcbO5UT35+88BlntOC/49PcKvZZs39UB+pqGOcwyWA48d1NR6Rthwi12zVSLXhHYH/2fk2g==
-
-kolmafia@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-4.0.1.tgz#361b2cea9bf668a7dc4a4c2339a009d2e1e1cd00"
-  integrity sha512-qH/A3ZwSqVADzLfNmFsNe0vyfnuSi/Ql6ZaWaJ6y6eMasBbcieTL0w3d0bSvbQj9Oe00MsmeZeJNOlV863rxNA==
+kolmafia@^5.26840.0:
+  version "5.26840.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.26840.0.tgz#54c95259f3844bbe86be0ea6d8677e3eaa0a25b2"
+  integrity sha512-xi5g+tDeiyg4u2BDiKEh90hxe2N3sIWUs+wYG2FkTAIdMUp9sfRp57vIt8C9sSo1d2VzCrIcBKB/gH9oQsZC3A==
 
 levn@^0.4.1:
   version "0.4.1"
@@ -2274,20 +2267,10 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-libram@>=0.3.0:
-  version "0.6.21"
-  resolved "https://registry.yarnpkg.com/libram/-/libram-0.6.21.tgz#c2a659fa99d7ab36759cb1746c15af39448bfd73"
-  integrity sha512-Y8pwSlxAIxgQzda/Y2x84eiPvZ+U+4GvvCNl8l+TjXTrPKvniYrbTpO5SuAbJlUn+M1Yy4+oocC4T7GsbrxN5g==
-  dependencies:
-    "@babel/runtime-corejs3" "^7.17.2"
-    core-js "^3.21.0"
-    kolmafia "^3.0.2"
-    lodash "^4.17.21"
-
-libram@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/libram/-/libram-0.7.1.tgz#e72dd4467e631b0908b6d3deda76fea2e21f37b7"
-  integrity sha512-ZhDezKu3Sn25cURCzjqO+PGz19quNqL70odKiFG0EsTe0JtiMph1cyEnTs1PVFwH2j6FlR/Jwkc2NA/jv8gMTA==
+libram@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/libram/-/libram-0.7.3.tgz#0e5f032db3279fec8cc0f62abbe9406c0052173d"
+  integrity sha512-dMOWci2TwEkGGk17v+gqKCve04OPdC7U+Sjpd+lRYkPKtL64Bua++CS0fI2wXk2eclDh22V5fPLlXcDboLxKpQ==
   dependencies:
     "@babel/runtime-corejs3" "^7.17.2"
     core-js "^3.21.0"
