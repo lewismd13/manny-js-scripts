@@ -7,6 +7,7 @@ import {
   batchOpen,
   chew,
   cliExecute,
+  closetAmount,
   equip,
   equippedItem,
   gametimeToInt,
@@ -24,6 +25,7 @@ import {
   runChoice,
   setAutoAttack,
   shopAmount,
+  takeCloset,
   takeStash,
   use,
   useFamiliar,
@@ -45,13 +47,15 @@ const stashduffobooze = [
   $item`bottle of Greedy Dog`,
   $item`bottle of Bloodweiser`,
   $item`Gets-You-Drunk`,
+  $item`Dreadsylvanian slithery nipple`,
+  $item`Doc Clock's thyme cocktail`,
 ];
 
 const stashduffofood = [
   $item`Mr. Burnsger`,
   $item`blood sausage`,
   $item`ghost pepper`,
-  $item`toast with stench jelly`,
+  $item`Dreadsylvanian hot pocket`,
 ];
 
 if (get("_questPartyFairQuest") === "booze") {
@@ -60,17 +64,23 @@ if (get("_questPartyFairQuest") === "booze") {
   setChoice(1324, 3);
   const duffoBooze = [
     $item`jar of fermented pickle juice`,
-    $item`Dreadsylvanian grimlet`,
     $item`Schrödinger's thermos`,
     $item`vintage smart drink`,
   ];
+
+  for (const thing of duffoBooze) {
+    if (availableAmount(thing) < 505) {
+      if (closetAmount(thing) >= 505) takeCloset(thing, 505);
+    } else throw `You don't have 505 ${thing.name}`;
+    if (shopAmount(thing)) cliExecute(`shop take all ${thing.name}`);
+  }
 
   for (const booze of duffoBooze) {
     duffoItem.push(booze);
   }
 
   for (const booze of stashduffobooze) {
-    takeStash(booze, 520);
+    takeStash(booze, 505);
     duffoItem.push(booze);
   }
 }
@@ -79,18 +89,21 @@ if (get("_questPartyFairQuest") === "food") {
   setChoice(1322, 1);
   setChoice(1326, 3);
   setChoice(1324, 2);
-  const duffoFood = [
-    $item`extra-greasy slider`,
-    $item`Dreadsylvanian spooky pocket`,
-    $item`quantum taco`,
-  ];
+  const duffoFood = [$item`extra-greasy slider`, $item`quantum taco`];
+
+  for (const thing of duffoFood) {
+    if (availableAmount(thing) < 505) {
+      if (closetAmount(thing) >= 505) takeCloset(thing, 505);
+    } else throw `You don't have 505 ${thing.name}`;
+    if (shopAmount(thing)) cliExecute(`shop take all ${thing.name}`);
+  }
 
   for (const food of duffoFood) {
     duffoItem.push(food);
   }
 
   for (const food of stashduffofood) {
-    takeStash(food, 520);
+    takeStash(food, 505);
     duffoItem.push(food);
   }
 }
@@ -98,15 +111,20 @@ if (get("_questPartyFairQuest") === "food") {
 let starttime = 0;
 let endtime = 0;
 
-if (equippedItem($slot`offhand`) === $item`Kramco Sausage-o-Matic™`)
+if (
+  equippedItem($slot`offhand`) === $item`Kramco Sausage-o-Matic™` ||
+  equippedItem($slot`offhand`) === $item`June cleaver`
+)
   equip($slot`offhand`, $item`none`);
+if (equippedItem($slot`weapon`) === $item`June cleaver`)
+  equip($slot`weapon`, $item`Fourth of May Cosplay Saber`);
 
 useFamiliar($familiar`Frumious Bandersnatch`);
 
 // make sure there's nothing in my shop already that I'm about to duffo with, and that I have enough of everything
 for (const thing of duffoItem) {
   print(thing.name);
-  if (availableAmount(thing) < 520) throw `You don't have 520 ${thing.name}`;
+  if (availableAmount(thing) < 505) throw `You don't have 505 ${thing.name}`;
   if (shopAmount(thing)) cliExecute(`shop take all ${thing.name}`);
 }
 
@@ -121,8 +139,8 @@ try {
     Macro.tryItem($item`Louder Than Bomb`).setAutoAttack();
   }
   for (const duffoseed of duffoItem) {
-    retrieveItem(duffoseed, 520);
-    putShop(0, 0, 520, duffoseed);
+    retrieveItem(duffoseed, 505);
+    putShop(0, 0, 505, duffoseed);
   }
   starttime = gametimeToInt();
   batchOpen();
@@ -149,16 +167,16 @@ if (getClanId() !== 2046987341) Clan.join(2046987341);
 
 if (get("_questPartyFairQuest") === "booze") {
   for (const booze of stashduffobooze) {
-    if (itemAmount(booze) >= 520) {
-      putStash(booze, 520);
+    if (itemAmount(booze) >= 505) {
+      putStash(booze, 505);
     } else {
       print(`You don't have enough ${booze}, did something go wrong?`, "red");
     }
   }
 } else if (get("_questPartyFairQuest") === "food") {
   for (const food of stashduffofood) {
-    if (itemAmount(food) >= 520) {
-      putStash(food, 520);
+    if (itemAmount(food) >= 505) {
+      putStash(food, 505);
     } else {
       print(`You don't have enough ${food}, did something go wrong?`, "red");
     }
