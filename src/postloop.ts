@@ -191,7 +191,7 @@ while (get("_clipartSummons") < 3) {
 }
 
 // dupe a greedy dog
-const dupeTarget = $item`bottle of Greedy Dog`;
+const dupeTarget = $item`very fancy whiskey`;
 if (itemAmount(dupeTarget) === 0 && closetAmount(dupeTarget) > 0) takeCloset(1, dupeTarget);
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
