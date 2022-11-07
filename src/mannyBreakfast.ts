@@ -1,5 +1,4 @@
 import {
-  adv1,
   availableAmount,
   buy,
   canInteract,
@@ -18,14 +17,16 @@ import {
   random,
   reverseNumberology,
   runChoice,
+  takeCloset,
   takeStorage,
   toInt,
+  toUrl,
   use,
   visitUrl,
 } from "kolmafia";
 import { $item, $location, Clan, get, SourceTerminal } from "libram";
 import { bafhWls } from "./bafh";
-import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
+import { breakfastCounter, mannyQuestVolcoino } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -174,15 +175,22 @@ if (myGardenType() === "thanksgarden" && !get("_mushroomGardenVisited")) {
 }
 
 putShop(0, 0, availableAmount($item`battery (AAA)`), $item`battery (AAA)`);
-putShop(0, 0, availableAmount($item`cornucopia`), $item`cornucopia`);
 putShop(49995, 0, 3, $item`pocket wish`);
 putShop(0, 0, availableAmount($item`11-leaf clover`), $item`11-leaf clover`);
 
+if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
+  takeCloset(1, $item`Doc Clock's thyme cocktail`);
+
 cliExecute("ccs default");
 
-if (get("_questPartyFairQuest") === "") {
-  setChoice(1322, 6); // Leave
-  adv1($location`The Neverending Party`, -1, "");
+if (get("_questPartyFair") === "unstarted") {
+  visitUrl(toUrl($location`The Neverending Party`));
+  if (["food", "booze"].includes(get("_questPartyFairQuest"))) {
+    print("Gerald/ine quest!", "blue");
+    runChoice(1); // Accept quest
+  } else {
+    runChoice(2); // Decline quest
+  }
 }
 
 mannyQuestVolcoino();

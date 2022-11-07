@@ -3,6 +3,7 @@ import {
   cliExecute,
   equip,
   myGardenType,
+  myPrimestat,
   print,
   retrieveItem,
   runChoice,
@@ -22,6 +23,7 @@ import {
   $location,
   $path,
   $skill,
+  $stat,
   ascend,
   Clan,
   get,
@@ -59,17 +61,6 @@ ascend(
   $item`astral six-pack`,
   $item`astral pet sweater`
 );
-
-if (get("_questPartyFairQuest") === "") {
-  setChoice(1322, 6); // Leave
-  adv1($location`The Neverending Party`, -1, "");
-}
-
-if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "booze") {
-  setChoice(1322, 1); // accept
-  adv1($location`The Neverending Party`, -1, "");
-  print(`Your NEP quest is ${get("_questPartyFairQuest")}`, "yellow");
-} else print(`Your NEP quest is ${get("_questPartyFairQuest")}`);
 
 if (myGardenType() === "thanksgarden") {
   cliExecute("garden pick");
@@ -110,7 +101,27 @@ retrieveItem($item`gas can`, 2);
 if (!have($effect`That's Just Cloud-Talk, Man`)) {
   visitUrl("place.php?whichplace=campaway&action=campaway_sky");
 }
-cliExecute("shower cool");
+
+if (myPrimestat() === $stat`muscle`) {
+  cliExecute("shower warm");
+  retrieveItem($item`synthetic marrow`, 5);
+  cliExecute("pantogram mus gains|silent");
+  equip($item`pantogram pants`);
+}
+
+if (myPrimestat() === $stat`moxie`) {
+  cliExecute("shower cool");
+  retrieveItem($item`the funk`, 5);
+  cliExecute("pantogram mox gains|silent");
+  equip($item`pantogram pants`);
+}
+
+if (myPrimestat() === $stat`mysticality`) {
+  cliExecute("shower lukewarm");
+  retrieveItem($item`haunted battery`, 5);
+  cliExecute("pantogram mys gains|silent");
+  equip($item`pantogram pants`);
+}
 
 if (!get("_glitchItemImplemented")) {
   retrieveItem($item`[glitch season reward name]`);
@@ -131,3 +142,14 @@ runCombat(
 );
 
 setAutoAttack(0);
+
+if (get("_questPartyFairQuest") === "") {
+  setChoice(1322, 6); // Leave
+  adv1($location`The Neverending Party`, -1, "");
+}
+
+if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "booze") {
+  setChoice(1322, 1); // accept
+  adv1($location`The Neverending Party`, -1, "");
+  print(`Your NEP quest is ${get("_questPartyFairQuest")}`, "yellow");
+} else print(`Your NEP quest is ${get("_questPartyFairQuest")}`);

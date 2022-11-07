@@ -8,12 +8,11 @@ import {
   containsText,
   equip,
   getWorkshed,
-  gnomadsAvailable,
   haveEffect,
   isHeadless,
-  Item,
   itemAmount,
   knollAvailable,
+  myGardenType,
   outfit,
   print,
   putCloset,
@@ -42,13 +41,12 @@ import {
   AsdonMartin,
   Clan,
   get,
-  getSaleValue,
   have,
   Macro,
-  Session,
   SongBoom,
   SourceTerminal,
 } from "libram";
+import { bafhWls } from "./bafh";
 import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
@@ -86,8 +84,6 @@ cliExecute("pull all");
 
 cliExecute("refresh all");
 
-const start = Session.current();
-
 setProperty("autoSatisfyWithNPCs", "true");
 setProperty("hpAutoRecovery", "0.7");
 setProperty("hpAutoRecoveryTarget", "0.95");
@@ -103,14 +99,16 @@ cliExecute("ccs libramMacro");
 
 if (knollAvailable()) {
   retrieveItem($item`bitchin' meatcar`);
-} else if (!gnomadsAvailable()) {
-  retrieveItem($item`Desert Bus pass`);
+} else {
+  buy($item`Desert Bus pass`);
 }
 
 // cheesefax fortune, no longer doing this in loop
 if (get("_clanFortuneConsultUses") < 3) {
   Clan.join("Bonus Adventures from Hell");
-  while (get("_clanFortuneConsultUses") < 3) {
+  let i = 0;
+  while (get("_clanFortuneConsultUses") < 3 && i < 10) {
+    i++;
     cliExecute("fortune cheesefax");
     cliExecute("wait 5");
   }
@@ -125,7 +123,7 @@ if (get("_etchedHourglassUsed") === false) {
   use($item`etched hourglass`);
 }
 
-use(1, $item`packet of tall grass seeds`);
+if (myGardenType() !== "grass") use(1, $item`packet of tall grass seeds`);
 
 if (getWorkshed() !== workshed) {
   use(1, workshed);
@@ -231,8 +229,6 @@ cliExecute("breakfast");
 
 if (!get("moonTuned")) cliExecute("spoon platypus");
 
-const final = Session.current().diff(start);
-
 putShop(0, 0, itemAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(49995, 0, 3, $item`pocket wish`);
 if (have($item`superduperheated metal`)) putShop(0, 0, $item`superduperheated metal`);
@@ -241,30 +237,17 @@ if (availableAmount($item`blood-drive sticker`) > 10) {
 }
 if (have($item`Boris's key lime pie`)) putShop(0, 0, $item`Boris's key lime pie`);
 
+if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
+  takeCloset(1, $item`Doc Clock's thyme cocktail`);
+
 if (have($item`Greatest American Pants`)) {
   Clan.join("Alliance From Hell");
   putStash($item`Greatest American Pants`, 1);
 }
 
-// feedRobort();
-
 inboxCleanup();
 
-export function mannyValue(item: Item): number {
-  if (item === $item`Volcoino`) {
-    return getSaleValue($item`one-day ticket to That 70s Volcano`) / 3;
-  } else return getSaleValue(item);
-}
-
-const { meat, items, itemDetails } = final.value(mannyValue);
-
-const winners = itemDetails.sort((a, b) => b.value - a.value).slice(0, 3);
-
-print(`Your daily flags earned you ${meat} liquid meat and ${items} meat from items.`);
-print(`Extreme Items:`);
-for (const detail of [...winners]) {
-  print(`${detail.quantity} ${detail.item} worth ${detail.value} total`);
-}
+bafhWls();
 
 if (get("_questPartyFairQuest") === "booze" || get("_questPartyFairQuest") === "food") {
   print("hey try that vanduffel cheese", "yellow");

@@ -46,9 +46,13 @@ const duffoItem = [];
 const stashduffobooze = [
   $item`bottle of Greedy Dog`,
   $item`bottle of Bloodweiser`,
-  $item`Gets-You-Drunk`,
   $item`Dreadsylvanian slithery nipple`,
   $item`Doc Clock's thyme cocktail`,
+  $item`very fancy whiskey`,
+  $item`Dreadsylvanian dank and stormy`,
+  $item`mentholated wine`,
+  $item`drive-by shooting`,
+  $item`emergency margarita`,
 ];
 
 const stashduffofood = [
@@ -56,6 +60,7 @@ const stashduffofood = [
   $item`blood sausage`,
   $item`ghost pepper`,
   $item`Dreadsylvanian hot pocket`,
+  $item`jawbruiser`,
 ];
 
 if (get("_questPartyFairQuest") === "booze") {
@@ -66,12 +71,14 @@ if (get("_questPartyFairQuest") === "booze") {
     $item`jar of fermented pickle juice`,
     $item`Schrödinger's thermos`,
     $item`vintage smart drink`,
+    $item`Feliz Navidad`,
   ];
 
   for (const thing of duffoBooze) {
-    if (availableAmount(thing) < 505) {
-      if (closetAmount(thing) >= 505) takeCloset(thing, 505);
-    } else throw `You don't have 505 ${thing.name}`;
+    if (availableAmount(thing) < 505 && closetAmount(thing) >= 505) {
+      takeCloset(thing, 505);
+    } else if (availableAmount(thing) < 505) throw `You don't have 505 ${thing.name}`;
+
     if (shopAmount(thing)) cliExecute(`shop take all ${thing.name}`);
   }
 
@@ -92,9 +99,10 @@ if (get("_questPartyFairQuest") === "food") {
   const duffoFood = [$item`extra-greasy slider`, $item`quantum taco`];
 
   for (const thing of duffoFood) {
-    if (availableAmount(thing) < 505) {
-      if (closetAmount(thing) >= 505) takeCloset(thing, 505);
-    } else throw `You don't have 505 ${thing.name}`;
+    if (availableAmount(thing) < 505 && closetAmount(thing) >= 505) {
+      takeCloset(thing, 505);
+    } else if (availableAmount(thing) < 505) throw `You don't have 505 ${thing.name}`;
+
     if (shopAmount(thing)) cliExecute(`shop take all ${thing.name}`);
   }
 

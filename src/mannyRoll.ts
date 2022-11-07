@@ -7,6 +7,7 @@ import {
   maximize,
   myGardenType,
   myInebriety,
+  putStash,
   pvpAttacksLeft,
   retrieveItem,
   use,
@@ -24,9 +25,16 @@ if (pvpAttacksLeft() > 0) {
   cliExecute("swagger");
 }
 
+// Do melf dupe if it's available
+
 if (myInebriety() <= inebrietyLimit()) nightcap();
 
 mannyCleanup();
+
+if (have($item`Greatest American Pants`)) {
+  Clan.join("Alliance From Hell");
+  putStash($item`Greatest American Pants`, 1);
+}
 
 randomSafari();
 randomPrank();
@@ -56,5 +64,5 @@ if (eudoraItem() !== $item`New-You Club Membership Form`)
 
 useFamiliar($familiar`Trick-or-Treating Tot`);
 retrieveItem($item`li'l unicorn costume`);
-maximize("adv +equip Spacegate scientist's insignia +equip Sasq™ watch", false);
+maximize("adv +equip Spacegate scientist's insignia +equip Sasq™ watch -equip june cleaver", false);
 Clan.join("Alliance From Hobopolis");

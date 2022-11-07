@@ -518,7 +518,6 @@ export function mannyCleanup(): void {
   autosell($item`expensive camera`, itemAmount($item`expensive camera`));
   autosell($item`bag of gross foreign snacks`, itemAmount($item`bag of gross foreign snacks`));
   putShop(200, 0, itemAmount($item`gold nuggets`), $item`gold nuggets`);
-  putShop(0, 0, itemAmount($item`cornucopia`), $item`cornucopia`);
   putShop(8900, 0, itemAmount($item`abandoned candy`), $item`abandoned candy`);
   autosell($item`meat stack`, itemAmount($item`meat stack`));
   putShop(0, 0, itemAmount($item`11-leaf clover`), $item`11-leaf clover`);
@@ -593,27 +592,7 @@ export function faxEmbezzler(): void {
 
 export function mannyQuestVolcoino() {
   visitUrl("place.php?whichplace=airport_hot&action=airport4_questhub");
-  if (get("_volcanoItem2") === 8425) {
-    retrieveItem(5, $item`New Age healing crystal`);
-    visitUrl("place.php?whichplace=airport_hot&action=airport4_questhub");
-    runChoice(2);
-  } else if (get("_volcanoItem3") === 8446) {
-    retrieveItem(1, $item`SMOOCH bottlecap`);
-    visitUrl("place.php?whichplace=airport_hot&action=airport4_questhub");
-    runChoice(3);
-  } else if (get("_volcanoItem3") === 8517) {
-    retrieveItem(3, $item`SMOOCH bracers`);
-    visitUrl("place.php?whichplace=airport_hot&action=airport4_questhub");
-    runChoice(3);
-  } else if (get("_volcanoItem1") === 8470) {
-    retrieveItem(5, $item`gooey lava globs`);
-    visitUrl("place.php?whichplace=airport_hot&action=airport4_questhub");
-    runChoice(1);
-  } else if (get("_volcanoItem1") === 8516) {
-    retrieveItem(3, $item`smooth velvet bra`);
-    visitUrl("place.php?whichplace=airport_hot&action=airport4_questhub");
-    runChoice(1);
-  } else if (get("_volcanoItem1") === 8523) {
+  if (get("_volcanoItem1") === 8523) {
     if (
       !get("_claraBellUsed") &&
       itemAmount($item`fused fuse`) === 0 &&
