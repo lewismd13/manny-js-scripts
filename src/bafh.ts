@@ -10,7 +10,8 @@ export function bafhWls(): void {
 
   // TODO: force message to lowercase
   inbox.forEach((kmail) => {
-    if (kmail.message.includes("whitelist bafh") || kmail.message.includes("Whitelist bafh")) {
+    const followDirectionsDammit = kmail.message.toLowerCase();
+    if (followDirectionsDammit.includes("whitelist bafh")) {
       bafh.addPlayerToWhitelist(kmail.senderId);
 
       kmail.delete();
