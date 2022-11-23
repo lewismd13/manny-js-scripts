@@ -44,9 +44,9 @@ Clan.join(2046987341);
 const duffoItem = [];
 
 const stashduffobooze = [
-  $item`bottle of Greedy Dog`,
   $item`bottle of Bloodweiser`,
   $item`Dreadsylvanian slithery nipple`,
+  $item`Dreadsylvanian hot toddy`,
   $item`Doc Clock's thyme cocktail`,
   $item`very fancy whiskey`,
   $item`Dreadsylvanian dank and stormy`,
@@ -56,11 +56,9 @@ const stashduffobooze = [
 ];
 
 const stashduffofood = [
-  $item`Mr. Burnsger`,
   $item`blood sausage`,
   $item`ghost pepper`,
   $item`Dreadsylvanian hot pocket`,
-  $item`jawbruiser`,
 ];
 
 if (get("_questPartyFairQuest") === "booze") {
@@ -96,7 +94,12 @@ if (get("_questPartyFairQuest") === "food") {
   setChoice(1322, 1);
   setChoice(1326, 3);
   setChoice(1324, 2);
-  const duffoFood = [$item`extra-greasy slider`, $item`quantum taco`];
+  const duffoFood = [
+    $item`extra-greasy slider`,
+    $item`quantum taco`,
+    $item`Mr. Burnsger`,
+    $item`jawbruiser`,
+  ];
 
   for (const thing of duffoFood) {
     if (availableAmount(thing) < 505 && closetAmount(thing) >= 505) {

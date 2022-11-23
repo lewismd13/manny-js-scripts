@@ -11,7 +11,6 @@ import {
   haveEffect,
   isHeadless,
   itemAmount,
-  knollAvailable,
   myGardenType,
   outfit,
   print,
@@ -97,11 +96,7 @@ if (!get("backupCameraReverserEnabled")) cliExecute("backupcamera reverser on");
 
 cliExecute("ccs libramMacro");
 
-if (knollAvailable()) {
-  retrieveItem($item`bitchin' meatcar`);
-} else {
-  buy($item`Desert Bus pass`);
-}
+retrieveItem($item`bitchin' meatcar`);
 
 // cheesefax fortune, no longer doing this in loop
 if (get("_clanFortuneConsultUses") < 3) {
@@ -130,8 +125,6 @@ if (getWorkshed() !== workshed) {
 }
 if (have($item`Little Geneticist DNA-Splicing Lab`))
   putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
-
-if (have($item`Greatest American Pants`)) putStash(1, $item`Greatest American Pants`);
 
 if (!get("csServicesPerformed") || isHeadless()) {
   if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
@@ -189,7 +182,7 @@ while (get("_clipartSummons") < 3) {
 }
 
 // dupe a greedy dog
-const dupeTarget = $item`very fancy whiskey`;
+const dupeTarget = $item`Daily Affirmation: Always be Collecting`;
 if (itemAmount(dupeTarget) === 0 && closetAmount(dupeTarget) > 0) takeCloset(1, dupeTarget);
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
@@ -240,15 +233,25 @@ if (have($item`Boris's key lime pie`)) putShop(0, 0, $item`Boris's key lime pie`
 if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
   takeCloset(1, $item`Doc Clock's thyme cocktail`);
 
-if (have($item`Greatest American Pants`)) {
-  Clan.join("Alliance From Hell");
-  putStash($item`Greatest American Pants`, 1);
-}
-
 inboxCleanup();
 
 bafhWls();
 
-if (get("_questPartyFairQuest") === "booze" || get("_questPartyFairQuest") === "food") {
-  print("hey try that vanduffel cheese", "yellow");
+if (get("_questPartyFair") === "unstarted" && get("_neverendingPartyFreeTurns") === 0) {
+  setChoice(1322, 6); // Leave
+  adv1($location`The Neverending Party`, -1, "");
+  print(`Your NEP quest is ${get("_questPartyFairQuest")}`, "blue");
+  if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "booze") {
+    setChoice(1322, 1); // accept
+    adv1($location`The Neverending Party`, -1, "");
+  } else {
+    setChoice(1322, 2); // decline
+    adv1($location`The Neverending Party`, -1, "");
+  }
 }
+
+if (get("_questPartyFairQuest") === "food") {
+  print("Hey, go talk to Geraldine, time for another sliderpocalypse!", "yellow");
+} else if (get("_questPartyFairQuest") === "booze") {
+  print("Hey, go talk to Gerald, get that jarmageddon!", "yellow");
+} else print(`Sorry, your NEP quest is ${get("_questPartyFairQuest")}.`);

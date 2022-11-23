@@ -152,4 +152,8 @@ if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "b
   setChoice(1322, 1); // accept
   adv1($location`The Neverending Party`, -1, "");
   print(`Your NEP quest is ${get("_questPartyFairQuest")}`, "yellow");
-} else print(`Your NEP quest is ${get("_questPartyFairQuest")}`);
+} else {
+  setChoice(1322, 2); // decline
+  adv1($location`The Neverending Party`, -1, "");
+  print(`Your NEP quest is ${get("_questPartyFairQuest")}`);
+}

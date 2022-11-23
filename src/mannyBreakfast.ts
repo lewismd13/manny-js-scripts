@@ -1,4 +1,5 @@
 import {
+  adv1,
   availableAmount,
   buy,
   canInteract,
@@ -17,16 +18,17 @@ import {
   random,
   reverseNumberology,
   runChoice,
+  stashAmount,
   takeCloset,
+  takeStash,
   takeStorage,
   toInt,
-  toUrl,
   use,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, Clan, get, SourceTerminal } from "libram";
+import { $item, $location, Clan, get, have, SourceTerminal } from "libram";
 import { bafhWls } from "./bafh";
-import { breakfastCounter, mannyQuestVolcoino } from "./lib";
+import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -66,7 +68,9 @@ function getFunFunds() {
 
 // TODO: set snojo, learn terminal skills, make re-entrant
 
-Clan.join(40382);
+Clan.join("Alliance From Hell");
+if (!have($item`Greatest American Pants`) && stashAmount($item`Greatest American Pants`))
+  takeStash($item`Greatest American Pants`, 1);
 
 cliExecute("ccs libramMacro");
 
@@ -183,16 +187,6 @@ if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
 
 cliExecute("ccs default");
 
-if (get("_questPartyFair") === "unstarted") {
-  visitUrl(toUrl($location`The Neverending Party`));
-  if (["food", "booze"].includes(get("_questPartyFairQuest"))) {
-    print("Gerald/ine quest!", "blue");
-    runChoice(1); // Accept quest
-  } else {
-    runChoice(2); // Decline quest
-  }
-}
-
 mannyQuestVolcoino();
 
 bafhWls();
@@ -205,10 +199,23 @@ if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
 
 breakfastCounter();
 
+if (get("_questPartyFairQuest") === "") {
+  setChoice(1322, 6); // Leave
+  adv1($location`The Neverending Party`, -1, "");
+}
+
+print(`Your NEP quest is ${get("_questPartyFairQuest")}`, "blue");
+
+if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "booze") {
+  setChoice(1322, 1); // accept
+  adv1($location`The Neverending Party`, -1, "");
+} else {
+  setChoice(1322, 2); // decline
+  adv1($location`The Neverending Party`, -1, "");
+}
+
 if (get("_questPartyFairQuest") === "food") {
   print("Hey, go talk to Geraldine, time for another sliderpocalypse!", "yellow");
 } else if (get("_questPartyFairQuest") === "booze") {
   print("Hey, go talk to Gerald, get that jarmageddon!", "yellow");
-} else print(`Sorry, your NEP quest is ${get("_questPartyFairQuest")}.`);
-
-// setProperty("mannyDayStep", "breakfastComplete");
+}
