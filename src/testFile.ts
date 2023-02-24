@@ -1,33 +1,26 @@
-import {
-  batchClose,
-  batchOpen,
-  print,
-  putShop,
-  repriceShop,
-  retrieveItem,
-  shopPrice,
-} from "kolmafia";
+import { getStash, Item, print, takeStash, toItem } from "kolmafia";
 import { $item } from "libram";
 
-const duffoItem = [$item`Source essence`, $item`bottle of gin`];
+const stashcontents = getStash();
 
-for (const duffoseed of duffoItem) {
-  retrieveItem(duffoseed, 520);
-  putShop(0, 0, 520, duffoseed);
+const mappedcontents = new Map<Item, number>();
+
+const skippeditems = [$item`dense meat stack`, $item`folder (KOLHS)`, $item`Chroner trigger`];
+
+for (const stashitem in stashcontents) {
+  const itemizeditem = toItem(stashitem);
+  const itemquantity = stashcontents[stashitem];
+
+  print(`The stash contains ${itemquantity} ${itemizeditem.name}`);
+  mappedcontents.set(itemizeditem, itemquantity);
 }
-print(`${shopPrice($item`Source essence`)}`);
-print(`${shopPrice($item`bottle of gin`)}`);
-batchOpen();
-for (const duffoseed of duffoItem) {
-  repriceShop(402, duffoseed);
-}
-batchClose();
-print(`${shopPrice($item`Source essence`)}`);
-print(`${shopPrice($item`bottle of gin`)}`);
-batchOpen();
-for (const duffoseed of duffoItem) {
-  repriceShop(999999999, duffoseed);
-}
-batchClose();
-print(`${shopPrice($item`Source essence`)}`);
-print(`${shopPrice($item`bottle of gin`)}`);
+
+mappedcontents.forEach((value, key) => {
+  if (!skippeditems.includes(key)) {
+    print(`${value}`);
+    print(`${key}`);
+    takeStash(key, value);
+  }
+});
+
+print(`There are ${mappedcontents.size} distinct items in the stash`);

@@ -2,6 +2,7 @@ import {
   adv1,
   cliExecute,
   equip,
+  getPermedSkills,
   myGardenType,
   myPrimestat,
   print,
@@ -9,6 +10,7 @@ import {
   runChoice,
   runCombat,
   setAutoAttack,
+  Skill,
   stashAmount,
   takeStash,
   use,
@@ -42,6 +44,19 @@ Clan.join("Alliance From Hell");
 if (!have($item`Greatest American Pants`) && stashAmount($item`Greatest American Pants`))
   takeStash($item`Greatest American Pants`, 1);
 
+export function createPermOptions(): { permSkills: Map<Skill, Lifestyle>; neverAbort: boolean } {
+  return {
+    permSkills: new Map(
+      Skill.all()
+        .filter(
+          (skill) => have(skill) && skill.permable && getPermedSkills()[skill.name] === undefined
+        )
+        .map((skill) => [skill, Lifestyle.hardcore])
+    ),
+    neverAbort: false,
+  };
+}
+
 prepareAscension({
   workshed: "Asdon Martin keyfob",
   garden: "packet of thanksgarden seeds",
@@ -59,7 +74,8 @@ ascend(
   Lifestyle.casual,
   "packrat",
   $item`astral six-pack`,
-  $item`astral pet sweater`
+  $item`astral pet sweater`,
+  createPermOptions()
 );
 
 if (myGardenType() === "thanksgarden") {
@@ -85,6 +101,8 @@ visitUrl("place.php?whichplace=chateau&action=chateauDesk1");
 
 // get cowboy boots
 visitUrl("place.php?whichplace=town_right&action=townright_ltt");
+
+if (have($item`Asdon Martin keyfob`)) use($item`Asdon Martin keyfob`);
 
 // fight a glitch
 cliExecute("fold makeshift garbage shirt");

@@ -184,6 +184,8 @@ putShop(0, 0, availableAmount($item`11-leaf clover`), $item`11-leaf clover`);
 
 if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
   takeCloset(1, $item`Doc Clock's thyme cocktail`);
+if (itemAmount($item`Mr. Burnsger`) < 1) takeCloset(1, $item`Mr. Burnsger`);
+if (itemAmount($item`bottle of Greedy Dog`) < 1) takeCloset($item`bottle of Greedy Dog`);
 
 cliExecute("ccs default");
 

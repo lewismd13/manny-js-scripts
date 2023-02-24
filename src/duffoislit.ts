@@ -50,15 +50,34 @@ const stashduffobooze = [
   $item`Doc Clock's thyme cocktail`,
   $item`very fancy whiskey`,
   $item`Dreadsylvanian dank and stormy`,
-  $item`mentholated wine`,
+  // $item`mentholated wine`,
   $item`drive-by shooting`,
   $item`emergency margarita`,
+  $item`bottle of Crimbognac`,
+  $item`Gets-You-Drunk`,
+  $item`Dreadsylvanian grimlet`,
+  $item`vampagne`,
+  $item`Dreadsylvanian cold-fashioned`,
+  $item`bottle of Greedy Dog`,
+  // $item`Newark`,
+  $item`stinkwater`,
+  $item`Hodgman's blanket`,
+  $item`swirling mushroom wine`,
+  $item`nega-mushroom wine`,
+  $item`TRIO cup of beer`,
 ];
 
 const stashduffofood = [
   $item`blood sausage`,
   $item`ghost pepper`,
   $item`Dreadsylvanian hot pocket`,
+  $item`Dreadsylvanian stink pocket`,
+  $item`Dreadsylvanian cold pocket`,
+  $item`Dreadsylvanian sleaze pocket`,
+  $item`frozen banquet`,
+  $item`tin cup of mulligan stew`,
+  $item`toast with stench jelly`,
+  $item`digital key lime pie`,
 ];
 
 if (get("_questPartyFairQuest") === "booze") {
@@ -99,6 +118,7 @@ if (get("_questPartyFairQuest") === "food") {
     $item`quantum taco`,
     $item`Mr. Burnsger`,
     $item`jawbruiser`,
+    $item`Dreadsylvanian spooky pocket`,
   ];
 
   for (const thing of duffoFood) {

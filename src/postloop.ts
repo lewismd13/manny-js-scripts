@@ -9,7 +9,6 @@ import {
   equip,
   getWorkshed,
   haveEffect,
-  isHeadless,
   itemAmount,
   myGardenType,
   outfit,
@@ -27,7 +26,6 @@ import {
   toInt,
   use,
   useFamiliar,
-  userConfirm,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -126,17 +124,9 @@ if (getWorkshed() !== workshed) {
 if (have($item`Little Geneticist DNA-Splicing Lab`))
   putStash(1, $item`Little Geneticist DNA-Splicing Lab`);
 
-if (!get("csServicesPerformed") || isHeadless()) {
-  if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
-    AsdonMartin.drive($effect`Driving Observantly`, 1100);
-    use($item`cold medicine cabinet`);
-    // use($item`snow machine`);
-  }
-} else if (!userConfirm("will you be doing a casual today?")) {
-  if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
-    AsdonMartin.drive($effect`Driving Observantly`, 1100);
-    use($item`cold medicine cabinet`);
-  }
+if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
+  AsdonMartin.drive($effect`Driving Observantly`, 1300);
+  use($item`cold medicine cabinet`);
 }
 
 if (have($item`Thwaitgold termite statuette`)) putDisplay(1, $item`Thwaitgold termite statuette`);
@@ -181,8 +171,10 @@ while (get("_clipartSummons") < 3) {
   cliExecute("create 1 box of familiar jacks");
 }
 
-// dupe a greedy dog
-const dupeTarget = $item`Daily Affirmation: Always be Collecting`;
+// dupe a thing
+
+// eslint-disable-next-line libram/verify-constants
+const dupeTarget = $item`chocomotive`;
 if (itemAmount(dupeTarget) === 0 && closetAmount(dupeTarget) > 0) takeCloset(1, dupeTarget);
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
@@ -232,6 +224,9 @@ if (have($item`Boris's key lime pie`)) putShop(0, 0, $item`Boris's key lime pie`
 
 if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
   takeCloset(1, $item`Doc Clock's thyme cocktail`);
+
+if (itemAmount($item`Mr. Burnsger`) < 1) takeCloset(1, $item`Mr. Burnsger`);
+if (itemAmount($item`bottle of Greedy Dog`) < 1) takeCloset($item`bottle of Greedy Dog`);
 
 inboxCleanup();
 

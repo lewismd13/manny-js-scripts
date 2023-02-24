@@ -21,6 +21,7 @@ module.exports = {
     testFile: "./src/testFile.ts",
     duffo: "./src/duffoislit.ts",
     casAscend: "./src/casAscend.ts",
+    stashlogs: "./src/stashlogs2.ts",
   },
   // Turns on tree-shaking and minification in the default Terser minifier
   // https://webpack.js.org/plugins/terser-webpack-plugin/

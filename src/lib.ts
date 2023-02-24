@@ -541,8 +541,6 @@ export function mannyCleanup(): void {
 }
 
 export function nightcap() {
-  // cliExecute("CONSUME NIGHTCAP");
-
   if (myInebriety() === inebrietyLimit() && myFullness() === fullnessLimit()) {
     if (myFamiliar() !== $familiar`Stooper`) {
       useFamiliar($familiar`Stooper`);
@@ -566,8 +564,6 @@ export function nightcap() {
     print("you're all good in the hood");
   } else {
     throw "are you sure you want to overdrink? you have some open organ space";
-
-    // print("I hope you overdrank on purpose");
   }
 }
 
