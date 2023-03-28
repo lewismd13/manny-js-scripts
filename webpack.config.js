@@ -19,7 +19,7 @@ module.exports = {
     mannyRoll: "./src/mannyRoll.ts",
     mannyBreakfast: "./src/mannyBreakfast.ts",
     testFile: "./src/testFile.ts",
-    duffo: "./src/duffoislit.ts",
+    mannyDuff: "./src/duffoislit.ts",
     casAscend: "./src/casAscend.ts",
     stashlogs: "./src/stashlogs2.ts",
   },

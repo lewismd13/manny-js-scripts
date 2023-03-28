@@ -19,6 +19,7 @@ import {
   getClanName,
   getFuel,
   getProperty,
+  getStash,
   handlingChoice,
   haveEffect,
   haveSkill,
@@ -52,6 +53,7 @@ import {
   takeShop,
   toEffect,
   toInt,
+  toItem,
   toString as toStringAsh,
   totalTurnsPlayed,
   toUrl,
@@ -73,6 +75,7 @@ import {
   $skill,
   $slot,
   adventureMacro,
+  Clan,
   CombatLoversLocket,
   get,
   have,
@@ -741,3 +744,45 @@ export function feedRobort(): void {
     }
   }
 }
+
+export function bafhStashCheck(): void {
+  Clan.join("Bonus Adventures from Hell");
+
+  const stashcontents = getStash();
+
+  const skippeditems = [$item`dense meat stack`, $item`folder (KOLHS)`, $item`Chroner trigger`];
+
+  for (const stashitem in stashcontents) {
+    const itemizeditem = toItem(stashitem);
+    const itemquantity = stashcontents[stashitem];
+    if (!skippeditems.includes(itemizeditem))
+      print(`Someone put ${itemquantity} ${itemizeditem.name} in the BafH stash.`, "red");
+  }
+  Clan.join("Alliance From Hell");
+  print("done checking the bafh stash for new items");
+}
+/*
+export function lootStash() {
+  const stashcontents = getStash();
+
+  const mappedcontents = new Map<Item, number>();
+
+  const skippeditems = [$item`dense meat stack`, $item`folder (KOLHS)`, $item`Chroner trigger`];
+
+  for (const stashitem in stashcontents) {
+    const itemizeditem = toItem(stashitem);
+    const itemquantity = stashcontents[stashitem];
+
+    print(`The stash contains ${itemquantity} ${itemizeditem.name}`);
+    mappedcontents.set(itemizeditem, itemquantity);
+  }
+
+  mappedcontents.forEach((value, key) => {
+    if (!skippeditems.includes(key)) {
+      print(`${value}`);
+      print(`${key}`);
+      takeStash(key, value);
+    }
+  });
+}
+*/

@@ -16,7 +16,14 @@ import {
 } from "kolmafia";
 import { $familiar, $item, ChateauMantegna, Clan, have } from "libram";
 import { bafhWls } from "./bafh";
-import { breakfastCounter, mannyCleanup, nightcap, randomPrank, randomSafari } from "./lib";
+import {
+  bafhStashCheck,
+  breakfastCounter,
+  mannyCleanup,
+  nightcap,
+  randomPrank,
+  randomSafari,
+} from "./lib";
 
 bafhWls();
 
@@ -65,4 +72,5 @@ if (eudoraItem() !== $item`New-You Club Membership Form`)
 useFamiliar($familiar`Trick-or-Treating Tot`);
 retrieveItem($item`li'l unicorn costume`);
 maximize("adv +equip Spacegate scientist's insignia +equip Sasq™ watch -equip june cleaver", false);
+bafhStashCheck();
 Clan.join("Alliance From Hobopolis");
