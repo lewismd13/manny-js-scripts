@@ -1,4 +1,5 @@
 import {
+  Path,
   adv1,
   availableAmount,
   buy,
@@ -12,7 +13,6 @@ import {
   myName,
   myPath,
   outfit,
-  Path,
   print,
   putShop,
   random,
@@ -26,7 +26,7 @@ import {
   use,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, Clan, get, have, SourceTerminal } from "libram";
+import { $item, $location, Clan, SourceTerminal, get, have } from "libram";
 import { bafhWls } from "./bafh";
 import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
 
@@ -173,7 +173,7 @@ use(1, $item`Bird-a-Day calendar`);
 getVolcoino();
 getFunFunds();
 
-if (myGardenType() === "thanksgarden" && !get("_mushroomGardenVisited")) {
+if (myGardenType() === "rock" && !get("_mushroomGardenVisited")) {
   cliExecute("garden pick");
   use(1, $item`packet of tall grass seeds`);
 }

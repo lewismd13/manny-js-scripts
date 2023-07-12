@@ -18,7 +18,7 @@
     "sort-imports": [
       "error",
       {
-        "ignoreCase": true,
+        "ignoreCase": false,
         "ignoreDeclarationSort": true
       }
     ],

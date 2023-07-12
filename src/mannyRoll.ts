@@ -52,7 +52,8 @@ if (myGardenType() !== "grass") {
 
 if (myGardenType() === "grass") {
   use($item`Poké-Gro fertilizer`); // fertilizer
-  use($item`packet of thanksgarden seeds`);
+  // eslint-disable-next-line libram/verify-constants
+  use($item`packet of rock seeds`);
 }
 if (!have($item`clockwork maid`) && getCampground()["clockwork maid"] !== 1)
   buy($item`clockwork maid`, 1, 10000);

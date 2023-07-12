@@ -6,11 +6,15 @@ import {
   cliExecute,
   closetAmount,
   containsText,
+  drinksilent,
+  eatsilent,
   equip,
   getWorkshed,
   haveEffect,
   itemAmount,
+  myFullness,
   myGardenType,
+  myInebriety,
   outfit,
   print,
   putCloset,
@@ -37,11 +41,11 @@ import {
   $skill,
   AsdonMartin,
   Clan,
-  get,
-  have,
   Macro,
   SongBoom,
   SourceTerminal,
+  get,
+  have,
 } from "libram";
 import { bafhWls } from "./bafh";
 import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
@@ -174,7 +178,7 @@ while (get("_clipartSummons") < 3) {
 // dupe a thing
 
 // eslint-disable-next-line libram/verify-constants
-const dupeTarget = $item`chocomotive`;
+const dupeTarget = $item`bottle of peppermint schnapps`;
 if (itemAmount(dupeTarget) === 0 && closetAmount(dupeTarget) > 0) takeCloset(1, dupeTarget);
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
@@ -227,6 +231,14 @@ if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
 
 if (itemAmount($item`Mr. Burnsger`) < 1) takeCloset(1, $item`Mr. Burnsger`);
 if (itemAmount($item`bottle of Greedy Dog`) < 1) takeCloset($item`bottle of Greedy Dog`);
+
+if (myInebriety() === 3 && myFullness() === 0) {
+  use($item`milk of magnesium`);
+  eatsilent($item`Mr. Burnsger`);
+  useSkill($skill`The Ode to Booze`);
+  drinksilent($item`Doc Clock's thyme cocktail`);
+  drinksilent($item`bottle of Greedy Dog`);
+}
 
 inboxCleanup();
 

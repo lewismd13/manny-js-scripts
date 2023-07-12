@@ -1,6 +1,7 @@
 // TODO: handle the initial choice if needed, instead of throwing
 
 import {
+  Item,
   adv1,
   availableAmount,
   batchClose,
@@ -14,7 +15,6 @@ import {
   getClanId,
   handlingChoice,
   inebrietyLimit,
-  Item,
   itemAmount,
   myInebriety,
   print,
@@ -29,8 +29,9 @@ import {
   takeStash,
   use,
   useFamiliar,
+  waitq,
 } from "kolmafia";
-import { $familiar, $item, $location, $slot, Clan, get, Macro } from "libram";
+import { $familiar, $item, $location, $slot, Clan, Macro, get } from "libram";
 import { setChoice } from "./lib";
 
 const startclan = Clan.get().id;
@@ -50,7 +51,7 @@ const stashduffobooze = [
   $item`Doc Clock's thyme cocktail`,
   $item`very fancy whiskey`,
   $item`Dreadsylvanian dank and stormy`,
-  // $item`mentholated wine`,
+  $item`mentholated wine`,
   $item`drive-by shooting`,
   $item`emergency margarita`,
   $item`bottle of Crimbognac`,
@@ -59,12 +60,13 @@ const stashduffobooze = [
   $item`vampagne`,
   $item`Dreadsylvanian cold-fashioned`,
   $item`bottle of Greedy Dog`,
-  // $item`Newark`,
+  $item`Newark`,
   $item`stinkwater`,
   $item`Hodgman's blanket`,
   $item`swirling mushroom wine`,
   $item`nega-mushroom wine`,
   $item`TRIO cup of beer`,
+  $item`The Mad Liquor`,
 ];
 
 const stashduffofood = [
@@ -78,6 +80,7 @@ const stashduffofood = [
   $item`tin cup of mulligan stew`,
   $item`toast with stench jelly`,
   $item`digital key lime pie`,
+  $item`The Plumber's mushroom stew`,
 ];
 
 if (get("_questPartyFairQuest") === "booze") {
@@ -179,6 +182,7 @@ try {
     repriceShop(402, duffoseed);
   }
   batchClose();
+  waitq(1);
   adv1($location`The Neverending Party`);
   if (handlingChoice()) runChoice(0);
 } finally {
