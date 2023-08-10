@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
+  Effect,
+  Item,
+  Location,
+  Monster,
+  Skill,
   adv1,
   autosell,
   availableAmount,
@@ -12,7 +17,6 @@ import {
   create,
   drinksilent,
   eat,
-  Effect,
   equip,
   familiarWeight,
   fullnessLimit,
@@ -24,11 +28,9 @@ import {
   haveEffect,
   haveSkill,
   inebrietyLimit,
-  Item,
+  isOnline,
   itemAmount,
-  Location,
   maximize,
-  Monster,
   myAdventures,
   myFamiliar,
   myFullness,
@@ -46,7 +48,6 @@ import {
   setAutoAttack,
   setProperty,
   shopAmount,
-  Skill,
   spleenLimit,
   storageAmount,
   sweetSynthesis,
@@ -55,8 +56,8 @@ import {
   toInt,
   toItem,
   toString as toStringAsh,
-  totalTurnsPlayed,
   toUrl,
+  totalTurnsPlayed,
   use,
   useFamiliar,
   useSkill,
@@ -74,13 +75,13 @@ import {
   $monster,
   $skill,
   $slot,
-  adventureMacro,
   Clan,
   CombatLoversLocket,
-  get,
-  have,
   Kmail,
   Macro,
+  adventureMacro,
+  get,
+  have,
 } from "libram";
 
 export function getPropertyInt(name: string) {
@@ -760,6 +761,14 @@ export function bafhStashCheck(): void {
   }
   Clan.join("Alliance From Hell");
   print("done checking the bafh stash for new items");
+}
+
+export function botCheck(): void {
+  if (isOnline("bafhbot")) {
+    print("BaFHBot is ONLINE", "green");
+  } else {
+    print("BAFHBot is DOWN, I repeat, BAFHBot is DOWN!", "red");
+  }
 }
 /*
 export function lootStash() {

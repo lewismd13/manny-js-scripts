@@ -1,26 +1,43 @@
-import { Item, getStash, print, takeStash, toItem } from "kolmafia";
+import {
+  batchClose,
+  batchOpen,
+  cliExecute,
+  gametimeToInt,
+  print,
+  putShop,
+  repriceShop,
+  retrieveItem,
+  use,
+} from "kolmafia";
 import { $item } from "libram";
 
-const stashcontents = getStash();
+let starttime;
+let endtime;
+// const duffoItem = [$item`Doc Clock's thyme cocktail`, $item`bottle of Greedy Dog`];
+const duffoItem = [$item`bottle of whiskey`, $item`bottle of rum`];
 
-const mappedcontents = new Map<Item, number>();
-
-const skippeditems = [$item`dense meat stack`, $item`folder (KOLHS)`, $item`Chroner trigger`];
-
-for (const stashitem in stashcontents) {
-  const itemizeditem = toItem(stashitem);
-  const itemquantity = stashcontents[stashitem];
-
-  print(`The stash contains ${itemquantity} ${itemizeditem.name}`);
-  mappedcontents.set(itemizeditem, itemquantity);
+try {
+  for (const duffoseed of duffoItem) {
+    retrieveItem(duffoseed, 1005);
+    putShop(0, 0, 1005, duffoseed);
+  }
+  starttime = gametimeToInt();
+  batchOpen();
+  for (const duffoseed of duffoItem) {
+    repriceShop(420, duffoseed);
+  }
+  batchClose();
+  use($item`unremarkable duffel bag`, 5);
+} finally {
+  batchOpen();
+  for (const duffoseed of duffoItem) {
+    repriceShop(999999999, duffoseed);
+  }
+  batchClose();
+  endtime = gametimeToInt();
+  for (const duffoseed of duffoItem) {
+    cliExecute(`shop take all ${duffoseed.name}`);
+  }
 }
 
-mappedcontents.forEach((value, key) => {
-  if (!skippeditems.includes(key)) {
-    print(`${value}`);
-    print(`${key}`);
-    takeStash(key, value);
-  }
-});
-
-print(`There are ${mappedcontents.size} distinct items in the stash`);
+print(`Items were in the mall at low price for ${(endtime - starttime) / 1000} seconds`, "orange");

@@ -28,7 +28,7 @@ import {
 } from "kolmafia";
 import { $item, $location, Clan, SourceTerminal, get, have } from "libram";
 import { bafhWls } from "./bafh";
-import { breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
+import { botCheck, breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -215,6 +215,8 @@ if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "b
   setChoice(1322, 2); // decline
   adv1($location`The Neverending Party`, -1, "");
 }
+
+botCheck();
 
 if (get("_questPartyFairQuest") === "food") {
   print("Hey, go talk to Geraldine, time for another sliderpocalypse!", "yellow");
