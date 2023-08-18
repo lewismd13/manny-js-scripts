@@ -226,6 +226,14 @@ if (availableAmount($item`blood-drive sticker`) > 10) {
 }
 if (have($item`Boris's key lime pie`)) putShop(0, 0, $item`Boris's key lime pie`);
 
+while (get("_augSkillsCast") < 3) {
+  if (!get("_aug4Cast")) useSkill($skill`Aug. 4th: Water Balloon Day!`);
+  else if (!get("_aug24Cast")) useSkill($skill`Aug. 24th: Waffle Day!`);
+  else if (!get("_aug26Cast")) useSkill($skill`Aug. 26th: Toilet Paper Day!`);
+  else if (!get("_aug7Cast")) useSkill($skill`Aug. 7th: Lighthouse Day!`);
+  else break;
+}
+
 if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
   takeCloset(1, $item`Doc Clock's thyme cocktail`);
 
@@ -238,6 +246,8 @@ if (myInebriety() === 3 && myFullness() === 0) {
   useSkill($skill`The Ode to Booze`);
   drinksilent($item`Doc Clock's thyme cocktail`);
   drinksilent($item`bottle of Greedy Dog`);
+  if (!get("_aug16Cast") && get("_augSkillsCast") < 4)
+    useSkill($skill`Aug. 16th: Roller Coaster Day!`);
 }
 
 inboxCleanup();

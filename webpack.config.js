@@ -20,7 +20,7 @@ module.exports = {
     mannyBreakfast: "./src/mannyBreakfast.ts",
     testFile: "./src/testFile.ts",
     mannyDuff: "./src/duffoislit.ts",
-    casAscend: "./src/casAscend.ts",
+    // casAscend: "./src/casAscend.ts",
     stashlogs: "./src/stashlogs2.ts",
   },
   // Turns on tree-shaking and minification in the default Terser minifier

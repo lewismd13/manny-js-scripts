@@ -1,4 +1,5 @@
 import {
+  Skill,
   adv1,
   cliExecute,
   equip,
@@ -10,7 +11,6 @@ import {
   runChoice,
   runCombat,
   setAutoAttack,
-  Skill,
   stashAmount,
   takeStash,
   use,
@@ -26,14 +26,14 @@ import {
   $path,
   $skill,
   $stat,
-  ascend,
   Clan,
-  get,
-  have,
   Lifestyle,
   Macro,
-  prepareAscension,
   SongBoom,
+  ascend,
+  get,
+  have,
+  prepareAscension,
 } from "libram";
 import { randomPrank, randomSafari, setChoice } from "./lib";
 
@@ -58,7 +58,6 @@ export function createPermOptions(): { permSkills: Map<Skill, Lifestyle>; neverA
 }
 
 prepareAscension({
-  workshed: "Asdon Martin keyfob",
   garden: "packet of thanksgarden seeds",
   eudora: "New-You Club Membership Form",
   chateau: {

@@ -6,16 +6,22 @@ import {
   canInteract,
   cliExecute,
   containsText,
+  drinksilent,
+  eatsilent,
   getProperty,
   itemAmount,
   mallPrice,
+  myDaycount,
+  myFullness,
   myGardenType,
+  myInebriety,
   myName,
   myPath,
   outfit,
   print,
   putShop,
   random,
+  retrieveItem,
   reverseNumberology,
   runChoice,
   stashAmount,
@@ -24,11 +30,12 @@ import {
   takeStorage,
   toInt,
   use,
+  useSkill,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, Clan, SourceTerminal, get, have } from "libram";
+import { $item, $location, $skill, Clan, SourceTerminal, get, have } from "libram";
 import { bafhWls } from "./bafh";
-import { botCheck, breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
+import { botCheck, breakfastCounter, ensureOde, mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -67,6 +74,9 @@ function getFunFunds() {
 }
 
 // TODO: set snojo, learn terminal skills, make re-entrant
+
+cliExecute(`zlib BaleOCD_DataFile = ${myName()}`);
+cliExecute(`zlib BaleOCD_StockFile = ${myName()}`);
 
 Clan.join("Alliance From Hell");
 if (!have($item`Greatest American Pants`) && stashAmount($item`Greatest American Pants`))
@@ -191,6 +201,14 @@ cliExecute("ccs default");
 
 mannyQuestVolcoino();
 
+while (get("_augSkillsCast") < 4) {
+  if (!get("_aug4Cast")) useSkill($skill`Aug. 4th: Water Balloon Day!`);
+  else if (!get("_aug24Cast")) useSkill($skill`Aug. 24th: Waffle Day!`);
+  else if (!get("_aug26Cast")) useSkill($skill`Aug. 26th: Toilet Paper Day!`);
+  else if (!get("_aug7Cast")) useSkill($skill`Aug. 7th: Lighthouse Day!`);
+  else break;
+}
+
 bafhWls();
 
 if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
@@ -214,6 +232,17 @@ if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "b
 } else {
   setChoice(1322, 2); // decline
   adv1($location`The Neverending Party`, -1, "");
+}
+
+if (myFullness() === 0 && myInebriety() === 0 && myDaycount() === 2) {
+  retrieveItem($item`milk of magnesium`);
+  eatsilent($item`Deep Dish of Legend`);
+  ensureOde(10);
+  drinksilent($item`Doc Clock's thyme cocktail`);
+  eatsilent($item`Mr. Burnsger`);
+  drinksilent($item`bottle of Greedy Dog`);
+  if (!get("_aug16Cast") && get("_augSkillsCast") < 5)
+    useSkill($skill`Aug. 16th: Roller Coaster Day!`);
 }
 
 botCheck();
