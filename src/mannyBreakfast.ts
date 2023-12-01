@@ -24,16 +24,13 @@ import {
   retrieveItem,
   reverseNumberology,
   runChoice,
-  stashAmount,
   takeCloset,
-  takeStash,
   takeStorage,
   toInt,
   use,
-  useSkill,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, $skill, Clan, SourceTerminal, get, have } from "libram";
+import { $item, $location, SourceTerminal, get, have } from "libram";
 import { bafhWls } from "./bafh";
 import { botCheck, breakfastCounter, ensureOde, mannyQuestVolcoino, setChoice } from "./lib";
 
@@ -77,11 +74,11 @@ function getFunFunds() {
 
 cliExecute(`zlib BaleOCD_DataFile = ${myName()}`);
 cliExecute(`zlib BaleOCD_StockFile = ${myName()}`);
-
+/*
 Clan.join("Alliance From Hell");
 if (!have($item`Greatest American Pants`) && stashAmount($item`Greatest American Pants`))
   takeStash($item`Greatest American Pants`, 1);
-
+*/
 cliExecute("ccs libramMacro");
 
 if (get("_clipartSummons") === 0) {
@@ -200,15 +197,6 @@ if (itemAmount($item`bottle of Greedy Dog`) < 1) takeCloset($item`bottle of Gree
 cliExecute("ccs default");
 
 mannyQuestVolcoino();
-
-while (get("_augSkillsCast") < 4) {
-  if (!get("_aug4Cast")) useSkill($skill`Aug. 4th: Water Balloon Day!`);
-  else if (!get("_aug24Cast")) useSkill($skill`Aug. 24th: Waffle Day!`);
-  else if (!get("_aug26Cast")) useSkill($skill`Aug. 26th: Toilet Paper Day!`);
-  else if (!get("_aug7Cast")) useSkill($skill`Aug. 7th: Lighthouse Day!`);
-  else break;
-}
-
 bafhWls();
 
 if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
@@ -218,6 +206,15 @@ if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
 }
 
 breakfastCounter();
+/*
+if (!get("_leafDayShortenerCrafted")) {
+  BurningLeaves.burnSpecialLeaves($item`day shortener`);
+  if (have($item`day shortener`)) use($item`day shortener`);
+}
+*/
+if (have($item`extra time`) && get("_extraTimeUsed") < 1) {
+  use($item`extra time`);
+}
 
 if (get("_questPartyFairQuest") === "") {
   setChoice(1322, 6); // Leave
@@ -230,7 +227,7 @@ if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "b
   setChoice(1322, 1); // accept
   adv1($location`The Neverending Party`, -1, "");
 } else {
-  setChoice(1322, 2); // decline
+  setChoice(1322, 6); // leave
   adv1($location`The Neverending Party`, -1, "");
 }
 
@@ -241,8 +238,6 @@ if (myFullness() === 0 && myInebriety() === 0 && myDaycount() === 2) {
   drinksilent($item`Doc Clock's thyme cocktail`);
   eatsilent($item`Mr. Burnsger`);
   drinksilent($item`bottle of Greedy Dog`);
-  if (!get("_aug16Cast") && get("_augSkillsCast") < 5)
-    useSkill($skill`Aug. 16th: Roller Coaster Day!`);
 }
 
 botCheck();

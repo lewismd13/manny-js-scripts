@@ -7,12 +7,11 @@ import {
   maximize,
   myGardenType,
   myInebriety,
-  putStash,
   pvpAttacksLeft,
   use,
   useFamiliar,
   useSkill,
-  visitUrl,
+  visitUrl
 } from "kolmafia";
 import { $familiar, $item, $skill, ChateauMantegna, Clan, get, have } from "libram";
 import { bafhWls } from "./bafh";
@@ -37,11 +36,12 @@ if (pvpAttacksLeft() > 0) {
 if (myInebriety() <= inebrietyLimit()) nightcap();
 
 mannyCleanup();
-
+/*
 if (have($item`Greatest American Pants`)) {
   Clan.join("Alliance From Hell");
   putStash($item`Greatest American Pants`, 1);
 }
+*/
 
 randomSafari();
 randomPrank();

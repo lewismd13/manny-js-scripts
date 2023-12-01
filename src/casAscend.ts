@@ -18,22 +18,19 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
-  $class,
   $effect,
   $familiar,
   $item,
   $location,
-  $path,
   $skill,
   $stat,
   Clan,
   Lifestyle,
   Macro,
   SongBoom,
-  ascend,
   get,
   have,
-  prepareAscension,
+  prepareAscension
 } from "libram";
 import { randomPrank, randomSafari, setChoice } from "./lib";
 
@@ -66,7 +63,7 @@ prepareAscension({
     nightstand: "bowl of potpourri",
   },
 });
-
+/*
 ascend(
   $path`none`,
   $class`Accordion Thief`,
@@ -76,7 +73,7 @@ ascend(
   $item`astral pet sweater`,
   createPermOptions()
 );
-
+*/
 if (myGardenType() === "thanksgarden") {
   cliExecute("garden pick");
   use($item`packet of tall grass seeds`);

@@ -13,9 +13,13 @@ import { $item } from "libram";
 
 let starttime;
 let endtime;
-// const duffoItem = [$item`Doc Clock's thyme cocktail`, $item`bottle of Greedy Dog`];
-const duffoItem = [$item`bottle of whiskey`, $item`bottle of rum`];
-
+const duffoItem = [
+  $item`Doc Clock's thyme cocktail`,
+  $item`bottle of Greedy Dog`,
+  $item`very fancy whiskey`,
+];
+// const duffoItem = [$item`bottle of whiskey`, $item`bottle of rum`];
+// const duffoItem = [$item`quantum taco`, $item`ghost pepper`];
 try {
   for (const duffoseed of duffoItem) {
     retrieveItem(duffoseed, 1005);
@@ -27,7 +31,7 @@ try {
     repriceShop(420, duffoseed);
   }
   batchClose();
-  use($item`unremarkable duffel bag`, 5);
+  use($item`unremarkable duffel bag`, 11);
 } finally {
   batchOpen();
   for (const duffoseed of duffoItem) {
