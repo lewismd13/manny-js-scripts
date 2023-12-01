@@ -7,14 +7,13 @@ import {
   maximize,
   myGardenType,
   myInebriety,
-  putStash,
   pvpAttacksLeft,
-  retrieveItem,
   use,
   useFamiliar,
-  visitUrl,
+  useSkill,
+  visitUrl
 } from "kolmafia";
-import { $familiar, $item, ChateauMantegna, Clan, have } from "libram";
+import { $familiar, $item, $skill, ChateauMantegna, Clan, get, have } from "libram";
 import { bafhWls } from "./bafh";
 import {
   botCheck,
@@ -37,11 +36,12 @@ if (pvpAttacksLeft() > 0) {
 if (myInebriety() <= inebrietyLimit()) nightcap();
 
 mannyCleanup();
-
+/*
 if (have($item`Greatest American Pants`)) {
   Clan.join("Alliance From Hell");
   putStash($item`Greatest American Pants`, 1);
 }
+*/
 
 randomSafari();
 randomPrank();
@@ -70,8 +70,9 @@ if (ChateauMantegna.getCeiling() !== "artificial skylight")
 if (eudoraItem() !== $item`New-You Club Membership Form`)
   visitUrl(`account.php?actions[]=whichpenpal&whichpenpal=4&action=Update`, true);
 
-useFamiliar($familiar`Trick-or-Treating Tot`);
-retrieveItem($item`li'l unicorn costume`);
+if (get("_augSkillsCast") < 5) useSkill($skill`Aug. 13th: Left/Off Hander's Day!`);
+
+useFamiliar($familiar`Left-Hand Man`);
 maximize("adv +equip Spacegate scientist's insignia +equip Sasq™ watch -equip june cleaver", false);
 // bafhStashCheck();
 botCheck();

@@ -6,29 +6,33 @@ import {
   canInteract,
   cliExecute,
   containsText,
+  drinksilent,
+  eatsilent,
   getProperty,
   itemAmount,
   mallPrice,
+  myDaycount,
+  myFullness,
   myGardenType,
+  myInebriety,
   myName,
   myPath,
   outfit,
   print,
   putShop,
   random,
+  retrieveItem,
   reverseNumberology,
   runChoice,
-  stashAmount,
   takeCloset,
-  takeStash,
   takeStorage,
   toInt,
   use,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, Clan, SourceTerminal, get, have } from "libram";
+import { $item, $location, SourceTerminal, get, have } from "libram";
 import { bafhWls } from "./bafh";
-import { botCheck, breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
+import { botCheck, breakfastCounter, ensureOde, mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -68,10 +72,13 @@ function getFunFunds() {
 
 // TODO: set snojo, learn terminal skills, make re-entrant
 
+cliExecute(`zlib BaleOCD_DataFile = ${myName()}`);
+cliExecute(`zlib BaleOCD_StockFile = ${myName()}`);
+/*
 Clan.join("Alliance From Hell");
 if (!have($item`Greatest American Pants`) && stashAmount($item`Greatest American Pants`))
   takeStash($item`Greatest American Pants`, 1);
-
+*/
 cliExecute("ccs libramMacro");
 
 if (get("_clipartSummons") === 0) {
@@ -190,7 +197,6 @@ if (itemAmount($item`bottle of Greedy Dog`) < 1) takeCloset($item`bottle of Gree
 cliExecute("ccs default");
 
 mannyQuestVolcoino();
-
 bafhWls();
 
 if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
@@ -200,6 +206,15 @@ if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
 }
 
 breakfastCounter();
+/*
+if (!get("_leafDayShortenerCrafted")) {
+  BurningLeaves.burnSpecialLeaves($item`day shortener`);
+  if (have($item`day shortener`)) use($item`day shortener`);
+}
+*/
+if (have($item`extra time`) && get("_extraTimeUsed") < 1) {
+  use($item`extra time`);
+}
 
 if (get("_questPartyFairQuest") === "") {
   setChoice(1322, 6); // Leave
@@ -212,8 +227,17 @@ if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "b
   setChoice(1322, 1); // accept
   adv1($location`The Neverending Party`, -1, "");
 } else {
-  setChoice(1322, 2); // decline
+  setChoice(1322, 6); // leave
   adv1($location`The Neverending Party`, -1, "");
+}
+
+if (myFullness() === 0 && myInebriety() === 0 && myDaycount() === 2) {
+  retrieveItem($item`milk of magnesium`);
+  eatsilent($item`Deep Dish of Legend`);
+  ensureOde(10);
+  drinksilent($item`Doc Clock's thyme cocktail`);
+  eatsilent($item`Mr. Burnsger`);
+  drinksilent($item`bottle of Greedy Dog`);
 }
 
 botCheck();
