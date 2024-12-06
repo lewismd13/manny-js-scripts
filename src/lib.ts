@@ -38,7 +38,6 @@ import {
   myLocation,
   myMaxmp,
   myMp,
-  mySpleenUse,
   print,
   pullsRemaining,
   putShop,
@@ -48,9 +47,7 @@ import {
   setAutoAttack,
   setProperty,
   shopAmount,
-  spleenLimit,
   storageAmount,
-  sweetSynthesis,
   takeShop,
   toEffect,
   toInt,
@@ -557,13 +554,7 @@ export function nightcap() {
         drinksilent($item`splendid martini`);
       }
     }
-    useSkill($skill`The Ode to Booze`, 1);
-    if (haveEffect($effect`Ode to Booze`) < 5) useSkill($skill`The Ode to Booze`);
-    retrieveItem($item`jar of fermented pickle juice`);
-    drinksilent($item`jar of fermented pickle juice`);
-    while (mySpleenUse() < spleenLimit()) {
-      sweetSynthesis($effect`Synthesis: Greed`);
-    }
+    cliExecute("CONSUME NIGHTCAP");
   } else if (myInebriety() > inebrietyLimit() && myFullness() === fullnessLimit()) {
     print("you're all good in the hood");
   } else {
@@ -599,7 +590,7 @@ export function mannyQuestVolcoino() {
       get("_questPartyFairQuest") !== "food" &&
       get("_questPartyFairQuest") !== "booze"
     ) {
-      use($item`Clara's bell`);
+      use($item`stench jelly`);
       setChoice(1091, 7);
       Macro.skill($skill`Saucestorm`)
         .repeat()
@@ -640,7 +631,7 @@ export function inboxCleanup() {
   ];
 
   inbox.forEach((kmail) => {
-    if (kmail.senderId === 3038166) {
+    if (kmail.senderId === 3690803) {
       const items = kmail.items();
       items.forEach((quantity, item) => {
         if (skillBooks.includes(item)) {

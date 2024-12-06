@@ -6,29 +6,32 @@ import {
   canInteract,
   cliExecute,
   containsText,
+  drinksilent,
+  eatsilent,
   getProperty,
   itemAmount,
   mallPrice,
+  myDaycount,
+  myFullness,
   myGardenType,
+  myInebriety,
   myName,
   myPath,
   outfit,
   print,
   putShop,
-  random,
+  retrieveItem,
   reverseNumberology,
   runChoice,
-  stashAmount,
   takeCloset,
-  takeStash,
   takeStorage,
   toInt,
   use,
+  useSkill,
   visitUrl,
 } from "kolmafia";
-import { $item, $location, Clan, SourceTerminal, get, have } from "libram";
-import { bafhWls } from "./bafh";
-import { botCheck, breakfastCounter, mannyQuestVolcoino, setChoice } from "./lib";
+import { $item, $location, $skill, SourceTerminal, get, have } from "libram";
+import { botCheck, breakfastCounter, ensureOde, mannyQuestVolcoino, setChoice } from "./lib";
 
 function buyRaffle(ticketQty: number) {
   if (
@@ -67,11 +70,11 @@ function getFunFunds() {
 }
 
 // TODO: set snojo, learn terminal skills, make re-entrant
-
+/*
 Clan.join("Alliance From Hell");
 if (!have($item`Greatest American Pants`) && stashAmount($item`Greatest American Pants`))
   takeStash($item`Greatest American Pants`, 1);
-
+*/
 cliExecute("ccs libramMacro");
 
 if (get("_clipartSummons") === 0) {
@@ -89,9 +92,9 @@ if (get("_daycareGymScavenges") === 0) {
   runChoice(4);
 }
 
-const raffleTix = 5 + random(5);
+// const raffleTix = 5 + random(5);
 
-buyRaffle(raffleTix);
+buyRaffle(111);
 
 while (
   Object.keys(reverseNumberology()).includes("69") &&
@@ -178,6 +181,8 @@ if (myGardenType() === "rock" && !get("_mushroomGardenVisited")) {
   use(1, $item`packet of tall grass seeds`);
 }
 
+// cliExecute("mayam rings eye meat yam clock");
+
 putShop(0, 0, availableAmount($item`battery (AAA)`), $item`battery (AAA)`);
 putShop(49995, 0, 3, $item`pocket wish`);
 putShop(0, 0, availableAmount($item`11-leaf clover`), $item`11-leaf clover`);
@@ -186,12 +191,13 @@ if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
   takeCloset(1, $item`Doc Clock's thyme cocktail`);
 if (itemAmount($item`Mr. Burnsger`) < 1) takeCloset(1, $item`Mr. Burnsger`);
 if (itemAmount($item`bottle of Greedy Dog`) < 1) takeCloset($item`bottle of Greedy Dog`);
+if (itemAmount($item`The Mad Liquor`) < 1) takeCloset($item`The Mad Liquor`);
 
 cliExecute("ccs default");
 
 mannyQuestVolcoino();
 
-bafhWls();
+// bafhWls();
 
 if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
   visitUrl("place.php?whichplace=monorail&action=monorail_downtown");
@@ -214,6 +220,22 @@ if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "b
 } else {
   setChoice(1322, 2); // decline
   adv1($location`The Neverending Party`, -1, "");
+}
+
+if (myFullness() === 0 && myInebriety() === 0 && myDaycount() === 2) {
+  retrieveItem($item`milk of magnesium`);
+  eatsilent($item`jumping horseradish`, 2);
+  ensureOde(10);
+  drinksilent($item`Doc Clock's thyme cocktail`);
+  eatsilent($item`Mr. Burnsger`);
+  drinksilent($item`bottle of Greedy Dog`);
+  drinksilent($item`The Mad Liquor`);
+  if (!get("_aug16Cast") && get("_augSkillsCast") < 5)
+    useSkill($skill`Aug. 16th: Roller Coaster Day!`);
+}
+
+if (have($item`blueberry muffin`)) {
+  eatsilent($item`blueberry muffin`);
 }
 
 botCheck();

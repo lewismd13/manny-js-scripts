@@ -1,4 +1,5 @@
 import {
+  Skill,
   adv1,
   cliExecute,
   equip,
@@ -10,7 +11,6 @@ import {
   runChoice,
   runCombat,
   setAutoAttack,
-  Skill,
   stashAmount,
   takeStash,
   use,
@@ -18,22 +18,18 @@ import {
   visitUrl,
 } from "kolmafia";
 import {
-  $class,
   $effect,
   $familiar,
   $item,
   $location,
-  $path,
   $skill,
   $stat,
-  ascend,
   Clan,
-  get,
-  have,
   Lifestyle,
   Macro,
-  prepareAscension,
   SongBoom,
+  get,
+  have
 } from "libram";
 import { randomPrank, randomSafari, setChoice } from "./lib";
 
@@ -56,7 +52,7 @@ export function createPermOptions(): { permSkills: Map<Skill, Lifestyle>; neverA
     neverAbort: false,
   };
 }
-
+/*
 prepareAscension({
   workshed: "Asdon Martin keyfob",
   garden: "packet of thanksgarden seeds",
@@ -77,7 +73,7 @@ ascend(
   $item`astral pet sweater`,
   createPermOptions()
 );
-
+*/
 if (myGardenType() === "thanksgarden") {
   cliExecute("garden pick");
   use($item`packet of tall grass seeds`);

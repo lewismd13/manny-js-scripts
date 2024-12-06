@@ -5,10 +5,8 @@ import {
   canInteract,
   cliExecute,
   closetAmount,
-  containsText,
   drinksilent,
   eatsilent,
-  equip,
   getWorkshed,
   haveEffect,
   itemAmount,
@@ -23,7 +21,6 @@ import {
   putStash,
   retrieveItem,
   runChoice,
-  setAutoAttack,
   setProperty,
   takeCloset,
   takeStorage,
@@ -41,14 +38,13 @@ import {
   $skill,
   AsdonMartin,
   Clan,
-  Macro,
   SongBoom,
   SourceTerminal,
   get,
   have,
 } from "libram";
 import { bafhWls } from "./bafh";
-import { inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
+import { ensureOde, inboxCleanup, mannyQuestVolcoino, setChoice } from "./lib";
 
 // TODO: put some stuff under an if statement that checks csServicesPerformed to make it more general
 // TODO: pull the shit I assume is already pulled from CS. ie a bunch of unrestricted iotms
@@ -106,7 +102,7 @@ if (get("_clanFortuneConsultUses") < 3) {
   let i = 0;
   while (get("_clanFortuneConsultUses") < 3 && i < 10) {
     i++;
-    cliExecute("fortune cheesefax");
+    cliExecute("fortune onlyfax");
     cliExecute("wait 5");
   }
   Clan.join("Alliance from Hell");
@@ -130,7 +126,7 @@ if (have($item`Little Geneticist DNA-Splicing Lab`))
 
 if (!get("_workshedItemUsed") && getWorkshed() === $item`Asdon Martin keyfob`) {
   AsdonMartin.drive($effect`Driving Observantly`, 1300);
-  use($item`cold medicine cabinet`);
+  use($item`model train set`);
 }
 
 if (have($item`Thwaitgold termite statuette`)) putDisplay(1, $item`Thwaitgold termite statuette`);
@@ -143,13 +139,13 @@ visitUrl("peevpee.php?action=smashstone&confirm=on");
 print("Stone smashed. Get your PVP on!", "green");
 
 SourceTerminal.enquiry($effect`familiar.enq`);
-
+/*
 if (!get("lockPicked")) {
   setChoice(1414, 1);
   useSkill(1, $skill`Lock Picking`);
   cliExecute("create 1 boris's key lime pie");
 }
-
+*/
 while (get("_deckCardsDrawn") < 11) {
   if (!get("_deckCardsSeen").includes("Island")) {
     cliExecute("cheat island");
@@ -159,6 +155,8 @@ while (get("_deckCardsDrawn") < 11) {
     cliExecute("cheat 1952");
   }
 }
+
+// cliExecute("mayam rings eye meat yam clock");
 
 cliExecute("briefcase collect");
 
@@ -178,7 +176,7 @@ while (get("_clipartSummons") < 3) {
 // dupe a thing
 
 // eslint-disable-next-line libram/verify-constants
-const dupeTarget = $item`cabooze`;
+const dupeTarget = $item`pickled bread`;
 if (itemAmount(dupeTarget) === 0 && closetAmount(dupeTarget) > 0) takeCloset(1, dupeTarget);
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
@@ -192,7 +190,7 @@ if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
 }
 
 if (have($effect`Spirit of Cayenne`)) useSkill($skill`Spirit of Nothing`);
-
+/*
 retrieveItem(20, $item`heat-resistant sheet metal`);
 Macro.trySkill($skill`Curse of Weaksauce`)
   .trySkill($skill`Stuffed Mortar Shell`)
@@ -207,7 +205,7 @@ while (!containsText($location`The Bubblin' Caldera`.noncombatQueue, "Lava Dogs"
 }
 setAutoAttack(0);
 if (have($effect`Drenched in Lava`)) cliExecute("soak");
-
+*/
 getVolcoino();
 getFunFunds();
 
@@ -231,13 +229,15 @@ if (itemAmount($item`Doc Clock's thyme cocktail`) < 1)
 
 if (itemAmount($item`Mr. Burnsger`) < 1) takeCloset(1, $item`Mr. Burnsger`);
 if (itemAmount($item`bottle of Greedy Dog`) < 1) takeCloset($item`bottle of Greedy Dog`);
+if (itemAmount($item`The Mad Liquor`) < 1) takeCloset($item`The Mad Liquor`);
 
 if (myInebriety() === 3 && myFullness() === 0) {
   use($item`milk of magnesium`);
   eatsilent($item`Mr. Burnsger`);
-  useSkill($skill`The Ode to Booze`);
+  ensureOde(10);
   drinksilent($item`Doc Clock's thyme cocktail`);
   drinksilent($item`bottle of Greedy Dog`);
+  drinksilent($item`The Mad Liquor`);
 }
 
 inboxCleanup();

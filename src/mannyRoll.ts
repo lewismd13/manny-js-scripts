@@ -1,6 +1,5 @@
 import {
   buy,
-  cliExecute,
   eudoraItem,
   getCampground,
   inebrietyLimit,
@@ -8,11 +7,10 @@ import {
   myGardenType,
   myInebriety,
   putStash,
-  pvpAttacksLeft,
   retrieveItem,
   use,
   useFamiliar,
-  visitUrl,
+  visitUrl
 } from "kolmafia";
 import { $familiar, $item, ChateauMantegna, Clan, have } from "libram";
 import { bafhWls } from "./bafh";
@@ -26,12 +24,11 @@ import {
 } from "./lib";
 
 bafhWls();
-
+/*
 if (pvpAttacksLeft() > 0) {
-  cliExecute("UberPvPOptimizer");
-  cliExecute("swagger");
+  cliExecute("PVP_MAB");
 }
-
+*/
 // Do melf dupe if it's available
 
 if (myInebriety() <= inebrietyLimit()) nightcap();
