@@ -240,6 +240,10 @@ if (myInebriety() === 3 && myFullness() === 0) {
   drinksilent($item`The Mad Liquor`);
 }
 
+if (have($item`extra time`) && get("_extraTimeUsed") < 1) {
+  use($item`extra time`);
+}
+
 inboxCleanup();
 
 bafhWls();

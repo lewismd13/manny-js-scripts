@@ -54,7 +54,6 @@ export function createPermOptions(): { permSkills: Map<Skill, Lifestyle>; neverA
 }
 /*
 prepareAscension({
-  workshed: "Asdon Martin keyfob",
   garden: "packet of thanksgarden seeds",
   eudora: "New-You Club Membership Form",
   chateau: {
@@ -63,7 +62,7 @@ prepareAscension({
     nightstand: "bowl of potpourri",
   },
 });
-
+/*
 ascend(
   $path`none`,
   $class`Accordion Thief`,

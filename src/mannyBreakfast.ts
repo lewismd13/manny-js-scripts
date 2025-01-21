@@ -70,6 +70,9 @@ function getFunFunds() {
 }
 
 // TODO: set snojo, learn terminal skills, make re-entrant
+
+cliExecute(`zlib BaleOCD_DataFile = ${myName()}`);
+cliExecute(`zlib BaleOCD_StockFile = ${myName()}`);
 /*
 Clan.join("Alliance From Hell");
 if (!have($item`Greatest American Pants`) && stashAmount($item`Greatest American Pants`))
@@ -197,8 +200,6 @@ cliExecute("ccs default");
 
 mannyQuestVolcoino();
 
-// bafhWls();
-
 if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
   visitUrl("place.php?whichplace=monorail&action=monorail_downtown");
   runChoice(7); // visit breakfast counter
@@ -206,6 +207,15 @@ if (get("muffinOnOrder") === "blueberry" && !get("_muffinOrderedToday")) {
 }
 
 breakfastCounter();
+/*
+if (!get("_leafDayShortenerCrafted")) {
+  BurningLeaves.burnSpecialLeaves($item`day shortener`);
+  if (have($item`day shortener`)) use($item`day shortener`);
+}
+*/
+if (have($item`extra time`) && get("_extraTimeUsed") < 1) {
+  use($item`extra time`);
+}
 
 if (get("_questPartyFairQuest") === "") {
   setChoice(1322, 6); // Leave
@@ -218,13 +228,13 @@ if (get("_questPartyFairQuest") === "food" || get("_questPartyFairQuest") === "b
   setChoice(1322, 1); // accept
   adv1($location`The Neverending Party`, -1, "");
 } else {
-  setChoice(1322, 2); // decline
+  setChoice(1322, 6); // leave
   adv1($location`The Neverending Party`, -1, "");
 }
 
 if (myFullness() === 0 && myInebriety() === 0 && myDaycount() === 2) {
   retrieveItem($item`milk of magnesium`);
-  eatsilent($item`jumping horseradish`, 2);
+  eatsilent($item`Deep Dish of Legend`);
   ensureOde(10);
   drinksilent($item`Doc Clock's thyme cocktail`);
   eatsilent($item`Mr. Burnsger`);
