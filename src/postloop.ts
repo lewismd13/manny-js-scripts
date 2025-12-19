@@ -176,7 +176,7 @@ while (get("_clipartSummons") < 3) {
 // dupe a thing
 
 // eslint-disable-next-line libram/verify-constants
-const dupeTarget = $item`pickled bread`;
+const dupeTarget = $item`bottle of prize-winning rum`;
 if (itemAmount(dupeTarget) === 0 && closetAmount(dupeTarget) > 0) takeCloset(1, dupeTarget);
 if (get("encountersUntilDMTChoice") === 0 && availableAmount(dupeTarget) > 0) {
   useFamiliar($familiar`Machine Elf`);
